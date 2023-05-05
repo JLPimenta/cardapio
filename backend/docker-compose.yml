@@ -1,0 +1,10 @@
+version: '3'
+services:
+  database:
+    image: postgres:latest
+    ports:
+      - 5432:5432/tcp
+    environment:
+      POSTGRES_DB: cardapio
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
