@@ -3,7 +3,5 @@ import { GetCategoriesUseCase } from '../use-cases/getCategories';
 
 export function makeGetCategoriesUseCase() {
   const categoriesRepository = new PrismaCategoriesRepository();
-  const getCategoriesUseCase = new GetCategoriesUseCase(categoriesRepository);
-
-  return getCategoriesUseCase;
+  return new GetCategoriesUseCase(categoriesRepository);
 }
