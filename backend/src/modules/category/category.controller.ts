@@ -5,7 +5,7 @@ import { makeGetCategoriesUseCase } from './factories/makeGetCategoriesUseCase';
 @Controller('categories')
 export class CategoryController {
   @Get()
-  async findAll() {
+  async getCategories() {
     const getCategoriesUseCase = makeGetCategoriesUseCase();
 
     return getCategoriesUseCase.execute();
