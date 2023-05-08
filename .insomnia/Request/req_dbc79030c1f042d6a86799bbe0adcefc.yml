@@ -1,9 +1,9 @@
 _id: req_dbc79030c1f042d6a86799bbe0adcefc
 type: Request
 parentId: fld_8e9c6759de0e4cfa9a50c806d0bfdd5d
-modified: 1683583840198
+modified: 1683585210889
 created: 1683583831341
-url: ""
+url: "{{ _.baseUrl }}/categories"
 name: getCategories
 description: ""
 method: GET
