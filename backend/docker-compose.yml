@@ -1,10 +1,10 @@
 version: '3'
 services:
   database:
-    image: postgres:latest
+    image: bitnami/postgresql
     ports:
       - 5432:5432/tcp
     environment:
-      POSTGRES_DB: cardapio
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password
+      - POSTGRESQL_USERNAME=postgres
+      - POSTGRESQL_PASSWORD=password
+      - POSTGRESQL_DATABASE=cardapio
