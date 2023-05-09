@@ -27,10 +27,11 @@ model Category {
 model Product {
   id String @unique @default(uuid())
 
-  name     String
-  price    Decimal
-  urlImage String?
-  isActive Boolean @default(true)
+  name        String
+  price       Decimal
+  urlImage    String?
+  description String?
+  isActive    Boolean @default(true)
 
   Category   Category @relation(fields: [categoryId], references: [id])
   categoryId String
