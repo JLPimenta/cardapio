@@ -1,0 +1,21 @@
+_id: req_ef981af844394c3a83b16d885ec0efdb
+type: Request
+parentId: fld_8e9c6759de0e4cfa9a50c806d0bfdd5d
+modified: 1683596667345
+created: 1683596656152
+url: "{{ _.baseUrl }}/categories/36acc1a1-5194-44a7-893e-0061f21aaa03"
+name: changeAvailability
+description: ""
+method: PATCH
+body: {}
+parameters: []
+headers: []
+authentication: {}
+metaSortKey: -1680604667664
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global
