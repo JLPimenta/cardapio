@@ -9,7 +9,7 @@ export class PrismaCategoriesRepository implements CategoriesRepository {
 
     const category = await prisma.category.update({
       where: { id },
-      data: { isActive: !!isActive },
+      data: { isActive: !isActive },
     });
 
     return category;
