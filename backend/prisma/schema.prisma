@@ -38,5 +38,73 @@ model Product {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  Orders Order[]
+
   @@map("products")
+}
+
+model Client {
+  id String @unique @default(uuid())
+
+  name String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  Session Session?
+  Orders  Order[]
+
+  @@map("clients")
+}
+
+model Table {
+  id String @unique @default(uuid())
+
+  number   String  @unique
+  token    String  @unique
+  amount   Float?
+  isActive Boolean @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  Sessions Session[]
+  Orders   Order[]
+
+  @@map("tables")
+}
+
+model Session {
+  id String @unique @default(uuid())
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  Table   Table  @relation(fields: [tableId], references: [id])
+  tableId String
+
+  Client   Client @relation(fields: [clientId], references: [id])
+  clientId String @unique
+
+  @@map("sessions")
+}
+
+model Order {
+  id String @unique @default(uuid())
+
+  quantity Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  Table   Table?  @relation(fields: [tableId], references: [id])
+  tableId String?
+
+  Product   Product? @relation(fields: [productId], references: [id])
+  productId String?
+
+  Client   Client? @relation(fields: [clientId], references: [id])
+  clientId String?
+
+  @@map("orders")
 }
