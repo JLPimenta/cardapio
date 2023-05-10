@@ -7,17 +7,23 @@ export class PrismaCategoriesRepository implements CategoriesRepository {
   async changeAvailability(id: string): Promise<Category> {
     const { isActive } = await this.findOneById(id);
 
-    return prisma.category.update({
+    const category = await prisma.category.update({
       where: { id },
       data: { isActive: !isActive },
     });
+
+    return category;
   }
 
   async findlAll(): Promise<Category[]> {
-    return prisma.category.findMany();
+    const categories = await prisma.category.findMany();
+
+    return categories;
   }
 
   async findOneById(id: string): Promise<Category> {
-    return prisma.category.findUnique({ where: { id } });
+    const category = await prisma.category.findUnique({ where: { id } });
+
+    return category;
   }
 }
