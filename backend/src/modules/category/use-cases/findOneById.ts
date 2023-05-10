@@ -1,5 +1,5 @@
+import { NotFoundException } from '@nestjs/common';
 import { CategoriesRepository } from '../repositories/categories-repository';
-import { ResourceNotFound } from 'src/shared/errors/notFoundError';
 
 export class FindOneByIdUseCase {
   constructor(private readonly categoriesRepository: CategoriesRepository) {}
@@ -8,7 +8,7 @@ export class FindOneByIdUseCase {
     const category = await this.categoriesRepository.findOneById(categodyId);
 
     if (!category) {
-      throw new ResourceNotFound();
+      throw new NotFoundException('Category not found');
     }
 
     return category;
