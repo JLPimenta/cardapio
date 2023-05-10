@@ -13,6 +13,7 @@ async function main() {
     ],
     skipDuplicates: true,
   });
+
   await prisma.ingredient.createMany({
     data: [
       { name: 'Ovo' },
@@ -20,6 +21,11 @@ async function main() {
       { name: 'Cheddar' },
       { name: 'Hamburguer' },
     ],
+    skipDuplicates: true,
+  });
+
+  await prisma.table.createMany({
+    data: [{ number: '1' }, { number: '2' }, { number: '3' }, { number: '4' }],
     skipDuplicates: true,
   });
 }
