@@ -24,6 +24,27 @@ model Category {
   @@map("categories")
 }
 
+model Ingredient {
+  id       String  @unique @default(uuid())
+  name     String
+  urlImage String?
+
+  Products IngredientsOnProducts[]
+
+  @@map("ingredients")
+}
+
+model IngredientsOnProducts {
+  Ingredients  Ingredient @relation(fields: [ingredientId], references: [id])
+  ingredientId String
+
+  Product   Product @relation(fields: [productId], references: [id])
+  productId String
+
+  @@id([productId, ingredientId])
+  @@map("ingredientsOnProducts")
+}
+
 model Product {
   id String @unique @default(uuid())
 
@@ -39,7 +60,8 @@ model Product {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  Orders Order[]
+  Orders      Order[]
+  Ingredients IngredientsOnProducts[]
 
   @@map("products")
 }
@@ -52,8 +74,8 @@ model Client {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  Session Session?
-  Orders  Order[]
+  Table  ClientsOnTables?
+  Orders Order[]
 
   @@map("clients")
 }
@@ -69,15 +91,13 @@ model Table {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  Sessions Session[]
-  Orders   Order[]
+  Clients ClientsOnTables[]
+  Orders  Order[]
 
   @@map("tables")
 }
 
-model Session {
-  id String @unique @default(uuid())
-
+model ClientsOnTables {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -87,7 +107,8 @@ model Session {
   Client   Client @relation(fields: [clientId], references: [id])
   clientId String @unique
 
-  @@map("sessions")
+  @@id([tableId, clientId])
+  @@map("clientsOnTables")
 }
 
 model Order {
