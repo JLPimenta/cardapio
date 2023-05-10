@@ -29,8 +29,8 @@ export default class InMemoryCategoriesRepository
     return category;
   }
 
-  async findlAll(): Promise<Category[]> {
-    return this.items;
+  async findAll(): Promise<Category[]> {
+    return this.items.sort();
   }
 
   async findOneById(id: string): Promise<Category> {
