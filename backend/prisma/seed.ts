@@ -11,6 +11,16 @@ async function main() {
       { name: 'Petiscos' },
       { name: 'Porções' },
     ],
+    skipDuplicates: true,
+  });
+  await prisma.ingredient.createMany({
+    data: [
+      { name: 'Ovo' },
+      { name: 'Pão' },
+      { name: 'Cheddar' },
+      { name: 'Hamburguer' },
+    ],
+    skipDuplicates: true,
   });
 }
 
