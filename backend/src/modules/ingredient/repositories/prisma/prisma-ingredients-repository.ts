@@ -1,4 +1,4 @@
-import { Ingredient, PrismaClient } from '@prisma/client';
+import { PrismaClient } from '@prisma/client';
 import IngredientsRepository from '../ingredients-repository';
 
 const prisma = new PrismaClient();
@@ -9,6 +9,7 @@ export class PrismaIngredientsRepository implements IngredientsRepository {
 
     return ingredient;
   }
+
   async findAll() {
     const ingredients = await prisma.ingredient.findMany({
       orderBy: { name: 'asc' },
