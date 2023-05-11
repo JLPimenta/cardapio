@@ -1,10 +1,12 @@
-import { ConflictException } from '@nestjs/common';
+import { NotFoundException } from '@nestjs/common';
 import { PrismaIngredientsRepository } from '../../ingredient/repositories/prisma/prisma-ingredients-repository';
+import { IngredientsParams } from '../dto/ingredients-params';
+import { Category, Product } from '@prisma/client';
 
 export async function validateCreateProductUseCase(
-  ingredients,
-  product,
-  category,
+  ingredients: IngredientsParams[],
+  product: Product,
+  category: Category,
 ) {
   const ingredientsRepository = new PrismaIngredientsRepository();
 
@@ -14,14 +16,14 @@ export async function validateCreateProductUseCase(
     );
 
     if (ingredientsExists.length !== ingredients.length) {
-      throw new ConflictException('Ingredient not found.');
+      throw new NotFoundException('Ingredient not found.');
     }
   }
   if (!category) {
-    throw new ConflictException('Category not found.');
+    throw new NotFoundException('Category not found.');
   }
 
   if (product) {
-    throw new ConflictException('Product with this name already exists.');
+    throw new NotFoundException('Product with this name already exists.');
   }
 }

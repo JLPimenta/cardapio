@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsNumber, IsUUID } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsOptional, IsUUID } from 'class-validator';
 
 export class IngredientsParams {
   @IsUUID()
@@ -6,6 +6,6 @@ export class IngredientsParams {
   ingredientId: string;
 
   @IsNumber()
-  @IsNotEmpty({ message: 'The quantity is required' })
-  quantity: number;
+  @IsOptional()
+  quantity?: number;
 }
