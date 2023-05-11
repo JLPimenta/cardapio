@@ -25,13 +25,22 @@ export class PrismaProductRepository implements ProductRepository {
   }
 
   async create(product: CreateProductDto): Promise<Product> {
+    const { ingredients, ...productProps } = product;
+
     const newProduct = await prisma.product.create({
-      data: product,
+      data: {
+        ...productProps,
+      },
     });
 
-    product.ingredients.map((ingredient) => ({
-      ingredientId: ingredient,
-    }));
+    if (newProduct && ingredients?.length) {
+      await prisma.ingredientsOnProducts.createMany({
+        data: ingredients?.map((ingredient) => ({
+          ingredientId: ingredient,
+          productId: newProduct.id,
+        })),
+      });
+    }
 
     return newProduct;
   }
