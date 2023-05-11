@@ -14,12 +14,44 @@ export class PrismaProductRepository implements ProductRepository {
     return product;
   }
 
-  async changeAvailability(id: string): Promise<Product> {
-    const { isActive } = await this.findOneById(id);
-
-    const product: Product = await prisma.product.update({
+  async findOneById(id: string): Promise<Product | null> {
+    const product = await prisma.product.findUnique({
       where: { id },
-      data: { isActive: !isActive },
+    });
+
+    return product;
+  }
+
+  async findAll(page: number, limit: number) {
+    const products = await prisma.product.findMany({
+      orderBy: { name: 'asc' },
+      where: { isActive: true },
+      skip: (page - 1) * limit,
+      take: limit,
+    });
+
+    return products;
+  }
+
+  async searchProduct(
+    name: string,
+    isActive: string | undefined,
+    page: number,
+    limit: number,
+  ) {
+    const isActiveBool = isActive
+      ? isActive.toLowerCase() === 'true'
+      : undefined;
+
+    const product = await prisma.product.findMany({
+      where: {
+        name: {
+          contains: name,
+        },
+        isActive: isActiveBool,
+      },
+      skip: (page - 1) * limit,
+      take: limit,
     });
 
     return product;
@@ -51,15 +83,14 @@ export class PrismaProductRepository implements ProductRepository {
     return Promise.resolve(undefined);
   }
 
-  async findOneById(id: string): Promise<Product | null> {
-    const product = await prisma.product.findUnique({
+  async changeAvailability(id: string): Promise<Product> {
+    const { isActive } = await this.findOneById(id);
+
+    const product: Product = await prisma.product.update({
       where: { id },
+      data: { isActive: !isActive },
     });
 
     return product;
-  }
-
-  async findlAll(): Promise<Product[]> {
-    return Promise.resolve([]);
   }
 }

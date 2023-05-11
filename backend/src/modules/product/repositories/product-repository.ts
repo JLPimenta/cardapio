@@ -8,9 +8,16 @@ export interface ProductRepository {
 
   changeAvailability(id: string): Promise<Product>;
 
-  findlAll(): Promise<Product[]>;
+  findAll(page, limit): Promise<Product[]>;
 
   findOneById(id: string): Promise<Product | null>;
 
   findByName(name: string): Promise<Product | null>;
+
+  searchProduct(
+    name: string,
+    isActive: string,
+    page: number,
+    limit: number,
+  ): Promise<Product[]>;
 }
