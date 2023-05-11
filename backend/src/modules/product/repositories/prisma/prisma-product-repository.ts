@@ -1,6 +1,7 @@
 import { ProductRepository } from '../product-repository';
 import { PrismaClient, Product } from '@prisma/client';
 import { CreateProductDto } from '../../dto/create-product-dto';
+import { IngredientsParams } from '../../dto/ingredients-params';
 
 const prisma = new PrismaClient();
 
@@ -35,9 +36,10 @@ export class PrismaProductRepository implements ProductRepository {
 
     if (newProduct && ingredients?.length) {
       await prisma.ingredientsOnProducts.createMany({
-        data: ingredients?.map((ingredient) => ({
-          ingredientId: ingredient,
+        data: ingredients.map((ingredient: IngredientsParams) => ({
+          ingredientId: ingredient.ingredientId,
           productId: newProduct.id,
+          quantity: ingredient.quantity,
         })),
       });
     }
