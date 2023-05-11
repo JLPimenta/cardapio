@@ -1,9 +1,18 @@
 import { ProductRepository } from '../product-repository';
 import { PrismaClient, Product } from '@prisma/client';
+import { CreateProductDto } from '../../dto/create-product-dto';
 
 const prisma = new PrismaClient();
 
 export class PrismaProductRepository implements ProductRepository {
+  async findByName(name: string): Promise<Product | null> {
+    const product = await prisma.product.findUnique({
+      where: { name },
+    });
+
+    return product;
+  }
+
   async changeAvailability(id: string): Promise<Product> {
     const { isActive } = await this.findOneById(id);
 
@@ -15,8 +24,14 @@ export class PrismaProductRepository implements ProductRepository {
     return product;
   }
 
-  async create(product: Product): Promise<Product> {
-    const newProduct = await prisma.product.create({ data: product });
+  async create(product: CreateProductDto): Promise<Product> {
+    const newProduct = await prisma.product.create({
+      data: product,
+    });
+
+    product.ingredients.map((ingredient) => ({
+      ingredientId: ingredient,
+    }));
 
     return newProduct;
   }
@@ -26,7 +41,11 @@ export class PrismaProductRepository implements ProductRepository {
   }
 
   async findOneById(id: string): Promise<Product | null> {
-    return Promise.resolve(undefined);
+    const product = await prisma.product.findUnique({
+      where: { id },
+    });
+
+    return product;
   }
 
   async findlAll(): Promise<Product[]> {

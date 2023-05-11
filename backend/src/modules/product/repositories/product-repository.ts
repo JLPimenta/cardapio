@@ -1,7 +1,8 @@
 import { Product } from '@prisma/client';
+import { CreateProductDto } from '../dto/create-product-dto';
 
 export interface ProductRepository {
-  create(product: Product): Promise<Product>;
+  create(product: CreateProductDto): Promise<Product>;
 
   update(id: string, product: Product): Promise<Product>;
 
@@ -10,4 +11,6 @@ export interface ProductRepository {
   findlAll(): Promise<Product[]>;
 
   findOneById(id: string): Promise<Product | null>;
+
+  findByName(name: string): Promise<Product | null>;
 }
