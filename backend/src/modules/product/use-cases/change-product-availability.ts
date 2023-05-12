@@ -1,4 +1,4 @@
-import { ProductRepository } from '../repositories/product-repository';
+import { ProductRepository } from '../repositories/products-repository';
 import { Product } from '@prisma/client';
 import { NotFoundException } from '@nestjs/common';
 

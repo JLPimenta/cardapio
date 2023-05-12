@@ -1,11 +1,11 @@
-import { ProductRepository } from '../product-repository';
+import { ProductsRepository } from '../products-repository';
 import { PrismaClient, Product } from '@prisma/client';
 import { CreateProductDto } from '../../dto/create-product-dto';
 import { IngredientsParams } from '../../dto/ingredients-params';
 
 const prisma = new PrismaClient();
 
-export class PrismaProductRepository implements ProductRepository {
+export class PrismaProductsRepository implements ProductsRepository {
   async findByName(name: string): Promise<Product | null> {
     const product = await prisma.product.findUnique({
       where: { name },

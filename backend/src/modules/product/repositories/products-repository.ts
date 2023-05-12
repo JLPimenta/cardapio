@@ -1,7 +1,7 @@
 import { Product } from '@prisma/client';
 import { CreateProductDto } from '../dto/create-product-dto';
 
-export interface ProductRepository {
+export interface ProductsRepository {
   create(product: CreateProductDto): Promise<Product>;
 
   update(id: string, product: Product): Promise<Product>;

@@ -1,4 +1,4 @@
-import { ProductRepository } from '../repositories/product-repository';
+import { ProductRepository } from '../repositories/products-repository';
 import { FilterProductDto } from '../dto/filter-product-dto';
 
 export default class FindAllProductsUseCase {

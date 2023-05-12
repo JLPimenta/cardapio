@@ -9,12 +9,12 @@ import {
 } from '@nestjs/common';
 
 import { CreateProductDto } from './dto/create-product-dto';
-import { makeCreateProductUseCase } from './factory/makeCreateProductUseCase';
+import { makeCreateProductUseCase } from './factories/makeCreateProductUseCase';
 import { Product } from '@prisma/client';
-import { FilterProductDto } from './dto/filter-product-dto';
-import { makeFindAllProductsUseCase } from './factory/makeFindAllProductsUseCase';
-import { makeChangeProductAvailabilityUseCase } from './factory/makeChangeProductAvailabilityUseCase';
-import { makeFindOneByIdUseCase } from './factory/makeFindOneByIdUseCase';
+
+import { makeFindAllProductsUseCase } from './factories/makeFindAllProductsUseCase';
+import { makeChangeProductAvailabilityUseCase } from './factories/makeChangeProductAvailabilityUseCase';
+import { makeFindOneByIdUseCase } from './factories/makeFindOneByIdUseCase';
 
 @Controller('products')
 export class ProductController {
