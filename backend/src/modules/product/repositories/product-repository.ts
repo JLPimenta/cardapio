@@ -12,5 +12,9 @@ export interface ProductRepository {
 
   findByName(name: string): Promise<Product | null>;
 
-  findAll(name: string, isActive: string): Promise<Product[]>;
+  findAll(
+    name: string,
+    isActive: string,
+    categoryId: string,
+  ): Promise<Product[]>;
 }

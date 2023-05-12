@@ -37,14 +37,11 @@ export class ProductController {
   async findAll(
     @Query('name') name: string,
     @Query('isActive') isActive: string,
+    @Query('categoryId') categoryId: string,
   ) {
     const filterProductsUseCase = makeFindAllProductsUseCase();
-    const filter: FilterProductDto = {
-      name,
-      isActive,
-    };
 
-    return filterProductsUseCase.execute(filter);
+    return filterProductsUseCase.execute({ isActive, name, categoryId });
   }
 
   @Get(':id')

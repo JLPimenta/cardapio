@@ -22,7 +22,11 @@ export class PrismaProductRepository implements ProductRepository {
     return product;
   }
 
-  async findAll(name: string, isActive: string | undefined) {
+  async findAll(
+    name: string,
+    isActive: string | undefined,
+    categoryId: string,
+  ) {
     const isActiveBool = isActive
       ? isActive.toLowerCase() === 'true'
       : undefined;
@@ -30,6 +34,7 @@ export class PrismaProductRepository implements ProductRepository {
     const product = await prisma.product.findMany({
       where: {
         name: name ? { contains: name } : undefined,
+        categoryId: categoryId ? categoryId : undefined,
         isActive: isActiveBool,
       },
     });

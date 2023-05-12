@@ -6,5 +6,9 @@ export class FilterProductDto {
   name?: string;
 
   @IsOptional()
+  @IsString()
+  categoryId?: string;
+
+  @IsOptional()
   isActive?: string;
 }
