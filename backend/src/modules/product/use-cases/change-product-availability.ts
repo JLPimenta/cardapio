@@ -1,0 +1,17 @@
+import { ProductsRepository } from '../repositories/products-repository';
+import { Product } from '@prisma/client';
+import { NotFoundException } from '@nestjs/common';
+
+export class ChangeProductAvailabilityUseCase {
+  constructor(private readonly productRepository: ProductsRepository) {}
+
+  async execute(id: string): Promise<Product> {
+    const product = await this.productRepository.findOneById(id);
+
+    if (!product) {
+      throw new NotFoundException('Product not found');
+    }
+
+    return await this.productRepository.changeAvailability(id);
+  }
+}

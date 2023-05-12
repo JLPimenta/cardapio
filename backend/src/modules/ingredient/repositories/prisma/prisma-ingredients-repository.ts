@@ -17,4 +17,12 @@ export class PrismaIngredientsRepository implements IngredientsRepository {
 
     return ingredients;
   }
+
+  async findManyByIds(ids: string[]) {
+    const ingredients = await prisma.ingredient.findMany({
+      where: { id: { in: ids } },
+    });
+
+    return ingredients;
+  }
 }
