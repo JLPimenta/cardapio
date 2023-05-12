@@ -1,9 +1,9 @@
-import { ProductRepository } from '../repositories/products-repository';
+import { ProductsRepository } from '../repositories/products-repository';
 import { Product } from '@prisma/client';
 import { NotFoundException } from '@nestjs/common';
 
 export class FindOneByIdUseCase {
-  constructor(private readonly productRepository: ProductRepository) {}
+  constructor(private readonly productRepository: ProductsRepository) {}
 
   async execute(id: string): Promise<Product> {
     const product = await this.productRepository.findOneById(id);

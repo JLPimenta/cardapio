@@ -1,11 +1,11 @@
 import { CreateProductDto } from '../dto/create-product-dto';
-import { ProductRepository } from '../repositories/products-repository';
+import { ProductsRepository } from '../repositories/products-repository';
 import { CategoriesRepository } from '../../category/repositories/categories-repository';
 import { validateCreateProductUseCase } from '../factories/validateCreateProductUseCase';
 
 export class CreateProductUseCase {
   constructor(
-    private readonly productRepository: ProductRepository,
+    private readonly productRepository: ProductsRepository,
     private readonly categoryRepository: CategoriesRepository,
   ) {}
 
