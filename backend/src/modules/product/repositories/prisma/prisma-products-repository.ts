@@ -37,6 +37,7 @@ export class PrismaProductsRepository implements ProductsRepository {
         categoryId: categoryId ? categoryId : undefined,
         isActive: isActiveBool,
       },
+      orderBy: { name: 'asc' },
     });
 
     return product;
