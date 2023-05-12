@@ -1,11 +1,37 @@
-import { ProductsRepository } from '../products-repository';
-import { PrismaClient, Product } from '@prisma/client';
+import {
+  ProductsRepository,
+  ingredientsOnProducts,
+} from '../products-repository';
+import { Prisma, PrismaClient, Product } from '@prisma/client';
 import { CreateProductDto } from '../../dto/create-product-dto';
 import { IngredientsParams } from '../../dto/ingredients-params';
+import { ServiceUnavailableException } from '@nestjs/common';
 
 const prisma = new PrismaClient();
 
 export class PrismaProductsRepository implements ProductsRepository {
+  async findAllIngredients(
+    productId: string,
+  ): Promise<ingredientsOnProducts[]> {
+    const ingredients = await prisma
+      .$queryRaw<ingredientsOnProducts[]>(
+        Prisma.sql`select i.name, "ingredientsOnProducts".quantity,i."urlImage"
+                  from ingredients i, products p, "ingredientsOnProducts"
+                  where p.id = ${productId}
+                  and p.id = "ingredientsOnProducts"."productId"
+                  and i.id = "ingredientsOnProducts"."ingredientId"
+		`,
+      )
+      .catch((e) => {
+        throw new ServiceUnavailableException(e, {
+          cause: new Error(),
+          description: e.message,
+        });
+      });
+
+    return ingredients;
+  }
+
   async findByName(name: string): Promise<Product | null> {
     const product = await prisma.product.findUnique({
       where: { name },
@@ -14,9 +40,12 @@ export class PrismaProductsRepository implements ProductsRepository {
     return product;
   }
 
-  async findOneById(id: string): Promise<Product | null> {
+  async findOneById(id: string) {
     const product = await prisma.product.findUnique({
       where: { id },
+      include: {
+        Category: { select: { name: true } },
+      },
     });
 
     return product;

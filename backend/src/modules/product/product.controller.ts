@@ -45,9 +45,9 @@ export class ProductController {
   }
 
   @Get(':id')
-  async findOneById(@Param('id') id: string): Promise<Product> {
+  async findOneById(@Param('id') id: string) {
     const findOneByIdUseCase = makeFindOneByIdUseCase();
 
-    return findOneByIdUseCase.execute(id);
+    return await findOneByIdUseCase.execute(id);
   }
 }
