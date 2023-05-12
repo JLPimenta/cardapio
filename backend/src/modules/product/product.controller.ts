@@ -5,6 +5,7 @@ import {
   Param,
   Patch,
   Post,
+  Put,
   Query,
 } from '@nestjs/common';
 
@@ -15,6 +16,8 @@ import { Product } from '@prisma/client';
 import { makeFindAllProductsUseCase } from './factories/makeFindAllProductsUseCase';
 import { makeChangeProductAvailabilityUseCase } from './factories/makeChangeProductAvailabilityUseCase';
 import { makeFindOneByIdUseCase } from './factories/makeFindOneByIdUseCase';
+import { makeUpdateProductUseCase } from './factories/makeUpdateProductUseCase';
+import { UpdateProductDTO } from './dto/update-product-dto';
 
 @Controller('products')
 export class ProductController {
@@ -31,6 +34,13 @@ export class ProductController {
       makeChangeProductAvailabilityUseCase();
 
     return changeProductAvailabilityUseCase.execute(id);
+  }
+
+  @Put(':id')
+  async update(@Param('id') id: string, @Body() data: UpdateProductDTO) {
+    const updateProductUseCase = makeUpdateProductUseCase();
+
+    return updateProductUseCase.execute(id, data);
   }
 
   @Get()

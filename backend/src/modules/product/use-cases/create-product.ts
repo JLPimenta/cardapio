@@ -1,7 +1,7 @@
 import { CreateProductDto } from '../dto/create-product-dto';
 import { ProductsRepository } from '../repositories/products-repository';
 import { CategoriesRepository } from '../../category/repositories/categories-repository';
-import { validateCreateProductUseCase } from '../factories/validateCreateProductUseCase';
+import { validateCreateProductUseCase } from '../utils/validateCreateProductUseCase';
 
 export class CreateProductUseCase {
   constructor(
