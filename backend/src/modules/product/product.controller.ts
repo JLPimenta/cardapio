@@ -3,7 +3,6 @@ import {
   Controller,
   Get,
   Param,
-  ParseIntPipe,
   Patch,
   Post,
   Query,
@@ -13,10 +12,9 @@ import { CreateProductDto } from './dto/create-product-dto';
 import { makeCreateProductUseCase } from './factory/makeCreateProductUseCase';
 import { Product } from '@prisma/client';
 import { FilterProductDto } from './dto/filter-product-dto';
-import { makeFilterProductUseCase } from './factory/makeFilterProductUseCase';
+import { makeFindAllProductsUseCase } from './factory/makeFindAllProductsUseCase';
 import { makeChangeProductAvailabilityUseCase } from './factory/makeChangeProductAvailabilityUseCase';
 import { makeFindOneByIdUseCase } from './factory/makeFindOneByIdUseCase';
-import { makeFindAllProductsUseCase } from './factory/makeFindAllProductsUseCase';
 
 @Controller('products')
 export class ProductController {
@@ -35,36 +33,24 @@ export class ProductController {
     return changeProductAvailabilityUseCase.execute(id);
   }
 
-  @Get(':id')
-  async findOneById(@Param('id') id: string): Promise<Product> {
-    const findOneByIdUseCase = makeFindOneByIdUseCase();
-
-    return findOneByIdUseCase.execute(id);
-  }
-
   @Get()
   async findAll(
-    @Query('page', ParseIntPipe) page = 1,
-    @Query('limit', ParseIntPipe) limit = 10,
-  ): Promise<Product[]> {
-    const findAllProductsUseCase = makeFindAllProductsUseCase();
-
-    return findAllProductsUseCase.execute(page, limit);
-  }
-
-  @Get('search')
-  async searchProduct(
-    @Query('name') name?: string,
-    @Query('isActive') isActive?: string,
-    @Query('page', ParseIntPipe) page = 1,
-    @Query('limit', ParseIntPipe) limit = 10,
+    @Query('name') name: string,
+    @Query('isActive') isActive: string,
   ) {
-    const filterProductsUseCase = makeFilterProductUseCase();
+    const filterProductsUseCase = makeFindAllProductsUseCase();
     const filter: FilterProductDto = {
       name,
       isActive,
     };
 
-    return filterProductsUseCase.execute(filter, page, limit);
+    return filterProductsUseCase.execute(filter);
+  }
+
+  @Get(':id')
+  async findOneById(@Param('id') id: string): Promise<Product> {
+    const findOneByIdUseCase = makeFindOneByIdUseCase();
+
+    return findOneByIdUseCase.execute(id);
   }
 }
