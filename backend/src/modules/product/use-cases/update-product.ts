@@ -30,13 +30,15 @@ export class UpdateProductUseCase {
       throw new NotFoundException('Product not found');
     }
 
+    if (data.isActive == undefined) {
+      data.isActive = product.isActive;
+    }
+
     if (data.name) {
       const product = await this.productRepository.findByName(data.name);
 
-      if (product.name !== data.name) {
-        if (product) {
-          throw new ConflictException('Product with this name already exists.');
-        }
+      if (product) {
+        throw new ConflictException('Product with this name already exists.');
       }
     }
 
