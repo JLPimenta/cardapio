@@ -5,7 +5,7 @@ import {
 import { Prisma, PrismaClient, Product } from '@prisma/client';
 import { CreateProductDto } from '../../dto/create-product-dto';
 import { IngredientsParams } from '../../dto/ingredients-params';
-import { NotFoundException, ServiceUnavailableException } from '@nestjs/common';
+import { ServiceUnavailableException } from '@nestjs/common';
 import { UpdateProductDTO } from '../../dto/update-product-dto';
 import { DeleteIngredientOnProductRequest } from '../../use-cases/delete-ingredient-from-a-product';
 
