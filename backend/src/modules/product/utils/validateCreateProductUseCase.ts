@@ -1,4 +1,4 @@
-import { NotFoundException } from '@nestjs/common';
+import { ConflictException, NotFoundException } from '@nestjs/common';
 import { PrismaIngredientsRepository } from '../../ingredient/repositories/prisma/prisma-ingredients-repository';
 import { IngredientsParams } from '../dto/ingredients-params';
 import { Category, Product } from '@prisma/client';
@@ -24,6 +24,6 @@ export async function validateCreateProductUseCase(
   }
 
   if (product) {
-    throw new NotFoundException('Product with this name already exists.');
+    throw new ConflictException('Product with this name already exists.');
   }
 }

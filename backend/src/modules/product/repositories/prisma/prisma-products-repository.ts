@@ -6,6 +6,7 @@ import { Prisma, PrismaClient, Product } from '@prisma/client';
 import { CreateProductDto } from '../../dto/create-product-dto';
 import { IngredientsParams } from '../../dto/ingredients-params';
 import { ServiceUnavailableException } from '@nestjs/common';
+import { UpdateProductDTO } from '../../dto/update-product-dto';
 
 const prisma = new PrismaClient();
 
@@ -72,9 +73,10 @@ export class PrismaProductsRepository implements ProductsRepository {
     return product;
   }
 
-  async create(product: CreateProductDto): Promise<Product> {
-    const { ingredients, ...productProps } = product;
-
+  async create({
+    ingredients,
+    ...productProps
+  }: CreateProductDto): Promise<Product> {
     const newProduct = await prisma.product.create({
       data: {
         ...productProps,
@@ -94,8 +96,47 @@ export class PrismaProductsRepository implements ProductsRepository {
     return newProduct;
   }
 
-  async update(id: string, product: Product): Promise<Product> {
-    return Promise.resolve(undefined);
+  async update(
+    id: string,
+    { ingredients, ...data }: UpdateProductDTO,
+  ): Promise<Product> {
+    const productUpdated = await prisma.product.update({ where: { id }, data });
+
+    if (ingredients) {
+      for (const ingredient of ingredients) {
+        const ingredientOnProducts =
+          await prisma.ingredientsOnProducts.findUnique({
+            where: {
+              productId_ingredientId: {
+                ingredientId: ingredient.ingredientId,
+                productId: productUpdated.id,
+              },
+            },
+          });
+
+        if (ingredientOnProducts) {
+          await prisma.ingredientsOnProducts.update({
+            where: {
+              productId_ingredientId: {
+                ingredientId: ingredient.ingredientId,
+                productId: productUpdated.id,
+              },
+            },
+            data: { quantity: ingredient.quantity },
+          });
+        } else {
+          await prisma.ingredientsOnProducts.create({
+            data: {
+              ingredientId: ingredient.ingredientId,
+              quantity: ingredient.quantity ? ingredient.quantity : undefined,
+              productId: productUpdated.id,
+            },
+          });
+        }
+      }
+    }
+
+    return productUpdated;
   }
 
   async changeAvailability(id: string): Promise<Product> {

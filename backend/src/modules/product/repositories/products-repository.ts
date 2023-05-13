@@ -1,5 +1,6 @@
 import { Product } from '@prisma/client';
 import { CreateProductDto } from '../dto/create-product-dto';
+import { UpdateProductDTO } from '../dto/update-product-dto';
 
 export interface ingredientsOnProducts {
   name: string;
@@ -9,7 +10,7 @@ export interface ingredientsOnProducts {
 export interface ProductsRepository {
   create(product: CreateProductDto): Promise<Product>;
 
-  update(id: string, product: Product): Promise<Product>;
+  update(id: string, data: UpdateProductDTO): Promise<Product>;
 
   changeAvailability(id: string): Promise<Product>;
 
