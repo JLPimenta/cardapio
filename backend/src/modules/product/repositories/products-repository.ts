@@ -12,6 +12,8 @@ export interface ProductsRepository {
 
   update(id: string, data: UpdateProductDTO): Promise<Product>;
 
+  delete(id: string): void;
+
   changeAvailability(id: string): Promise<Product>;
 
   findOneById(id: string): Promise<Product | null>;

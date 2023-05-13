@@ -11,6 +11,10 @@ import { UpdateProductDTO } from '../../dto/update-product-dto';
 const prisma = new PrismaClient();
 
 export class PrismaProductsRepository implements ProductsRepository {
+  async delete(id: string): Promise<void> {
+    await prisma.product.delete({ where: { id } });
+  }
+
   async findAllIngredients(
     productId: string,
   ): Promise<ingredientsOnProducts[]> {

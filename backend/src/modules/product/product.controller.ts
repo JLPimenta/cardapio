@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Patch,
@@ -18,6 +19,7 @@ import { makeChangeProductAvailabilityUseCase } from './factories/makeChangeProd
 import { makeFindOneByIdUseCase } from './factories/makeFindOneByIdUseCase';
 import { makeUpdateProductUseCase } from './factories/makeUpdateProductUseCase';
 import { UpdateProductDTO } from './dto/update-product-dto';
+import { makeDeleteProductUseCase } from './factories/makeDeleteProduct';
 
 @Controller('products')
 export class ProductController {
@@ -59,5 +61,12 @@ export class ProductController {
     const findOneByIdUseCase = makeFindOneByIdUseCase();
 
     return await findOneByIdUseCase.execute(id);
+  }
+
+  @Delete(':id')
+  async delete(@Param('id') id: string) {
+    const deleteProductUseCase = makeDeleteProductUseCase();
+
+    return await deleteProductUseCase.execute(id);
   }
 }
