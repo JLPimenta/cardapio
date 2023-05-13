@@ -50,7 +50,7 @@ model Product {
   id String @unique @default(uuid())
 
   name        String  @unique
-  price       Decimal @db.Money()
+  price       Decimal @db.Decimal(10, 2)
   urlImage    String?
   description String?
   isActive    Boolean @default(true)
@@ -96,7 +96,7 @@ model TableAccount {
   id String @unique @default(uuid())
 
   title             String
-  totalTableAccount Decimal   @db.Money()
+  totalTableAccount Decimal   @db.Decimal(10, 2)
   openAt            DateTime  @default(now())
   closedAt          DateTime?
 
@@ -127,7 +127,7 @@ model Order {
   id String @unique @default(uuid())
 
   productQuantity Int     @default(1)
-  totalOrder      Decimal @db.Money()
+  totalOrder      Decimal @db.Decimal(10, 2)
 
   TableAccount   TableAccount @relation(fields: [tableAccountId], references: [id])
   tableAccountId String
