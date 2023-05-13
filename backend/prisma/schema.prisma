@@ -36,10 +36,10 @@ model Ingredient {
 
 model IngredientsOnProducts {
   quantity     Int        @default(1)
-  Ingredients  Ingredient @relation(fields: [ingredientId], references: [id])
+  Ingredients  Ingredient @relation(fields: [ingredientId], references: [id], onDelete: Cascade)
   ingredientId String
 
-  Product   Product @relation(fields: [productId], references: [id])
+  Product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
   productId String
 
   @@id([productId, ingredientId])
@@ -55,8 +55,8 @@ model Product {
   description String?
   isActive    Boolean @default(true)
 
-  Category   Category @relation(fields: [categoryId], references: [id])
-  categoryId String
+  Category   Category? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  categoryId String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
