@@ -30,10 +30,6 @@ export class UpdateProductUseCase {
       throw new NotFoundException('Product not found');
     }
 
-    if (data.isActive == undefined) {
-      data.isActive = product.isActive;
-    }
-
     if (data.name) {
       const product = await this.productRepository.findByName(data.name);
 
