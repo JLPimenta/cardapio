@@ -30,7 +30,7 @@ export class PrismaProductsRepository implements ProductsRepository {
   ): Promise<ingredientsOnProducts[]> {
     const ingredients = await prisma
       .$queryRaw<ingredientsOnProducts[]>(
-        Prisma.sql`select i.name, "ingredientsOnProducts".quantity,i."urlImage"
+        Prisma.sql`select i.id as ingredientId,i.name, "ingredientsOnProducts".quantity,i."urlImage"
                   from ingredients i, products p, "ingredientsOnProducts"
                   where p.id = ${productId}
                   and p.id = "ingredientsOnProducts"."productId"
