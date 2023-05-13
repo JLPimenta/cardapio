@@ -30,7 +30,7 @@ export class UpdateProductUseCase {
       throw new NotFoundException('Product not found');
     }
 
-    if (data.name) {
+    if (data.name !== null) {
       const product = await this.productRepository.findByName(data.name);
 
       if (product.name !== data.name) {

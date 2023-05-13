@@ -1,6 +1,7 @@
 import { Product } from '@prisma/client';
 import { CreateProductDto } from '../dto/create-product-dto';
 import { UpdateProductDTO } from '../dto/update-product-dto';
+import { DeleteIngredientOnProductRequest } from '../use-cases/delete-ingredient-from-a-product';
 
 export interface ingredientsOnProducts {
   name: string;
@@ -13,6 +14,8 @@ export interface ProductsRepository {
   update(id: string, data: UpdateProductDTO): Promise<Product>;
 
   delete(id: string): void;
+
+  deleteIngredient(data: DeleteIngredientOnProductRequest): void;
 
   changeAvailability(id: string): Promise<Product>;
 

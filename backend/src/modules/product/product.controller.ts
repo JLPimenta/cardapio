@@ -20,6 +20,7 @@ import { makeFindOneByIdUseCase } from './factories/makeFindOneByIdUseCase';
 import { makeUpdateProductUseCase } from './factories/makeUpdateProductUseCase';
 import { UpdateProductDTO } from './dto/update-product-dto';
 import { makeDeleteProductUseCase } from './factories/makeDeleteProduct';
+import { makeDeleteIngredientFromAProductUseCase } from './factories/makeDeleteIngredientFromAProductUseCase';
 
 @Controller('products')
 export class ProductController {
@@ -68,5 +69,19 @@ export class ProductController {
     const deleteProductUseCase = makeDeleteProductUseCase();
 
     return await deleteProductUseCase.execute(id);
+  }
+
+  @Delete('ingredients/:productId')
+  async deleteIngredientFromAProduct(
+    @Param('productId') productId: string,
+    @Body() ingredientId: string,
+  ) {
+    const deleteIngredientFromAProductUseCase =
+      makeDeleteIngredientFromAProductUseCase();
+
+    return await deleteIngredientFromAProductUseCase.execute({
+      ingredientId,
+      productId,
+    });
   }
 }

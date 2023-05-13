@@ -7,10 +7,20 @@ import { CreateProductDto } from '../../dto/create-product-dto';
 import { IngredientsParams } from '../../dto/ingredients-params';
 import { ServiceUnavailableException } from '@nestjs/common';
 import { UpdateProductDTO } from '../../dto/update-product-dto';
+import { DeleteIngredientOnProductRequest } from '../../use-cases/delete-ingredient-from-a-product';
 
 const prisma = new PrismaClient();
 
 export class PrismaProductsRepository implements ProductsRepository {
+  async deleteIngredient({
+    ingredientId,
+    productId,
+  }: DeleteIngredientOnProductRequest) {
+    await prisma.ingredientsOnProducts.delete({
+      where: { productId_ingredientId: { ingredientId, productId } },
+    });
+  }
+
   async delete(id: string): Promise<void> {
     await prisma.product.delete({ where: { id } });
   }
