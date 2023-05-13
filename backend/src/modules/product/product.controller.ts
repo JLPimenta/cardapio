@@ -21,6 +21,7 @@ import { makeUpdateProductUseCase } from './factories/makeUpdateProductUseCase';
 import { UpdateProductDTO } from './dto/update-product-dto';
 import { makeDeleteProductUseCase } from './factories/makeDeleteProduct';
 import { makeDeleteIngredientFromAProductUseCase } from './factories/makeDeleteIngredientFromAProductUseCase';
+import { DeleteIngredientFromAProduct } from './dto/delete-ingredient-from-a-product-dto';
 
 @Controller('products')
 export class ProductController {
@@ -74,7 +75,7 @@ export class ProductController {
   @Delete('ingredients/:productId')
   async deleteIngredientFromAProduct(
     @Param('productId') productId: string,
-    @Body() ingredientId: string,
+    @Body() { ingredientId }: DeleteIngredientFromAProduct,
   ) {
     const deleteIngredientFromAProductUseCase =
       makeDeleteIngredientFromAProductUseCase();

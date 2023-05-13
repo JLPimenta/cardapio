@@ -26,6 +26,16 @@ export default class DeleteIngredientFromAProductUseCase {
       throw new NotFoundException(`Ingredient not found`);
     }
 
+    const ingredients = await this.productRepository.findAllIngredients(
+      product.id,
+    );
+
+    for (const ingredient of ingredients) {
+      if (ingredient.ingredientid !== ingredientId) {
+        throw new NotFoundException('Ingredient not in the product');
+      }
+    }
+
     return this.productRepository.deleteIngredient({ ingredientId, productId });
   }
 }

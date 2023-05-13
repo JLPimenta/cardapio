@@ -4,8 +4,10 @@ import { UpdateProductDTO } from '../dto/update-product-dto';
 import { DeleteIngredientOnProductRequest } from '../use-cases/delete-ingredient-from-a-product';
 
 export interface ingredientsOnProducts {
+  ingredientid: string;
   name: string;
   quantity: number;
+  urlImage: string;
 }
 
 export interface ProductsRepository {
