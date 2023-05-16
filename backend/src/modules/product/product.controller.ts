@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Patch,
@@ -18,6 +19,9 @@ import { makeChangeProductAvailabilityUseCase } from './factories/makeChangeProd
 import { makeFindOneByIdUseCase } from './factories/makeFindOneByIdUseCase';
 import { makeUpdateProductUseCase } from './factories/makeUpdateProductUseCase';
 import { UpdateProductDTO } from './dto/update-product-dto';
+import { makeDeleteProductUseCase } from './factories/makeDeleteProduct';
+import { makeDeleteIngredientFromAProductUseCase } from './factories/makeDeleteIngredientFromAProductUseCase';
+import { DeleteIngredientFromAProduct } from './dto/delete-ingredient-from-a-product-dto';
 
 @Controller('products')
 export class ProductController {
@@ -59,5 +63,26 @@ export class ProductController {
     const findOneByIdUseCase = makeFindOneByIdUseCase();
 
     return await findOneByIdUseCase.execute(id);
+  }
+
+  @Delete(':id')
+  async delete(@Param('id') id: string) {
+    const deleteProductUseCase = makeDeleteProductUseCase();
+
+    return await deleteProductUseCase.execute(id);
+  }
+
+  @Delete('ingredients/:productId')
+  async deleteIngredientFromAProduct(
+    @Param('productId') productId: string,
+    @Body() { ingredientId }: DeleteIngredientFromAProduct,
+  ) {
+    const deleteIngredientFromAProductUseCase =
+      makeDeleteIngredientFromAProductUseCase();
+
+    return await deleteIngredientFromAProductUseCase.execute({
+      ingredientId,
+      productId,
+    });
   }
 }

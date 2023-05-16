@@ -17,7 +17,7 @@ export default class FindOneByIdUseCase {
     const product = await this.productRepository.findOneById(id);
 
     if (!product) {
-      throw new NotFoundException(`Product with not found`);
+      throw new NotFoundException(`Product not found`);
     }
 
     const ingredients = await this.productRepository.findAllIngredients(
