@@ -83,7 +83,7 @@ export default function Home() {
           width: 327,
           height: 100,
 
-          gap: 12,
+          gap: 13,
         }}
       >
         <div
