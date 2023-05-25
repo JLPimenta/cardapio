@@ -1,29 +1,17 @@
-import {
-  ProductsRepository,
-  ingredientsOnProducts,
-} from '../repositories/products-repository';
-import { Product } from '@prisma/client';
-import { NotFoundException } from '@nestjs/common';
+import { ProductsRepository } from '../repositories/products-repository';
 
-export interface findOneByIdUseCaseResponse {
-  product: Product;
-  ingredients: ingredientsOnProducts[];
-}
+import { NotFoundException } from '@nestjs/common';
 
 export default class FindOneByIdUseCase {
   constructor(private readonly productRepository: ProductsRepository) {}
 
-  async execute(id: string): Promise<findOneByIdUseCaseResponse> {
+  async execute(id: string) {
     const product = await this.productRepository.findOneById(id);
 
     if (!product) {
       throw new NotFoundException(`Product not found`);
     }
 
-    const ingredients = await this.productRepository.findAllIngredients(
-      product.id,
-    );
-
-    return { product, ingredients };
+    return product;
   }
 }

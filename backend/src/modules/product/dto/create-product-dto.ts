@@ -1,14 +1,10 @@
 import {
-  IsArray,
   IsBoolean,
   IsNotEmpty,
   IsOptional,
   IsUrl,
   IsUUID,
-  ValidateNested,
 } from 'class-validator';
-import { IngredientsParams } from './ingredients-params';
-import { Type } from 'class-transformer';
 
 export class CreateProductDto {
   @IsOptional()
@@ -34,10 +30,4 @@ export class CreateProductDto {
   @IsUUID()
   @IsNotEmpty({ message: 'The category id is required' })
   categoryId: string;
-
-  @IsArray({ message: 'The ingredients must be an array' })
-  @ValidateNested({ each: true })
-  @Type(() => IngredientsParams)
-  @IsOptional({ each: true })
-  ingredients?: IngredientsParams[];
 }
