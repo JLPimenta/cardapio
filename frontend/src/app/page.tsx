@@ -18,9 +18,7 @@ export default function Home() {
           justifyContent: 'space-between',
           width: 327,
 
-          marginTop: 24,
-          marginLeft: 24,
-          marginRight: 24,
+          paddingTop: 24,
         }}
       >
         <Image
@@ -55,10 +53,10 @@ export default function Home() {
         style={{
           display: 'flex',
           justifyContent: 'center',
-          alignItems: 'center',
+          alignItems: 'flex-start',
 
           position: 'fixed',
-          bottom: 36,
+          bottom: 0,
         }}
       >
         <button
@@ -90,9 +88,6 @@ export default function Home() {
           height: 102,
           backgroundColor: '#FFEDD5',
           borderRadius: 8,
-
-          marginLeft: 24,
-          marginRight: 24,
         }}
       >
         <span style={{ fontSize: 14 }}>Total dos meus pedidos</span>
@@ -164,7 +159,7 @@ export default function Home() {
           gap: 12,
           width: 327,
 
-          paddingBottom: 90,
+          paddingBottom: 60,
         }}
       >
         <div
