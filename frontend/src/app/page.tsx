@@ -39,13 +39,11 @@ export default function Home() {
 
             borderRadius: 50,
             backgroundColor: '#FDBA74',
-
-            fontWeight: 'bold',
-            color: 'white',
-            fontSize: 20,
           }}
         >
-          01
+          <span style={{ fontWeight: 'bold', color: '#fff', fontSize: 20 }}>
+            01
+          </span>
         </div>
       </header>
 
@@ -66,6 +64,7 @@ export default function Home() {
 
             backgroundColor: '#FB923C',
             borderRadius: 6,
+            fontSize: 18,
             color: '#fff',
           }}
         >
