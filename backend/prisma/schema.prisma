@@ -24,28 +24,6 @@ model Category {
   @@map("categories")
 }
 
-model Ingredient {
-  id       String  @unique @default(uuid())
-  name     String  @unique
-  urlImage String?
-
-  Products IngredientsOnProducts[]
-
-  @@map("ingredients")
-}
-
-model IngredientsOnProducts {
-  quantity     Int        @default(1)
-  Ingredients  Ingredient @relation(fields: [ingredientId], references: [id], onDelete: Cascade)
-  ingredientId String
-
-  Product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
-  productId String
-
-  @@id([productId, ingredientId])
-  @@map("ingredientsOnProducts")
-}
-
 model Product {
   id String @unique @default(uuid())
 
@@ -58,11 +36,10 @@ model Product {
   Category   Category? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
   categoryId String?
 
+  Orders ProductsOnOrders[]
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
-  Orders      Order[]
-  Ingredients IngredientsOnProducts[]
 
   @@map("products")
 }
@@ -123,17 +100,40 @@ model ClientsOnTables {
   @@map("clientsOnTables")
 }
 
+enum StatusOrder {
+  Delivered
+  inProgress
+  Waiting
+}
+
+model ProductsOnOrders {
+  id String @unique @default(uuid())
+
+  quantity Int?    @default(1)
+  note     String?
+
+  Order   Order?  @relation(fields: [orderId], references: [id])
+  orderId String?
+
+  Product   Product? @relation(fields: [productId], references: [id])
+  productId String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("productsOnOrders")
+}
+
 model Order {
   id String @unique @default(uuid())
 
-  productQuantity Int     @default(1)
-  totalOrder      Decimal @db.Decimal(10, 2)
+  totalOrder Decimal     @db.Decimal(10, 2)
+  status     StatusOrder @default(Waiting)
+
+  Products ProductsOnOrders[]
 
   TableAccount   TableAccount @relation(fields: [tableAccountId], references: [id])
   tableAccountId String
-
-  Product   Product @relation(fields: [productId], references: [id])
-  productId String
 
   Client   Client @relation(fields: [clientId], references: [id])
   clientId String
