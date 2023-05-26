@@ -1,4 +1,9 @@
-import { CheckCircleIcon, ChevronLeftIcon } from '@heroicons/react/24/solid'
+import {
+  CheckCircleIcon,
+  ChevronLeftIcon,
+  EllipsisHorizontalCircleIcon,
+  EllipsisHorizontalIcon,
+} from '@heroicons/react/24/solid'
 
 export default function Order() {
   return (
@@ -85,28 +90,28 @@ export default function Order() {
         style={{
           display: 'flex',
           flexDirection: 'column',
-          gap: 8,
+          gap: 32,
           width: 327,
 
           paddingBottom: 60,
         }}
       >
-        <p style={{ fontWeight: 'bold', fontSize: 16 }}>12/08/2022</p>
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
+        <div style={{ display: 'flex', gap: 8, flexDirection: 'column' }}>
+          <p style={{ fontWeight: 'bold', fontSize: 16 }}>12/08/2022</p>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'space-between',
 
-            gap: 8,
+              gap: 8,
 
-            border: '1px solid #dddedf',
-            borderRadius: 6,
+              border: '1px solid #dddedf',
+              borderRadius: 6,
 
-            padding: 12,
-          }}
-        >
-          <div style={{ display: 'flex', flexDirection: 'row', gap: 12 }}>
+              padding: 12,
+            }}
+          >
             <div
               style={{
                 display: 'flex',
@@ -165,21 +170,276 @@ export default function Order() {
                 </span>
               </div>
             </div>
+            <div
+              style={{
+                display: 'flex',
+
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              <button>
+                <EllipsisHorizontalCircleIcon className='w-5 h-5 text-orange-500' />
+              </button>
+            </div>
           </div>
           <div
             style={{
               display: 'flex',
               flexDirection: 'row',
-
-              justifyContent: 'center',
-              alignItems: 'center',
+              justifyContent: 'space-between',
 
               gap: 8,
+
+              border: '1px solid #dddedf',
+              borderRadius: 6,
+
+              padding: 12,
             }}
           >
-            <button>
-              <CheckCircleIcon className='w-5 h-5 text-green-500' />
-            </button>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+
+                borderRadius: 6,
+              }}
+            >
+              <span style={{ fontSize: 12, fontWeight: 'bold' }}>08:30</span>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
+              <div style={{ display: 'flex', flexDirection: 'row', gap: 8 }}>
+                <span
+                  style={{
+                    fontSize: 12,
+                    fontWeight: 'normal',
+                    color: '#9CA3AF',
+                  }}
+                >
+                  1x
+                </span>
+
+                <span style={{ fontSize: 14, fontWeight: 'normal' }}>
+                  X-Tudo
+                </span>
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'row', gap: 8 }}>
+                <span
+                  style={{
+                    fontSize: 12,
+                    fontWeight: 'normal',
+                    color: '#9CA3AF',
+                  }}
+                >
+                  1x
+                </span>
+
+                <span style={{ fontSize: 14, fontWeight: 'normal' }}>
+                  Guaraná Antártica 2 Litros
+                </span>
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'row', gap: 8 }}>
+                <span
+                  style={{
+                    fontSize: 12,
+                    fontWeight: 'normal',
+                    color: '#9CA3AF',
+                  }}
+                >
+                  2x
+                </span>
+
+                <span style={{ fontSize: 14, fontWeight: 'normal' }}>
+                  Skol Lata
+                </span>
+              </div>
+            </div>
+            <div
+              style={{
+                display: 'flex',
+
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              <button>
+                <CheckCircleIcon className='w-5 h-5 text-green-500' />
+              </button>
+            </div>
+          </div>
+        </div>
+        <div style={{ display: 'flex', gap: 8, flexDirection: 'column' }}>
+          <p style={{ fontWeight: 'bold', fontSize: 16 }}>11/08/2022</p>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+
+              gap: 8,
+
+              border: '1px solid #dddedf',
+              borderRadius: 6,
+
+              padding: 12,
+            }}
+          >
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+
+                borderRadius: 6,
+              }}
+            >
+              <span style={{ fontSize: 12, fontWeight: 'bold' }}>08:30</span>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
+              <div style={{ display: 'flex', flexDirection: 'row', gap: 8 }}>
+                <span
+                  style={{
+                    fontSize: 12,
+                    fontWeight: 'normal',
+                    color: '#9CA3AF',
+                  }}
+                >
+                  1x
+                </span>
+
+                <span style={{ fontSize: 14, fontWeight: 'normal' }}>
+                  X-Tudo
+                </span>
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'row', gap: 8 }}>
+                <span
+                  style={{
+                    fontSize: 12,
+                    fontWeight: 'normal',
+                    color: '#9CA3AF',
+                  }}
+                >
+                  1x
+                </span>
+
+                <span style={{ fontSize: 14, fontWeight: 'normal' }}>
+                  Guaraná Antártica 2 Litros
+                </span>
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'row', gap: 8 }}>
+                <span
+                  style={{
+                    fontSize: 12,
+                    fontWeight: 'normal',
+                    color: '#9CA3AF',
+                  }}
+                >
+                  2x
+                </span>
+
+                <span style={{ fontSize: 14, fontWeight: 'normal' }}>
+                  Skol Lata
+                </span>
+              </div>
+            </div>
+            <div
+              style={{
+                display: 'flex',
+
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              <button>
+                <CheckCircleIcon className='w-5 h-5 text-green-500' />
+              </button>
+            </div>
+          </div>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+
+              gap: 8,
+
+              border: '1px solid #dddedf',
+              borderRadius: 6,
+
+              padding: 12,
+            }}
+          >
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+
+                borderRadius: 6,
+              }}
+            >
+              <span style={{ fontSize: 12, fontWeight: 'bold' }}>08:30</span>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
+              <div style={{ display: 'flex', flexDirection: 'row', gap: 8 }}>
+                <span
+                  style={{
+                    fontSize: 12,
+                    fontWeight: 'normal',
+                    color: '#9CA3AF',
+                  }}
+                >
+                  1x
+                </span>
+
+                <span style={{ fontSize: 14, fontWeight: 'normal' }}>
+                  X-Tudo
+                </span>
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'row', gap: 8 }}>
+                <span
+                  style={{
+                    fontSize: 12,
+                    fontWeight: 'normal',
+                    color: '#9CA3AF',
+                  }}
+                >
+                  1x
+                </span>
+
+                <span style={{ fontSize: 14, fontWeight: 'normal' }}>
+                  Guaraná Antártica 2 Litros
+                </span>
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'row', gap: 8 }}>
+                <span
+                  style={{
+                    fontSize: 12,
+                    fontWeight: 'normal',
+                    color: '#9CA3AF',
+                  }}
+                >
+                  2x
+                </span>
+
+                <span style={{ fontSize: 14, fontWeight: 'normal' }}>
+                  Skol Lata
+                </span>
+              </div>
+            </div>
+            <div
+              style={{
+                display: 'flex',
+
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              <button>
+                <CheckCircleIcon className='w-5 h-5 text-green-500' />
+              </button>
+            </div>
           </div>
         </div>
       </div>
