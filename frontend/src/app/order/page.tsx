@@ -1,3 +1,4 @@
+import { MinusIcon, PlusIcon } from '@heroicons/react/24/solid'
 import Image from 'next/image'
 
 export default function Order() {
@@ -56,21 +57,10 @@ export default function Order() {
           alignItems: 'flex-start',
 
           position: 'fixed',
-          bottom: 0,
+          bottom: 8,
           width: 327,
         }}
       >
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-
-            justifyContent: 'center',
-            alignItems: 'center',
-
-            gap: 8,
-          }}
-        ></div>
         <button
           style={{
             width: 327,
@@ -181,23 +171,13 @@ export default function Order() {
             }}
           >
             <button>
-              <Image
-                src='/Minus.svg'
-                width={20}
-                height={20}
-                alt='Diminuir quantidade'
-              />
+              <MinusIcon className='w-5 h-5 text-gray-500' />
             </button>
 
             <span style={{ fontSize: 14, fontWeight: 'bold' }}>1</span>
 
             <button>
-              <Image
-                src='/Plus.svg'
-                width={20}
-                height={20}
-                alt='Diminuir quantidade'
-              />
+              <PlusIcon className='w-5 h-5 text-orange-500' />
             </button>
           </div>
         </div>

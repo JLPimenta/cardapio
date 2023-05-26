@@ -56,7 +56,7 @@ export default function Product() {
           alignItems: 'flex-start',
 
           position: 'fixed',
-          bottom: 0,
+          bottom: 8,
           width: 327,
         }}
       >
