@@ -1,6 +1,21 @@
+'use client'
+import api from '@/service/api'
 import Image from 'next/image'
+import { useEffect, useState } from 'react'
 
 export default function Home() {
+  const [categories, setCategories] = useState([])
+  const [products, setProducts] = useState([])
+
+  useEffect(() => {
+    api.get('/categories').then(({ data }) => {
+      setCategories(data)
+    })
+    api.get('/products').then(({ data }) => {
+      setProducts(data)
+    })
+  }, [])
+
   return (
     <div
       style={{
@@ -103,51 +118,24 @@ export default function Home() {
           gap: 13,
         }}
       >
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
+        {categories.map((item: any) => (
+          <div
+            key={item.id}
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
 
-            width: 100,
-            height: 100,
+              width: 100,
+              height: 100,
 
-            border: '1px solid #D1D5DB',
-            borderRadius: 6,
-          }}
-        >
-          <span style={{ fontSize: 64 }}>🍔</span>
-        </div>
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-
-            width: 100,
-            height: 100,
-
-            border: '1px solid #D1D5DB',
-            borderRadius: 6,
-          }}
-        >
-          <span style={{ fontSize: 64 }}>🍻</span>
-        </div>
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-
-            width: 100,
-            height: 100,
-
-            border: '1px solid #D1D5DB',
-            borderRadius: 6,
-          }}
-        >
-          <span style={{ fontSize: 64 }}>🍦</span>
-        </div>
+              border: '1px solid #D1D5DB',
+              borderRadius: 6,
+            }}
+          >
+            <span style={{ fontSize: 64 }}>{item.icon}</span>
+          </div>
+        ))}
       </div>
 
       <div
@@ -160,92 +148,52 @@ export default function Home() {
           paddingBottom: 60,
         }}
       >
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-
-            gap: 8,
-
-            border: '1px solid #dddedf',
-            borderRadius: 6,
-
-            padding: 12,
-            paddingBottom: 12,
-          }}
-        >
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-            <span style={{ fontSize: 14, fontWeight: 'bold' }}>X-Tudo</span>
-            <span style={{ fontSize: 12 }}>
-              Pão, hambúrguer caseiro, queijo mussarela, bacon, Catupiry,
-              salsicha, presunto, ovo, milho, batata palha, alface, tomate e
-              nossa deliciosa maionese caseira.
-            </span>
-            <span style={{ fontSize: 14, fontWeight: 'bold' }}>R$ 15,00</span>
-          </div>
+        {products.map((item: any) => (
           <div
+            key={item.id}
             style={{
               display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
+              flexDirection: 'row',
+              justifyContent: 'space-between',
 
+              gap: 8,
+
+              border: '1px solid #dddedf',
               borderRadius: 6,
+
+              padding: 12,
+              paddingBottom: 12,
             }}
           >
-            <Image
-              src='/x-tudo.png'
-              width={400}
-              height={65}
-              alt='x-tudo'
-              quality={100}
-              priority
-            />
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              <span style={{ fontSize: 14, fontWeight: 'bold' }}>
+                {item.name}
+              </span>
+              <span style={{ fontSize: 12 }}>{item.description}</span>
+              <span style={{ fontSize: 14, fontWeight: 'bold' }}>
+                R$ {item.price}
+              </span>
+            </div>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+
+                borderRadius: 6,
+              }}
+            >
+              <Image
+                src={`${item.urlImage}`}
+                width={101}
+                height={86}
+                alt='x-tudo'
+                quality={100}
+                priority
+              />
+            </div>
           </div>
-        </div>
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-
-            gap: 8,
-
-            border: '1px solid #dddedf',
-            borderRadius: 6,
-
-            padding: 12,
-            paddingBottom: 12,
-          }}
-        >
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-            <span style={{ fontSize: 14, fontWeight: 'bold' }}>X-Tudo</span>
-            <span style={{ fontSize: 12 }}>
-              Pão, hambúrguer caseiro, queijo mussarela, bacon, Catupiry,
-              salsicha, presunto, ovo, milho, batata palha, alface, tomate e
-              nossa deliciosa maionese caseira.
-            </span>
-            <span style={{ fontSize: 14, fontWeight: 'bold' }}>R$ 15,00</span>
-          </div>
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-
-              borderRadius: 6,
-            }}
-          >
-            <Image
-              src='/x-tudo.png'
-              width={400}
-              height={65}
-              alt='x-tudo'
-              quality={100}
-              priority
-            />
-          </div>
-        </div>
+        ))}
       </div>
     </div>
   )
