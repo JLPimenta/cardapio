@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import {
+  CheckCircleIcon,
   ChevronLeftIcon,
   InformationCircleIcon,
 } from '@heroicons/react/24/solid'
@@ -182,7 +183,7 @@ export default function Order() {
             }}
           >
             <button>
-              <InformationCircleIcon className='w-5 h-5 text-orange-500' />
+              <CheckCircleIcon className='w-5 h-5 text-green-500' />
             </button>
           </div>
         </div>
