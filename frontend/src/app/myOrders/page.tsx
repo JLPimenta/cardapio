@@ -1,5 +1,8 @@
 import Image from 'next/image'
-import { ChevronLeftIcon, MinusIcon, PlusIcon } from '@heroicons/react/24/solid'
+import {
+  ChevronLeftIcon,
+  InformationCircleIcon,
+} from '@heroicons/react/24/solid'
 
 export default function Order() {
   return (
@@ -50,43 +53,6 @@ export default function Order() {
       <div
         style={{
           display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'flex-start',
-
-          position: 'fixed',
-          bottom: 8,
-          width: 327,
-        }}
-      >
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-
-            justifyContent: 'center',
-            alignItems: 'center',
-
-            gap: 8,
-          }}
-        ></div>
-        <button
-          style={{
-            width: 327,
-            height: 50,
-
-            backgroundColor: '#FB923C',
-            borderRadius: 6,
-            fontSize: 18,
-            color: '#fff',
-          }}
-        >
-          Fazer pedido R$ 15,00
-        </button>
-      </div>
-
-      <div
-        style={{
-          display: 'flex',
 
           flexDirection: 'column',
 
@@ -123,13 +89,13 @@ export default function Order() {
         style={{
           display: 'flex',
           flexDirection: 'column',
-          gap: 12,
+          gap: 8,
           width: 327,
 
           paddingBottom: 60,
         }}
       >
-        <p>12/08/2022</p>
+        <p style={{ fontWeight: 'bold', fontSize: 16 }}>12/08/2022</p>
         <div
           style={{
             display: 'flex',
@@ -144,7 +110,7 @@ export default function Order() {
             padding: 12,
           }}
         >
-          <div style={{ display: 'flex', flexDirection: 'row', gap: 8 }}>
+          <div style={{ display: 'flex', flexDirection: 'row', gap: 12 }}>
             <div
               style={{
                 display: 'flex',
@@ -154,21 +120,54 @@ export default function Order() {
                 borderRadius: 6,
               }}
             >
-              <Image
-                src='/x-tudo.png'
-                width={80}
-                height={68}
-                alt='x-tudo'
-                quality={100}
-                priority
-              />
+              <span style={{ fontSize: 12, fontWeight: 'bold' }}>08:30</span>
             </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-              <span style={{ fontSize: 12, fontWeight: 'normal' }}>X-Tudo</span>
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
+              <div style={{ display: 'flex', flexDirection: 'row', gap: 8 }}>
+                <span
+                  style={{
+                    fontSize: 12,
+                    fontWeight: 'normal',
+                    color: '#9CA3AF',
+                  }}
+                >
+                  1x
+                </span>
 
-              <span style={{ fontSize: 12, fontWeight: 'normal' }}>
-                R$ 15,00
-              </span>
+                <span style={{ fontSize: 14, fontWeight: 'normal' }}>
+                  X-Tudo
+                </span>
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'row', gap: 8 }}>
+                <span
+                  style={{
+                    fontSize: 12,
+                    fontWeight: 'normal',
+                    color: '#9CA3AF',
+                  }}
+                >
+                  1x
+                </span>
+
+                <span style={{ fontSize: 14, fontWeight: 'normal' }}>
+                  Guaraná Antártica 2 Litros
+                </span>
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'row', gap: 8 }}>
+                <span
+                  style={{
+                    fontSize: 12,
+                    fontWeight: 'normal',
+                    color: '#9CA3AF',
+                  }}
+                >
+                  2x
+                </span>
+
+                <span style={{ fontSize: 14, fontWeight: 'normal' }}>
+                  Skol Lata
+                </span>
+              </div>
             </div>
           </div>
           <div
@@ -183,13 +182,7 @@ export default function Order() {
             }}
           >
             <button>
-              <MinusIcon className='w-5 h-5 text-gray-500' />
-            </button>
-
-            <span style={{ fontSize: 14, fontWeight: 'bold' }}>1</span>
-
-            <button>
-              <PlusIcon className='w-5 h-5 text-orange-500' />
+              <InformationCircleIcon className='w-5 h-5 text-orange-500' />
             </button>
           </div>
         </div>

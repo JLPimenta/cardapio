@@ -61,17 +61,6 @@ export default function Order() {
           width: 327,
         }}
       >
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-
-            justifyContent: 'center',
-            alignItems: 'center',
-
-            gap: 8,
-          }}
-        ></div>
         <button
           style={{
             width: 327,
