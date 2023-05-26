@@ -104,7 +104,7 @@ export default function Product() {
             color: '#fff',
           }}
         >
-          itens no pedido
+          Adicionar R$ 15,00
         </button>
       </div>
 
