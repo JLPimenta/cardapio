@@ -1,5 +1,5 @@
-import { MinusIcon, PlusIcon } from '@heroicons/react/24/solid'
 import Image from 'next/image'
+import { ChevronLeftIcon, MinusIcon, PlusIcon } from '@heroicons/react/24/solid'
 
 export default function Order() {
   return (
@@ -23,12 +23,9 @@ export default function Order() {
         }}
       >
         <button>
-          <Image
-            src='ChevronLeft.svg'
-            alt='Logo App'
+          <ChevronLeftIcon
             width={37}
             height={37}
-            color='#fff'
           />
         </button>
         <div
@@ -106,6 +103,9 @@ export default function Order() {
       >
         <span style={{ fontSize: 14 }}>Total dos meus pedidos</span>
         <span style={{ fontWeight: 'bold', fontSize: 32 }}>R$ 25,00</span>
+        <span style={{ fontSize: 14 }}>
+          Clique para visualizar o total da mesa
+        </span>
       </div>
 
       <div
@@ -116,7 +116,7 @@ export default function Order() {
           width: 327,
         }}
       >
-        <span style={{ fontWeight: 'bold' }}>Itens no pedido</span>
+        <span style={{ fontWeight: 'bold' }}>Pedidos</span>
       </div>
 
       <div
@@ -129,6 +129,7 @@ export default function Order() {
           paddingBottom: 60,
         }}
       >
+        <p>12/08/2022</p>
         <div
           style={{
             display: 'flex',
@@ -189,79 +190,6 @@ export default function Order() {
 
             <button>
               <PlusIcon className='w-5 h-5 text-orange-500' />
-            </button>
-          </div>
-        </div>
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-
-            gap: 8,
-
-            border: '1px solid #dddedf',
-            borderRadius: 6,
-
-            padding: 12,
-          }}
-        >
-          <div style={{ display: 'flex', flexDirection: 'row', gap: 8 }}>
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-
-                borderRadius: 6,
-              }}
-            >
-              <Image
-                src='/x-tudo.png'
-                width={80}
-                height={68}
-                alt='x-tudo'
-                quality={100}
-                priority
-              />
-            </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-              <span style={{ fontSize: 12, fontWeight: 'normal' }}>X-Tudo</span>
-
-              <span style={{ fontSize: 12, fontWeight: 'normal' }}>
-                R$ 15,00
-              </span>
-            </div>
-          </div>
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-
-              justifyContent: 'center',
-              alignItems: 'center',
-
-              gap: 8,
-            }}
-          >
-            <button>
-              <Image
-                src='/Minus.svg'
-                width={20}
-                height={20}
-                alt='Diminuir quantidade'
-              />
-            </button>
-
-            <span style={{ fontSize: 14, fontWeight: 'bold' }}>1</span>
-
-            <button>
-              <Image
-                src='/Plus.svg'
-                width={20}
-                height={20}
-                alt='Diminuir quantidade'
-              />
             </button>
           </div>
         </div>
