@@ -1,9 +1,4 @@
-import Image from 'next/image'
-import {
-  CheckCircleIcon,
-  ChevronLeftIcon,
-  InformationCircleIcon,
-} from '@heroicons/react/24/solid'
+import { CheckCircleIcon, ChevronLeftIcon } from '@heroicons/react/24/solid'
 
 export default function Order() {
   return (
