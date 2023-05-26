@@ -8,6 +8,7 @@ export default class InMemoryCategoriesRepository
     {
       id: '1',
       name: 'Lanches',
+      icon: '🍔',
       isActive: true,
       createdAt: new Date(),
       updatedAt: new Date(),
@@ -15,6 +16,7 @@ export default class InMemoryCategoriesRepository
     {
       id: '2',
       name: 'Bebidas Alcoolicas',
+      icon: '🍻',
       isActive: true,
       createdAt: new Date(),
       updatedAt: new Date(),
