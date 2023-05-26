@@ -14,6 +14,7 @@ model Category {
   id String @unique @default(uuid())
 
   name     String  @unique
+  icon     String?
   isActive Boolean @default(true)
 
   createdAt DateTime @default(now())

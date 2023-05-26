@@ -5,11 +5,11 @@ const prisma = new PrismaClient();
 async function main() {
   await prisma.category.createMany({
     data: [
-      { name: 'Lanches' },
-      { name: 'Bebidas Alcoolicas' },
-      { name: 'Bebidas não Alcoolicas' },
-      { name: 'Petiscos' },
-      { name: 'Porções' },
+      { name: 'Lanches', icon: '🍔' },
+      { name: 'Bebidas Alcoolicas', icon: '🍻' },
+      { name: 'Bebidas não Alcoolicas', icon: '🥤' },
+      { name: 'Porções', icon: '🍢' },
+      { name: 'Pratos', icon: '🥘' },
     ],
     skipDuplicates: true,
   });
