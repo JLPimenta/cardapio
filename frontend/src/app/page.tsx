@@ -26,7 +26,6 @@ export default function Home() {
           alt='Logo App'
           width={37}
           height={37}
-          color='#fff'
         />
         <div
           style={{
