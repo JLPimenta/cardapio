@@ -183,10 +183,17 @@ export default function Home() {
             >
               <Image
                 src={`${item.urlImage}`}
-                style={{ minWidth: 60, height: 60, borderRadius: 6 }}
+                style={{
+                  minWidth: 80,
+                  height: 80,
+                  borderRadius: 6,
+                  objectFit: 'fill',
+                }}
                 alt={`${item.description}`}
-                width={60}
-                height={60}
+                width={80}
+                height={80}
+                quality={100}
+                priority
               />
             </div>
           </div>
