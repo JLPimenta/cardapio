@@ -179,15 +179,19 @@ export default function Home() {
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
-
-                borderRadius: 6,
               }}
             >
               <Image
                 src={`${item.urlImage}`}
-                width={101}
-                height={86}
-                alt='x-tudo'
+                style={{
+                  minWidth: 80,
+                  height: 80,
+                  borderRadius: 6,
+                  objectFit: 'fill',
+                }}
+                alt={`${item.description}`}
+                width={80}
+                height={80}
                 quality={100}
                 priority
               />

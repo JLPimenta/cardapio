@@ -138,17 +138,14 @@ export default function Order() {
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
-
-                borderRadius: 6,
               }}
             >
               <Image
                 src='/x-tudo.png'
-                width={80}
-                height={68}
-                alt='x-tudo'
-                quality={100}
-                priority
+                style={{ minWidth: 60, height: 60, borderRadius: 6 }}
+                alt='item.description'
+                width={60}
+                height={60}
               />
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
@@ -201,17 +198,14 @@ export default function Order() {
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
-
-                borderRadius: 6,
               }}
             >
               <Image
                 src='/x-tudo.png'
-                width={80}
-                height={68}
-                alt='x-tudo'
-                quality={100}
-                priority
+                style={{ minWidth: 60, height: 60, borderRadius: 6 }}
+                alt='item.description'
+                width={60}
+                height={60}
               />
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
