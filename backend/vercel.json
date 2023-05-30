@@ -1,5 +1,6 @@
 {
   "version": 2,
+  "installCommand": "npm install",
   "buildCommand": "npm i && npx prisma generate && npx prisma migrate deploy && npx prisma db seed && npm run build",
   "builds": [
     {
