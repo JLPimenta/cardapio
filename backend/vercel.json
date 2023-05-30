@@ -2,14 +2,14 @@
   "version": 2,
   "builds": [
     {
-      "src": "./dist/src/main",
+      "src": "src/main.ts",
       "use": "@now/node"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "./dist/src/main"
+      "dest": "src/main.ts"
     }
   ]
 }
