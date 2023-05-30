@@ -68,7 +68,7 @@ export default function Home() {
           alignItems: 'flex-start',
 
           position: 'fixed',
-          bottom: 0,
+          bottom: 4,
         }}
       >
         <button
