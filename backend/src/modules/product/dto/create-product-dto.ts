@@ -7,9 +7,6 @@ import {
 } from 'class-validator';
 
 export class CreateProductDto {
-  @IsOptional()
-  id?: string;
-
   @IsNotEmpty({ message: 'The name is required' })
   name: string;
 
