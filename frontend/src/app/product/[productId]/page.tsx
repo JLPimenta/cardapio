@@ -1,6 +1,28 @@
-import Image from "next/image";
+"use client";
+import api from "@/service/api";
+import {
+  ChevronLeftIcon,
+  MinusIcon,
+  PlusIcon,
+} from "@heroicons/react/24/solid";
+import { useParams, useRouter } from "next/navigation";
+
+import { useEffect, useState } from "react";
 
 export default function Product() {
+  const { productId } = useParams();
+  const router = useRouter();
+
+  const [product, setProduct] = useState<any>(undefined || String);
+
+  console.log(product);
+
+  useEffect(() => {
+    api.get(`/products/${productId}`).then(({ data }) => {
+      setProduct(data);
+    });
+  }, [productId]);
+
   return (
     <div
       style={{
@@ -21,14 +43,12 @@ export default function Product() {
           paddingTop: 24,
         }}
       >
-        <button>
-          <Image
-            src="ChevronLeft.svg"
-            alt="Logo App"
-            width={37}
-            height={37}
-            color="#fff"
-          />
+        <button
+          onClick={() => {
+            router.back();
+          }}
+        >
+          <ChevronLeftIcon width={37} height={37} />
         </button>
         <div
           style={{
@@ -74,23 +94,13 @@ export default function Product() {
           }}
         >
           <button>
-            <Image
-              src="/Minus.svg"
-              width={25}
-              height={24}
-              alt="Diminuir quantidade"
-            />
+            <MinusIcon className="h-6 w-6 text-gray-500" />
           </button>
 
-          <span style={{ fontSize: 16, fontWeight: "bold" }}>1</span>
+          <span style={{ fontSize: 14, fontWeight: "bold" }}>1</span>
 
           <button>
-            <Image
-              src="/Plus.svg"
-              width={25}
-              height={24}
-              alt="Diminuir quantidade"
-            />
+            <PlusIcon className="h-6 w-6 text-orange-500" />
           </button>
         </div>
         <button
@@ -104,7 +114,7 @@ export default function Product() {
             color: "#fff",
           }}
         >
-          Adicionar R$ 15,00
+          Adicionar R$ {product.price}
         </button>
       </div>
 
@@ -138,13 +148,9 @@ export default function Product() {
         }}
       >
         <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-          <span style={{ fontWeight: "bold" }}>X-Tudo</span>
-          <span>
-            Pão, hambúrguer caseiro, queijo mussarela, bacon, Catupiry,
-            salsicha, presunto, ovo, milho, batata palha, alface, tomate e nossa
-            deliciosa maionese caseira.
-          </span>
-          <span style={{ fontWeight: "bold" }}>R$ 15,00</span>
+          <span style={{ fontWeight: "bold" }}>{product.name}</span>
+          <span>{product.description ? product.description : "..."}</span>
+          <span style={{ fontWeight: "bold" }}>R$ {product.price}</span>
         </div>
       </div>
 

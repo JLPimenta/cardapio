@@ -1,6 +1,8 @@
 "use client";
 import api from "@/service/api";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+
 import { useEffect, useState } from "react";
 
 export default function Home() {
@@ -9,6 +11,8 @@ export default function Home() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [loadingProducts, setLoadingProducts] = useState(false);
+
+  const router = useRouter();
 
   useEffect(() => {
     setLoading(true);
@@ -229,8 +233,12 @@ export default function Home() {
               >
                 {products.map((item: any) => (
                   <div
+                    onClick={() => {
+                      router.push(`product/${item.id}`);
+                    }}
                     key={item.id}
                     style={{
+                      cursor: "pointer",
                       display: "flex",
                       flexDirection: "row",
                       justifyContent: "space-between",
@@ -248,13 +256,21 @@ export default function Home() {
                       style={{
                         display: "flex",
                         flexDirection: "column",
+
                         gap: 8,
                       }}
                     >
                       <span style={{ fontSize: 14, fontWeight: "bold" }}>
                         {item.name}
                       </span>
-                      <span style={{ fontSize: 12 }}>{item.description}</span>
+                      <span
+                        style={{
+                          fontSize: 12,
+                          textAlign: "left",
+                        }}
+                      >
+                        {item.description}
+                      </span>
                       <span style={{ fontSize: 14, fontWeight: "bold" }}>
                         R$ {item.price}
                       </span>

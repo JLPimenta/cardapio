@@ -168,13 +168,13 @@ export default function Order() {
             }}
           >
             <button>
-              <MinusIcon className="h-5 w-5 text-gray-500" />
+              <MinusIcon className="h-6 w-6 text-gray-500" />
             </button>
 
             <span style={{ fontSize: 14, fontWeight: "bold" }}>1</span>
 
             <button>
-              <PlusIcon className="h-5 w-5 text-orange-500" />
+              <PlusIcon className="h-6 w-6 text-orange-500" />
             </button>
           </div>
         </div>
