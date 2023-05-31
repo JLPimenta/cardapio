@@ -57,7 +57,7 @@ export default function Order() {
           alignItems: 'flex-start',
 
           position: 'fixed',
-          bottom: 8,
+          bottom: 4,
           width: 327,
         }}
       >
