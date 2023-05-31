@@ -16,9 +16,9 @@ export default function Product() {
 
   const [product, setProduct] = useState<Product>();
 
-  // if (product) {
-  //   product.price = parseFloat(product.price.toString()).toFixed(2);
-  // }
+  if (product) {
+    product.price = parseFloat(product.price.toString()).toFixed(2);
+  }
 
   useEffect(() => {
     api.get(`/products/${productId}`).then(({ data }) => {
