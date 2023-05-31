@@ -1,61 +1,57 @@
-'use client'
-import api from '@/service/api'
-import Image from 'next/image'
-import { useEffect, useState } from 'react'
+"use client";
+import api from "@/service/api";
+import Image from "next/image";
+import { useEffect, useState } from "react";
 
 export default function Home() {
-  const [categories, setCategories] = useState([])
-  const [products, setProducts] = useState([])
+  const [categories, setCategories] = useState([]);
+  const [category, setCategory] = useState<string>(undefined || String);
+  const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    api.get('/categories').then(({ data }) => {
-      setCategories(data)
-    })
-    api.get('/products').then(({ data }) => {
-      setProducts(data)
-    })
-  }, [])
+    api.get("/categories").then(({ data }) => {
+      setCategories(data);
+    });
+    api.get("/products").then(({ data }) => {
+      setProducts(data);
+    });
+  }, []);
 
   return (
     <div
       style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        flexDirection: 'column',
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        flexDirection: "column",
         gap: 24,
       }}
     >
       <header
         style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
           width: 327,
 
           paddingTop: 24,
         }}
       >
-        <Image
-          src='ForkKnife.svg'
-          alt='Logo App'
-          width={37}
-          height={37}
-        />
+        <Image src="ForkKnife.svg" alt="Logo App" width={37} height={37} />
         <div
           style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
 
             width: 37,
             height: 37,
 
             borderRadius: 50,
-            backgroundColor: '#FDBA74',
+            backgroundColor: "#FDBA74",
           }}
         >
-          <span style={{ fontWeight: 'bold', color: '#fff', fontSize: 20 }}>
+          <span style={{ fontWeight: "bold", color: "#fff", fontSize: 20 }}>
             01
           </span>
         </div>
@@ -63,11 +59,11 @@ export default function Home() {
 
       <div
         style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'flex-start',
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "flex-start",
 
-          position: 'fixed',
+          position: "fixed",
           bottom: 4,
         }}
       >
@@ -76,10 +72,10 @@ export default function Home() {
             width: 327,
             height: 50,
 
-            backgroundColor: '#FB923C',
+            backgroundColor: "#FB923C",
             borderRadius: 6,
             fontSize: 18,
-            color: '#fff',
+            color: "#fff",
           }}
         >
           itens no pedido
@@ -88,29 +84,29 @@ export default function Home() {
 
       <div
         style={{
-          display: 'flex',
+          display: "flex",
 
-          flexDirection: 'column',
+          flexDirection: "column",
 
-          justifyContent: 'center',
-          alignItems: 'center',
+          justifyContent: "center",
+          alignItems: "center",
 
           gap: 2,
 
           width: 327,
           height: 102,
-          backgroundColor: '#FFEDD5',
+          backgroundColor: "#FFEDD5",
           borderRadius: 8,
         }}
       >
         <span style={{ fontSize: 14 }}>Total dos meus pedidos</span>
-        <span style={{ fontWeight: 'bold', fontSize: 32 }}>R$ 25,00</span>
+        <span style={{ fontWeight: "bold", fontSize: 32 }}>R$ 25,00</span>
       </div>
 
       <div
         style={{
-          display: 'flex',
-          flexDirection: 'row',
+          display: "flex",
+          flexDirection: "row",
 
           width: 327,
           height: 100,
@@ -119,29 +115,34 @@ export default function Home() {
         }}
       >
         {categories.map((item: any) => (
-          <div
-            key={item.id}
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
+          <div key={item.id}>
+            <button
+              onClick={() => {
+                setCategory(item.id);
 
-              width: 100,
-              height: 100,
-
-              border: '1px solid #D1D5DB',
-              borderRadius: 6,
-            }}
-          >
-            <span style={{ fontSize: 64 }}>{item.icon}</span>
+                api
+                  .get("/products", { params: { categoryId: item.id } })
+                  .then(({ data }) => {
+                    setProducts(data);
+                  });
+              }}
+              className={`flex h-24 w-24 items-center justify-center rounded-md border border-solid border-gray-300 ${
+                category === item.id
+                  ? "bg-orange-100 outline outline-orange-400"
+                  : undefined
+              } `}
+              style={{ fontSize: 64 }}
+            >
+              {item.icon}
+            </button>
           </div>
         ))}
       </div>
 
       <div
         style={{
-          display: 'flex',
-          flexDirection: 'column',
+          display: "flex",
+          flexDirection: "column",
           gap: 12,
           width: 327,
 
@@ -152,33 +153,33 @@ export default function Home() {
           <div
             key={item.id}
             style={{
-              display: 'flex',
-              flexDirection: 'row',
-              justifyContent: 'space-between',
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
 
               gap: 8,
 
-              border: '1px solid #dddedf',
+              border: "1px solid #dddedf",
               borderRadius: 6,
 
               padding: 12,
               paddingBottom: 12,
             }}
           >
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-              <span style={{ fontSize: 14, fontWeight: 'bold' }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+              <span style={{ fontSize: 14, fontWeight: "bold" }}>
                 {item.name}
               </span>
               <span style={{ fontSize: 12 }}>{item.description}</span>
-              <span style={{ fontSize: 14, fontWeight: 'bold' }}>
+              <span style={{ fontSize: 14, fontWeight: "bold" }}>
                 R$ {item.price}
               </span>
             </div>
             <div
               style={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
               }}
             >
               <Image
@@ -187,7 +188,7 @@ export default function Home() {
                   minWidth: 80,
                   height: 80,
                   borderRadius: 6,
-                  objectFit: 'fill',
+                  objectFit: "fill",
                 }}
                 alt={`${item.description}`}
                 width={80}
@@ -200,5 +201,5 @@ export default function Home() {
         ))}
       </div>
     </div>
-  )
+  );
 }
