@@ -4,11 +4,13 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 import { useEffect, useState } from "react";
+import { Product } from "../shared/entities/Product";
+import { Category } from "@/shared/entities/Category";
 
 export default function Home() {
-  const [categories, setCategories] = useState<any>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
   const [category, setCategory] = useState<string>(undefined || String);
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(false);
   const [loadingProducts, setLoadingProducts] = useState(false);
 
@@ -231,7 +233,7 @@ export default function Home() {
                   paddingBottom: 60,
                 }}
               >
-                {products.map((item: any) => (
+                {products.map((item: Product) => (
                   <div
                     onClick={() => {
                       router.push(`product/${item.id}`);

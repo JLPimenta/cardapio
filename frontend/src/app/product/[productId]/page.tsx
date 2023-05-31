@@ -8,14 +8,17 @@ import {
 import { useParams, useRouter } from "next/navigation";
 
 import { useEffect, useState } from "react";
+import { Product } from "../../../shared/entities/Product";
 
 export default function Product() {
   const { productId } = useParams();
   const router = useRouter();
 
-  const [product, setProduct] = useState<any>(undefined || String);
+  const [product, setProduct] = useState<Product>();
 
-  console.log(product);
+  // if (product) {
+  //   product.price = parseFloat(product.price.toString()).toFixed(2);
+  // }
 
   useEffect(() => {
     api.get(`/products/${productId}`).then(({ data }) => {
@@ -114,7 +117,7 @@ export default function Product() {
             color: "#fff",
           }}
         >
-          Adicionar R$ {product.price}
+          Adicionar R$ {product?.price}
         </button>
       </div>
 
@@ -148,9 +151,9 @@ export default function Product() {
         }}
       >
         <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-          <span style={{ fontWeight: "bold" }}>{product.name}</span>
-          <span>{product.description ? product.description : "..."}</span>
-          <span style={{ fontWeight: "bold" }}>R$ {product.price}</span>
+          <span style={{ fontWeight: "bold" }}>{product?.name}</span>
+          <span>{product?.description ? product.description : "..."}</span>
+          <span style={{ fontWeight: "bold" }}>R$ {product?.price}</span>
         </div>
       </div>
 
