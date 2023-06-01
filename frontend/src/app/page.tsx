@@ -9,12 +9,24 @@ import { Category } from "@/shared/entities/Category";
 
 export default function Home() {
   const [categories, setCategories] = useState<Category[]>([]);
-  const [category, setCategory] = useState<string>(undefined || String);
+  const [categoryId, setCategoryId] = useState<string>(undefined || String);
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(false);
   const [loadingProducts, setLoadingProducts] = useState(false);
 
   const router = useRouter();
+
+  const handleLoadProductsByCategory = (categoryId: string) => {
+    setCategoryId(categoryId);
+
+    setLoadingProducts(true);
+
+    api.get("/products", { params: { categoryId } }).then(({ data }) => {
+      setProducts(data);
+
+      setLoadingProducts(false);
+    });
+  };
 
   useEffect(() => {
     setLoading(true);
@@ -33,103 +45,27 @@ export default function Home() {
   }, []);
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        flexDirection: "column",
-        gap: 24,
-      }}
-    >
-      <header
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          width: 350,
-
-          paddingTop: 24,
-        }}
-      >
+    <div className="flex flex-col items-center justify-center gap-6">
+      <header className="flex w-[21.875rem] items-center justify-between pt-6">
         <Image src="ForkKnife.svg" alt="Logo App" width={37} height={37} />
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-
-            width: 37,
-            height: 37,
-
-            borderRadius: 50,
-            backgroundColor: "#FDBA74",
-          }}
-        >
-          <span style={{ fontWeight: "bold", color: "#fff", fontSize: 20 }}>
-            01
-          </span>
+        <div className="flex h-[2.313rem] w-[2.313rem] items-center justify-center rounded-full bg-orange-300">
+          <span className="text-xl font-bold text-white">01</span>
         </div>
       </header>
 
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "flex-start",
-
-          position: "fixed",
-          bottom: 4,
-        }}
-      >
-        <button
-          style={{
-            width: 350,
-            height: 50,
-
-            backgroundColor: "#FB923C",
-            borderRadius: 6,
-            fontSize: 18,
-            color: "#fff",
-          }}
-        >
+      <div className="fixed bottom-1 flex items-start justify-center">
+        <button className=" h-[3.125rem] w-[21.875rem] rounded-md bg-orange-400 text-lg text-white">
           itens no pedido
         </button>
       </div>
 
-      <div
-        style={{
-          display: "flex",
-
-          flexDirection: "column",
-
-          justifyContent: "center",
-          alignItems: "center",
-
-          gap: 2,
-
-          width: 350,
-          height: 102,
-          backgroundColor: "#FFEDD5",
-          borderRadius: 8,
-        }}
-      >
-        <span style={{ fontSize: 14 }}>Total dos meus pedidos</span>
-        <span style={{ fontWeight: "bold", fontSize: 32 }}>R$ 25,00</span>
+      <div className="flex h-[6.375rem] w-[21.875rem] flex-col items-center justify-center gap-1 rounded-lg bg-orange-100">
+        <span className="text-sm">Total dos meus pedidos</span>
+        <span className="text-3xl font-bold">R$ 25,00</span>
       </div>
 
       {loading ? (
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-
-            width: 350,
-            height: 400,
-          }}
-        >
+        <div className=" flex h-[25rem] w-[21.875rem] flex-col items-center justify-center">
           <svg
             aria-hidden="true"
             className="mr-2 h-8 w-8 animate-spin fill-orange-600 text-gray-200 dark:text-gray-600"
@@ -149,39 +85,18 @@ export default function Home() {
         </div>
       ) : (
         <>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-
-              width: 350,
-              height: 100,
-
-              gap: 13,
-            }}
-          >
+          <div className="flex h-[6.25rem] w-[21.875rem] flex-row gap-3">
             {categories.map((item: any) => (
               <div key={item.id}>
                 <button
                   onClick={() => {
-                    setCategory(item.id);
-
-                    setLoadingProducts(true);
-
-                    api
-                      .get("/products", { params: { categoryId: item.id } })
-                      .then(({ data }) => {
-                        setProducts(data);
-
-                        setLoadingProducts(false);
-                      });
+                    handleLoadProductsByCategory(item.id);
                   }}
-                  className={`flex h-24 w-24 items-center justify-center rounded-md border border-solid border-gray-300 ${
-                    category === item.id
+                  className={`flex h-24 w-24 items-center justify-center rounded-md border border-solid border-gray-300 text-6xl ${
+                    categoryId === item.id
                       ? "bg-orange-100 outline outline-orange-400"
                       : undefined
                   } `}
-                  style={{ fontSize: 64 }}
                 >
                   {item.icon}
                 </button>
@@ -190,19 +105,7 @@ export default function Home() {
           </div>
 
           {loadingProducts ? (
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
-
-                gap: 12,
-                width: 350,
-
-                paddingBottom: 60,
-              }}
-            >
+            <div className="flex w-[21.875rem] flex-col items-center justify-center gap-3 pb-16">
               <svg
                 aria-hidden="true"
                 className="mr-2 h-8 w-8 animate-spin fill-orange-600 text-gray-200 dark:text-gray-600"
@@ -223,67 +126,25 @@ export default function Home() {
             </div>
           ) : (
             <>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 12,
-                  width: 350,
-
-                  paddingBottom: 60,
-                }}
-              >
+              <div className="flex w-[21.875rem] flex-col  gap-3 pb-16">
                 {products.map((item: Product) => (
                   <div
                     onClick={() => {
                       router.push(`product/${item.id}`);
                     }}
                     key={item.id}
-                    style={{
-                      cursor: "pointer",
-                      display: "flex",
-                      flexDirection: "row",
-                      justifyContent: "space-between",
-
-                      gap: 8,
-
-                      border: "1px solid #dddedf",
-                      borderRadius: 6,
-
-                      padding: 12,
-                      paddingBottom: 12,
-                    }}
+                    className="flex cursor-pointer flex-row justify-between gap-2 rounded-md border border-solid border-gray-300 p-3 "
                   >
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-
-                        gap: 8,
-                      }}
-                    >
-                      <span style={{ fontSize: 14, fontWeight: "bold" }}>
-                        {item.name}
-                      </span>
-                      <span
-                        style={{
-                          fontSize: 12,
-                          textAlign: "left",
-                        }}
-                      >
+                    <div className="flex flex-col gap-2">
+                      <span className="text-sm font-bold">{item.name}</span>
+                      <span className="text-left text-xs">
                         {item.description}
                       </span>
-                      <span style={{ fontSize: 14, fontWeight: "bold" }}>
-                        R$ {item.price}
+                      <span className="text-sm font-bold">
+                        R$ {parseFloat(item.price).toFixed(2)}
                       </span>
                     </div>
-                    <div
-                      style={{
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                      }}
-                    >
+                    <div className="flex items-center justify-center">
                       <Image
                         src={`${item.urlImage}`}
                         style={{
