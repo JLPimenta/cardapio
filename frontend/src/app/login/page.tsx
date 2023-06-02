@@ -29,7 +29,7 @@ export default function Login() {
           <div>
             <span>Agora vamos ler o QRCode da sua mesa </span>
           </div>
-          <div className="flex h-96 w-14 items-center justify-center">
+          <div className="flex h-52 w-52 items-center justify-center">
             <QrReader
               onResult={(result: any, error) => {
                 if (!!result) {
