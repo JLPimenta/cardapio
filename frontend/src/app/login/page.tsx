@@ -29,7 +29,7 @@ export default function Login() {
           <div>
             <span>Agora vamos ler o QRCode da sua mesa </span>
           </div>
-          <div className="flex h-52 w-52 flex-col items-center justify-center">
+          <div className="flex flex-col items-center justify-center gap-3">
             <QrReader
               onResult={(result: any, error) => {
                 if (!!result) {
@@ -41,7 +41,7 @@ export default function Login() {
                 }
               }}
               constraints={{ facingMode: "environment" }}
-              className="h-52 w-52"
+              className="h-52 w-52 rounded-md"
             />
             <p>{data}</p>
           </div>
