@@ -25,11 +25,11 @@ export default function Login() {
             placeholder="Digite o seu nome"
           />
         </div>
-        <div className="flex justify-center gap-3">
+        <div className="flex flex-col items-center justify-center gap-3">
           <div>
             <span>Agora vamos ler o QRCode da sua mesa </span>
           </div>
-          <div>
+          <div className="flex h-96 w-14 items-center justify-center">
             <QrReader
               onResult={(result: any, error) => {
                 if (!!result) {
