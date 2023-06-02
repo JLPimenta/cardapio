@@ -41,7 +41,7 @@ export default function Login() {
                 }
               }}
               constraints={{ facingMode: "environment" }}
-              className="h-52 w-52 rounded-md"
+              className="h-52 w-80 rounded-md"
             />
             <p>{data}</p>
           </div>
