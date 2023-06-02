@@ -31,7 +31,7 @@ export default function Login() {
           </div>
           <div>
             <QrReader
-              onResult={(result, error) => {
+              onResult={(result: any, error) => {
                 if (!!result) {
                   setData(result?.text);
                 }
