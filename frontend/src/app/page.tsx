@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Product } from "../shared/entities/Product";
 import { Category } from "@/shared/entities/Category";
+import Header from "@/components/Header";
 
 export default function Home() {
   const [categories, setCategories] = useState<Category[]>([]);
@@ -46,12 +47,7 @@ export default function Home() {
 
   return (
     <div className="flex flex-col items-center justify-center gap-6">
-      <header className="flex w-[21.875rem] items-center justify-between pt-6">
-        <Image src="ForkKnife.svg" alt="Logo App" width={37} height={37} />
-        <div className="flex h-[2.313rem] w-[2.313rem] items-center justify-center rounded-full bg-orange-300">
-          <span className="text-xl font-bold text-white">01</span>
-        </div>
-      </header>
+      <Header />
 
       <div className="fixed bottom-1 flex items-start justify-center">
         <button className=" h-[3.125rem] w-[21.875rem] rounded-md bg-orange-400 text-lg text-white">
