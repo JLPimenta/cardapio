@@ -117,7 +117,7 @@ export default function Home() {
               </div>
             ) : (
               <>
-                <div className="flex flex-col gap-3 pb-16">
+                <div className="flex flex-col gap-3 pb-10">
                   {products.map((item: Product) => (
                     <div
                       onClick={() => {
@@ -162,7 +162,7 @@ export default function Home() {
       <div className="fixed bottom-1 flex w-full justify-center pl-6 pr-6">
         <button
           style={{ maxWidth: 848 }}
-          className="h-[3.125rem] w-full max-w-4xl rounded-md bg-orange-400 p-3 text-lg text-white"
+          className="h-12 w-full rounded-md bg-orange-400 p-3 text-lg text-white"
         >
           Itens no pedido
         </button>
