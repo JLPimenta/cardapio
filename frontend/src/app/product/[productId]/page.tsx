@@ -27,162 +27,63 @@ export default function Product() {
   }, [productId]);
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        flexDirection: "column",
-        gap: 24,
-      }}
-    >
-      <header
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          width: 350,
-
-          paddingTop: 24,
-        }}
-      >
-        <button
-          onClick={() => {
-            router.back();
-          }}
-        >
-          <ChevronLeftIcon width={37} height={37} />
-        </button>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-
-            width: 37,
-            height: 37,
-
-            borderRadius: 50,
-            backgroundColor: "#FDBA74",
-          }}
-        >
-          <span style={{ fontWeight: "bold", color: "#fff", fontSize: 20 }}>
-            01
-          </span>
-        </div>
-      </header>
-
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "flex-start",
-
-          position: "fixed",
-          bottom: 4,
-          width: 350,
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-
-            justifyContent: "center",
-            alignItems: "center",
-
-            height: 50,
-
-            gap: 8,
-          }}
-        >
-          <button>
-            <MinusIcon className="h-6 w-6 text-gray-500" />
+    <div className="w-full flex-auto justify-center">
+      <div className="ml-auto mr-auto flex max-w-4xl flex-col justify-center gap-8 p-6">
+        <header className="flex items-center justify-between">
+          <button
+            onClick={() => {
+              router.back();
+            }}
+          >
+            <ChevronLeftIcon width={37} height={37} />
           </button>
+          <div className="flex h-[2.313rem] w-[2.313rem] items-center justify-center rounded-full bg-orange-400">
+            <span className="text-xl font-bold text-white">01</span>
+          </div>
+        </header>
 
-          <span style={{ fontSize: 14, fontWeight: "bold" }}>1</span>
+        <div className="flex h-[6.375rem] flex-col items-center justify-center gap-1 rounded-lg bg-orange-100">
+          <span className="text-sm">Total dos meus pedidos</span>
+          <span className="text-3xl font-bold">R$ 25,00</span>
+        </div>
 
-          <button>
-            <PlusIcon className="h-6 w-6 text-orange-500" />
+        <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-3">
+            <span className="font-bold">{product?.name}</span>
+            <span className="font-normal">
+              {product?.description ? product.description : "..."}
+            </span>
+            <span className="font-bold">R$ {product?.price}</span>
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-3">
+          <span className="font-bold">Observações</span>
+          <input
+            className="h-12 rounded-md pb-2 pl-3 pr-3 pt-2 text-gray-700 outline-orange-400"
+            type="text"
+            placeholder="Ex: Tirar a maionese, ponto da carne"
+          />
+        </div>
+      </div>
+
+      <div className="fixed bottom-1 flex w-full justify-center pl-6 pr-6">
+        <div className="flex w-full flex-row gap-3" style={{ maxWidth: 848 }}>
+          <div className="flex flex-row items-center justify-center gap-3">
+            <button>
+              <MinusIcon className="h-6 w-6 text-gray-500" />
+            </button>
+
+            <span className="text-base font-bold">1</span>
+
+            <button>
+              <PlusIcon className="h-6 w-6 text-orange-500" />
+            </button>
+          </div>
+          <button className="h-12 w-full rounded-md bg-orange-400 p-3 text-lg text-white">
+            Adicionar R$ {product?.price}
           </button>
         </div>
-        <button
-          style={{
-            height: 50,
-            width: 232,
-
-            backgroundColor: "#FB923C",
-            borderRadius: 6,
-            fontSize: 18,
-            color: "#fff",
-          }}
-        >
-          Adicionar R$ {product?.price}
-        </button>
-      </div>
-
-      <div
-        style={{
-          display: "flex",
-
-          flexDirection: "column",
-
-          justifyContent: "center",
-          alignItems: "center",
-
-          gap: 2,
-
-          width: 350,
-          height: 102,
-          backgroundColor: "#FFEDD5",
-          borderRadius: 8,
-        }}
-      >
-        <span style={{ fontSize: 14 }}>Total dos meus pedidos</span>
-        <span style={{ fontWeight: "bold", fontSize: 32 }}>R$ 25,00</span>
-      </div>
-
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: 12,
-          width: 350,
-        }}
-      >
-        <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-          <span style={{ fontWeight: "bold" }}>{product?.name}</span>
-          <span>{product?.description ? product.description : "..."}</span>
-          <span style={{ fontWeight: "bold" }}>R$ {product?.price}</span>
-        </div>
-      </div>
-
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: 12,
-          width: 350,
-        }}
-      >
-        <span style={{ fontWeight: "bold" }}>Observações</span>
-        <input
-          style={{
-            borderRadius: 6,
-            backgroundColor: "#fff",
-            color: "#6B7280",
-            height: 48,
-            alignItems: "flex-start",
-            paddingBottom: 12,
-            paddingTop: 12,
-            paddingRight: 16,
-            paddingLeft: 16,
-
-            outlineColor: "#FB923C",
-          }}
-          type="text"
-          placeholder="Ex: Tirar a maionese, ponto da carne"
-        />
       </div>
     </div>
   );
