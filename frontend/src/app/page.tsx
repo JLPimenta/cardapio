@@ -47,14 +47,6 @@ export default function Home() {
 
   return (
     <div className="flex w-screen justify-center">
-      <div className="fixed bottom-1 flex w-full items-start justify-center">
-        <button
-          className=" h-[3.125rem] rounded-md bg-orange-400 text-lg text-white"
-          style={{ width: "87.2%", maxWidth: 848, minWidth: 327 }}
-        >
-          itens no pedido
-        </button>
-      </div>
       <div className="flex max-w-4xl flex-col justify-center gap-8 p-6">
         <Header />
 
@@ -166,6 +158,14 @@ export default function Home() {
             )}
           </>
         )}
+      </div>
+      <div className="fixed bottom-1 flex w-screen items-start justify-center pl-6 pr-6">
+        <button
+          style={{ maxWidth: 848 }}
+          className="h-[3.125rem] w-full max-w-4xl rounded-md bg-orange-400 p-3 text-lg text-white"
+        >
+          Itens no pedido
+        </button>
       </div>
     </div>
   );
