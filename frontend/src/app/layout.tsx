@@ -1,4 +1,3 @@
-import Head from "next/head";
 import "./globals.css";
 import { Nunito_Sans } from "next/font/google";
 
@@ -17,9 +16,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <Head>
-        <link rel="shortcut icon" href="/ForkKnife.ico" sizes="any" />
-      </Head>
       <body className={Nunito.className}>{children}</body>
     </html>
   );

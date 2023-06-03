@@ -46,8 +46,8 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="flex w-screen justify-center">
-      <div className="flex max-w-4xl flex-col justify-center gap-8 p-6">
+    <div className="w-full flex-auto justify-center">
+      <div className="flex max-w-4xl flex-col justify-center gap-8 pl-6 pr-6">
         <Header />
 
         <div className="flex h-[6.375rem] flex-col items-center justify-center gap-1 rounded-lg bg-orange-100">
@@ -76,7 +76,7 @@ export default function Home() {
           </div>
         ) : (
           <>
-            <div className="flex h-[6.25rem] flex-row gap-3">
+            <div className="flex flex-row items-center gap-3 p-3">
               {categories.map((item: any) => (
                 <div key={item.id}>
                   <button
@@ -85,7 +85,7 @@ export default function Home() {
                     }}
                     className={`flex h-24 w-24 items-center justify-center rounded-md border border-solid border-gray-300 text-6xl ${
                       categoryId === item.id
-                        ? "bg-orange-100 outline outline-orange-400"
+                        ? "border border-solid border-orange-400 bg-orange-100"
                         : undefined
                     } `}
                   >
@@ -96,7 +96,7 @@ export default function Home() {
             </div>
 
             {loadingProducts ? (
-              <div className="flex flex-col items-center justify-center gap-3 pb-16">
+              <div className="flex flex-col items-center justify-center gap-3">
                 <svg
                   aria-hidden="true"
                   className="mr-2 h-8 w-8 animate-spin fill-orange-600 text-gray-200 dark:text-gray-600"
@@ -117,7 +117,7 @@ export default function Home() {
               </div>
             ) : (
               <>
-                <div className="flex flex-col  gap-3 pb-16">
+                <div className="flex flex-col gap-3 pb-16">
                   {products.map((item: Product) => (
                     <div
                       onClick={() => {
@@ -159,7 +159,7 @@ export default function Home() {
           </>
         )}
       </div>
-      <div className="fixed bottom-1 flex w-screen items-start justify-center pl-6 pr-6">
+      <div className="fixed bottom-1 flex w-full justify-center pl-6 pr-6">
         <button
           style={{ maxWidth: 848 }}
           className="h-[3.125rem] w-full max-w-4xl rounded-md bg-orange-400 p-3 text-lg text-white"
