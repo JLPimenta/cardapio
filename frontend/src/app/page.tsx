@@ -50,7 +50,7 @@ export default function Home() {
       <div className="fixed bottom-1 flex w-full items-start justify-center">
         <button
           className=" h-[3.125rem] rounded-md bg-orange-400 text-lg text-white"
-          style={{ width: "87.2%", maxWidth: 848 }}
+          style={{ width: "87.2%", maxWidth: 848, minWidth: 327 }}
         >
           itens no pedido
         </button>
