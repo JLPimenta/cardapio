@@ -47,7 +47,7 @@ export default function Home() {
 
   return (
     <div className="w-full flex-auto justify-center">
-      <div className="flex max-w-4xl flex-col justify-center gap-8 pl-6 pr-6">
+      <div className="flex max-w-4xl flex-col justify-center gap-8 p-6">
         <Header />
 
         <div className="flex h-[6.375rem] flex-col items-center justify-center gap-1 rounded-lg bg-orange-100">
