@@ -9,6 +9,7 @@ import { useParams, useRouter } from "next/navigation";
 
 import { useEffect, useState } from "react";
 import { Product } from "../../../shared/entities/Product";
+import TotalMyOrders from "@/components/TotalMyOrders";
 
 export default function Product() {
   const { productId } = useParams();
@@ -42,10 +43,7 @@ export default function Product() {
           </div>
         </header>
 
-        <div className="flex h-[6.375rem] flex-col items-center justify-center gap-1 rounded-lg bg-orange-100">
-          <span className="text-sm">Total dos meus pedidos</span>
-          <span className="text-3xl font-bold">R$ 25,00</span>
-        </div>
+        <TotalMyOrders />
 
         <div className="flex flex-col gap-3">
           <div className="flex flex-col gap-3">
@@ -60,7 +58,7 @@ export default function Product() {
         <div className="flex flex-col gap-3">
           <span className="font-bold">Observações</span>
           <input
-            className="h-12 rounded-md pb-2 pl-3 pr-3 pt-2 text-gray-700 outline-orange-400"
+            className="h-12 rounded-lg pb-2 pl-3 pr-3 pt-2 text-gray-700 outline-orange-400"
             type="text"
             placeholder="Ex: Tirar a maionese, ponto da carne"
           />
@@ -80,7 +78,7 @@ export default function Product() {
               <PlusIcon className="h-6 w-6 text-orange-500" />
             </button>
           </div>
-          <button className="h-12 w-full rounded-md bg-orange-400 p-3 text-lg text-white">
+          <button className="h-12 w-full rounded-lg bg-orange-400 p-3 text-lg text-white">
             Adicionar R$ {product?.price}
           </button>
         </div>
