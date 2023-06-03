@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { Product } from "../shared/entities/Product";
 import { Category } from "@/shared/entities/Category";
 import Header from "@/components/Header";
+import TotalMyOrders from "@/components/TotalMyOrders";
 
 export default function Home() {
   const [categories, setCategories] = useState<Category[]>([]);
@@ -50,10 +51,7 @@ export default function Home() {
       <div className="ml-auto mr-auto flex max-w-4xl flex-col justify-center gap-8 p-6">
         <Header />
 
-        <div className="flex h-[6.375rem] flex-col items-center justify-center gap-1 rounded-lg bg-orange-100">
-          <span className="text-sm text-gray-900">Total dos meus pedidos</span>
-          <span className="text-3xl font-bold text-gray-900">R$ 25,00</span>
-        </div>
+        <TotalMyOrders />
 
         {loading ? (
           <div className=" flex h-[25rem] flex-col items-center justify-center">
@@ -83,7 +81,7 @@ export default function Home() {
                     onClick={() => {
                       handleLoadProductsByCategory(item.id);
                     }}
-                    className={`flex h-24 w-24 items-center justify-center rounded-md border border-solid border-gray-300 text-6xl ${
+                    className={`flex h-24 w-24 items-center justify-center rounded-lg border border-solid border-gray-300 text-6xl ${
                       categoryId === item.id
                         ? "border-2 border-solid border-orange-400 bg-orange-100"
                         : undefined
@@ -124,7 +122,7 @@ export default function Home() {
                         router.push(`product/${item.id}`);
                       }}
                       key={item.id}
-                      className="flex cursor-pointer flex-row justify-between gap-2 rounded-md border border-solid border-gray-300 p-3 "
+                      className="flex cursor-pointer flex-row justify-between gap-2 rounded-lg border border-solid border-gray-300 p-3 "
                     >
                       <div className="flex flex-col gap-2">
                         <span className="text-sm font-bold">{item.name}</span>
@@ -162,7 +160,7 @@ export default function Home() {
       <div className="fixed bottom-1 flex w-full justify-center pl-6 pr-6">
         <button
           style={{ maxWidth: 848 }}
-          className="h-12 w-full rounded-md bg-orange-400 p-3 text-lg text-white"
+          className="h-12 w-full rounded-lg bg-orange-400 p-3 text-lg text-white"
         >
           Itens no pedido
         </button>
