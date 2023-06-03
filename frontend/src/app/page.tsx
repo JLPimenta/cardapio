@@ -46,7 +46,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="flex flex-col items-center justify-center gap-6">
+    <div className="flex flex-col items-center justify-center gap-6 p-6">
       <Header />
 
       <div className="fixed bottom-1 flex items-start justify-center">
