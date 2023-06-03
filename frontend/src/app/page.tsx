@@ -47,7 +47,7 @@ export default function Home() {
 
   return (
     <div className="w-full flex-auto justify-center">
-      <div className="flex max-w-4xl flex-col justify-center gap-8 p-6">
+      <div className="ml-auto mr-auto flex max-w-4xl flex-col justify-center gap-8 p-6">
         <Header />
 
         <div className="flex h-[6.375rem] flex-col items-center justify-center gap-1 rounded-lg bg-orange-100">
@@ -85,7 +85,7 @@ export default function Home() {
                     }}
                     className={`flex h-24 w-24 items-center justify-center rounded-md border border-solid border-gray-300 text-6xl ${
                       categoryId === item.id
-                        ? "border border-solid border-orange-400 bg-orange-100"
+                        ? "border-2 border-solid border-orange-400 bg-orange-100"
                         : undefined
                     } `}
                   >
