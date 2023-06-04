@@ -1,441 +1,94 @@
+"use client";
 import {
   CheckCircleIcon,
   ChevronLeftIcon,
   EllipsisHorizontalCircleIcon,
-  EllipsisHorizontalIcon,
 } from "@heroicons/react/24/solid";
+import { useRouter } from "next/navigation";
 
 export default function Order() {
+  const router = useRouter();
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        flexDirection: "column",
-        gap: 24,
-      }}
-    >
-      <header
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          width: 350,
+    <div className="w-full flex-auto justify-center">
+      <div className="ml-auto mr-auto flex max-w-4xl flex-col justify-center gap-8 p-6">
+        <header className="flex items-center justify-between">
+          <button
+            onClick={() => {
+              router.back();
+            }}
+          >
+            <ChevronLeftIcon width={37} height={37} />
+          </button>
+          <div className="flex h-[2.313rem] w-[2.313rem] items-center justify-center rounded-full bg-orange-400">
+            <span className="text-xl font-bold text-white">01</span>
+          </div>
+        </header>
 
-          paddingTop: 24,
-        }}
-      >
-        <button>
-          <ChevronLeftIcon width={37} height={37} />
-        </button>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-
-            width: 37,
-            height: 37,
-
-            borderRadius: 50,
-            backgroundColor: "#FDBA74",
-          }}
-        >
-          <span style={{ fontWeight: "bold", color: "#fff", fontSize: 20 }}>
-            01
+        <div className="flex h-[6.375rem] flex-col items-center justify-center gap-1 rounded-lg bg-orange-100 p-3">
+          <span className="text-sm">Total dos meus pedidos</span>
+          <span className="text-3xl font-bold">R$ 25,00</span>
+          <span className="text-sm">
+            Clique para visualizar o total da mesa
           </span>
         </div>
-      </header>
 
-      <div
-        style={{
-          display: "flex",
-
-          flexDirection: "column",
-
-          justifyContent: "center",
-          alignItems: "center",
-
-          gap: 2,
-
-          width: 350,
-          height: 102,
-          backgroundColor: "#FFEDD5",
-          borderRadius: 8,
-        }}
-      >
-        <span style={{ fontSize: 14 }}>Total dos meus pedidos</span>
-        <span style={{ fontWeight: "bold", fontSize: 32 }}>R$ 25,00</span>
-        <span style={{ fontSize: 14 }}>
-          Clique para visualizar o total da mesa
-        </span>
-      </div>
-
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: 12,
-          width: 350,
-        }}
-      >
-        <span style={{ fontWeight: "bold" }}>Pedidos</span>
-      </div>
-
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: 32,
-          width: 350,
-
-          paddingBottom: 60,
-        }}
-      >
-        <div style={{ display: "flex", gap: 8, flexDirection: "column" }}>
-          <p style={{ fontWeight: "bold", fontSize: 16 }}>12/08/2022</p>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
-
-              gap: 8,
-
-              border: "1px solid #dddedf",
-              borderRadius: 6,
-
-              padding: 12,
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-
-                borderRadius: 6,
-              }}
-            >
-              <span style={{ fontSize: 12, fontWeight: "bold" }}>08:30</span>
-            </div>
-            <div style={{ display: "flex", flexDirection: "column" }}>
-              <div style={{ display: "flex", flexDirection: "row", gap: 8 }}>
-                <span
-                  style={{
-                    fontSize: 12,
-                    fontWeight: "normal",
-                    color: "#9CA3AF",
-                  }}
-                >
-                  1x
-                </span>
-
-                <span style={{ fontSize: 14, fontWeight: "normal" }}>
-                  X-Tudo
-                </span>
-              </div>
-              <div style={{ display: "flex", flexDirection: "row", gap: 8 }}>
-                <span
-                  style={{
-                    fontSize: 12,
-                    fontWeight: "normal",
-                    color: "#9CA3AF",
-                  }}
-                >
-                  1x
-                </span>
-
-                <span style={{ fontSize: 14, fontWeight: "normal" }}>
-                  Guaraná Antártica 2 Litros
-                </span>
-              </div>
-              <div style={{ display: "flex", flexDirection: "row", gap: 8 }}>
-                <span
-                  style={{
-                    fontSize: 12,
-                    fontWeight: "normal",
-                    color: "#9CA3AF",
-                  }}
-                >
-                  2x
-                </span>
-
-                <span style={{ fontSize: 14, fontWeight: "normal" }}>
-                  Skol Lata
-                </span>
-              </div>
-            </div>
-            <div
-              style={{
-                display: "flex",
-
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <button>
-                <EllipsisHorizontalCircleIcon className="h-5 w-5 text-orange-500" />
-              </button>
-            </div>
-          </div>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
-
-              gap: 8,
-
-              border: "1px solid #dddedf",
-              borderRadius: 6,
-
-              padding: 12,
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-
-                borderRadius: 6,
-              }}
-            >
-              <span style={{ fontSize: 12, fontWeight: "bold" }}>08:30</span>
-            </div>
-            <div style={{ display: "flex", flexDirection: "column" }}>
-              <div style={{ display: "flex", flexDirection: "row", gap: 8 }}>
-                <span
-                  style={{
-                    fontSize: 12,
-                    fontWeight: "normal",
-                    color: "#9CA3AF",
-                  }}
-                >
-                  1x
-                </span>
-
-                <span style={{ fontSize: 14, fontWeight: "normal" }}>
-                  X-Tudo
-                </span>
-              </div>
-              <div style={{ display: "flex", flexDirection: "row", gap: 8 }}>
-                <span
-                  style={{
-                    fontSize: 12,
-                    fontWeight: "normal",
-                    color: "#9CA3AF",
-                  }}
-                >
-                  1x
-                </span>
-
-                <span style={{ fontSize: 14, fontWeight: "normal" }}>
-                  Guaraná Antártica 2 Litros
-                </span>
-              </div>
-              <div style={{ display: "flex", flexDirection: "row", gap: 8 }}>
-                <span
-                  style={{
-                    fontSize: 12,
-                    fontWeight: "normal",
-                    color: "#9CA3AF",
-                  }}
-                >
-                  2x
-                </span>
-
-                <span style={{ fontSize: 14, fontWeight: "normal" }}>
-                  Skol Lata
-                </span>
-              </div>
-            </div>
-            <div
-              style={{
-                display: "flex",
-
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <button>
-                <CheckCircleIcon className="h-5 w-5 text-green-500" />
-              </button>
-            </div>
-          </div>
+        <div>
+          <span className="font-bold">Pedidos</span>
         </div>
-        <div style={{ display: "flex", gap: 8, flexDirection: "column" }}>
-          <p style={{ fontWeight: "bold", fontSize: 16 }}>11/08/2022</p>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
 
-              gap: 8,
-
-              border: "1px solid #dddedf",
-              borderRadius: 6,
-
-              padding: 12,
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-
-                borderRadius: 6,
-              }}
-            >
-              <span style={{ fontSize: 12, fontWeight: "bold" }}>08:30</span>
-            </div>
-            <div style={{ display: "flex", flexDirection: "column" }}>
-              <div style={{ display: "flex", flexDirection: "row", gap: 8 }}>
-                <span
-                  style={{
-                    fontSize: 12,
-                    fontWeight: "normal",
-                    color: "#9CA3AF",
-                  }}
-                >
-                  1x
-                </span>
-
-                <span style={{ fontSize: 14, fontWeight: "normal" }}>
-                  X-Tudo
-                </span>
+        <div className="flex flex-col gap-8 pb-10">
+          <div className="flex flex-col gap-2">
+            <p className="text-base font-bold">12/08/2022</p>
+            <div className="flex flex-row justify-between rounded-lg border border-solid border-gray-300 p-3">
+              <div className="flex items-center justify-center">
+                <span className="text-xs font-bold">08:30</span>
               </div>
-              <div style={{ display: "flex", flexDirection: "row", gap: 8 }}>
-                <span
-                  style={{
-                    fontSize: 12,
-                    fontWeight: "normal",
-                    color: "#9CA3AF",
-                  }}
-                >
-                  1x
-                </span>
+              <div className="flex flex-col">
+                <div className="flex flex-row gap-2">
+                  <span className="text-xs font-normal text-gray-400">1x</span>
 
-                <span style={{ fontSize: 14, fontWeight: "normal" }}>
-                  Guaraná Antártica 2 Litros
-                </span>
+                  <span className="text-sm font-normal">X-Tudo</span>
+                </div>
+                <div className="flex flex-row gap-2">
+                  <span className="text-xs font-normal text-gray-400">1x</span>
+
+                  <span className="text-sm font-normal">
+                    Coca Cola 2 Litros
+                  </span>
+                </div>
               </div>
-              <div style={{ display: "flex", flexDirection: "row", gap: 8 }}>
-                <span
-                  style={{
-                    fontSize: 12,
-                    fontWeight: "normal",
-                    color: "#9CA3AF",
-                  }}
-                >
-                  2x
-                </span>
-
-                <span style={{ fontSize: 14, fontWeight: "normal" }}>
-                  Skol Lata
-                </span>
+              <div className="flex items-center justify-center">
+                <button>
+                  <EllipsisHorizontalCircleIcon className="h-5 w-5 text-orange-500" />
+                </button>
               </div>
-            </div>
-            <div
-              style={{
-                display: "flex",
-
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <button>
-                <CheckCircleIcon className="h-5 w-5 text-green-500" />
-              </button>
             </div>
           </div>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
-
-              gap: 8,
-
-              border: "1px solid #dddedf",
-              borderRadius: 6,
-
-              padding: 12,
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-
-                borderRadius: 6,
-              }}
-            >
-              <span style={{ fontSize: 12, fontWeight: "bold" }}>08:30</span>
-            </div>
-            <div style={{ display: "flex", flexDirection: "column" }}>
-              <div style={{ display: "flex", flexDirection: "row", gap: 8 }}>
-                <span
-                  style={{
-                    fontSize: 12,
-                    fontWeight: "normal",
-                    color: "#9CA3AF",
-                  }}
-                >
-                  1x
-                </span>
-
-                <span style={{ fontSize: 14, fontWeight: "normal" }}>
-                  X-Tudo
-                </span>
+          <div className="flex flex-col gap-2">
+            <p className="text-base font-bold">12/08/2022</p>
+            <div className="flex flex-row justify-between rounded-lg border border-solid border-gray-300 p-3">
+              <div className="flex items-center justify-center">
+                <span className="text-xs font-bold">08:30</span>
               </div>
-              <div style={{ display: "flex", flexDirection: "row", gap: 8 }}>
-                <span
-                  style={{
-                    fontSize: 12,
-                    fontWeight: "normal",
-                    color: "#9CA3AF",
-                  }}
-                >
-                  1x
-                </span>
+              <div className="flex flex-col">
+                <div className="flex flex-row gap-2">
+                  <span className="text-xs font-normal text-gray-400">1x</span>
 
-                <span style={{ fontSize: 14, fontWeight: "normal" }}>
-                  Guaraná Antártica 2 Litros
-                </span>
+                  <span className="text-sm font-normal">X-Tudo</span>
+                </div>
+                <div className="flex flex-row gap-2">
+                  <span className="text-xs font-normal text-gray-400">1x</span>
+
+                  <span className="text-sm font-normal">
+                    Coca Cola 2 Litros
+                  </span>
+                </div>
               </div>
-              <div style={{ display: "flex", flexDirection: "row", gap: 8 }}>
-                <span
-                  style={{
-                    fontSize: 12,
-                    fontWeight: "normal",
-                    color: "#9CA3AF",
-                  }}
-                >
-                  2x
-                </span>
-
-                <span style={{ fontSize: 14, fontWeight: "normal" }}>
-                  Skol Lata
-                </span>
+              <div className="flex items-center justify-center">
+                <button>
+                  <CheckCircleIcon className="h-5 w-5 text-green-500" />
+                </button>
               </div>
-            </div>
-            <div
-              style={{
-                display: "flex",
-
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <button>
-                <CheckCircleIcon className="h-5 w-5 text-green-500" />
-              </button>
             </div>
           </div>
         </div>
