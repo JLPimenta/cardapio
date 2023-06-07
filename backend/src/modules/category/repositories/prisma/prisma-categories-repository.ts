@@ -1,9 +1,12 @@
-import { Category, PrismaClient } from '@prisma/client';
+import { Category, Prisma, PrismaClient } from '@prisma/client';
 import { CategoriesRepository } from '../categories-repository';
 
 const prisma = new PrismaClient();
 
 export class PrismaCategoriesRepository implements CategoriesRepository {
+  create(data: Prisma.CategoryCreateInput): Promise<Category> {
+    throw new Error('Method not implemented.');
+  }
   async changeAvailability(id: string): Promise<Category> {
     const { isActive } = await this.findOneById(id);
 
