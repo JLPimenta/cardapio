@@ -1,13 +1,12 @@
-import { Product } from '@prisma/client';
-import { CreateProductDto } from '../dto/create-product-dto';
+import { Prisma, Product } from '@prisma/client';
 import { UpdateProductDTO } from '../dto/update-product-dto';
 
 export interface ProductsRepository {
-  create(product: CreateProductDto): Promise<Product>;
+  create(product: Prisma.ProductUncheckedCreateInput): Promise<Product>;
 
   update(id: string, data: UpdateProductDTO): Promise<Product>;
 
-  delete(id: string): void;
+  delete(id: string): Promise<void>;
 
   changeAvailability(id: string): Promise<Product>;
 
