@@ -11,7 +11,7 @@ export class CreateProductDto {
   name: string;
 
   @IsNotEmpty({ message: 'The price is required' })
-  price: number;
+  price: string;
 
   @IsOptional()
   @IsUrl({ require_protocol: true }, { message: 'The url image is invalid' })

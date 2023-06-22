@@ -1,5 +1,4 @@
 import { InMemoryProductsRepository } from '../repositories/in-memory/in-memory-products-repository';
-import { beforeEach, describe, expect, it } from 'vitest';
 import { ChangeProductAvailabilityUseCase } from './change-product-availability';
 import { NotFoundException } from '@nestjs/common';
 
@@ -23,13 +22,13 @@ describe('Change product availability', () => {
     });
   });
 
-  it('should be able to update de status of a product', async () => {
+  it('should be able to update the status of a product', async () => {
     await sut.execute('product-1');
 
     expect(inMemoryProductsRepository.items[0].isActive).toEqual(false);
   });
 
-  it('should not be able to update de status of a product with an wrong ID', async () => {
+  it('should not be able to update the status of a product with an wrong ID', async () => {
     expect(async () => {
       await sut.execute('product-2');
     }).rejects.toBeInstanceOf(NotFoundException);

@@ -9,11 +9,13 @@ module.exports = {
   extends: [
     'plugin:@typescript-eslint/recommended',
     'plugin:prettier/recommended',
+    'plugin:vitest-globals/recommended',
   ],
   root: true,
   env: {
     node: true,
     jest: true,
+    'vitest-globals/env': true,
   },
   ignorePatterns: ['.eslintrc.js'],
   rules: {

@@ -4,6 +4,7 @@ import {
   ProductsRepository,
 } from '../products-repository';
 import { randomUUID } from 'crypto';
+import { UpdateProductDTO } from '../../dto/update-product-dto';
 
 export class InMemoryProductsRepository implements ProductsRepository {
   public items: Product[] = [];
@@ -32,8 +33,15 @@ export class InMemoryProductsRepository implements ProductsRepository {
     return product;
   }
 
-  async update(id: string, data: Prisma.ProductUncheckedUpdateInput) {
-    const product = this.findOneById(id);
+  async update(id: string, data: UpdateProductDTO) {
+    const product = await this.findOneById(id);
+
+    data.name ? (product.name = data.name) : undefined;
+    data.price ? (product.price = data.price) : undefined;
+    data.isActive ? (product.isActive = data.isActive) : undefined;
+    data.description ? (product.description = data.description) : undefined;
+    data.categoryId ? (product.categoryId = data.categoryId) : undefined;
+    data.urlImage ? (product.urlImage = data.urlImage) : undefined;
 
     return product;
   }

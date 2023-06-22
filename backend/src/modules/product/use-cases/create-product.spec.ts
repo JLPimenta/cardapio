@@ -1,7 +1,6 @@
 import InMemoryCategoriesRepository from 'src/modules/category/repositories/in-memory/in-memory-categories-repository';
 import { InMemoryProductsRepository } from '../repositories/in-memory/in-memory-products-repository';
 import { CreateProductUseCase } from './create-product';
-import { beforeEach, describe, expect, it } from 'vitest';
 
 let inMemoryProductsRepository: InMemoryProductsRepository;
 let inMemoryCategoriesRepository: InMemoryCategoriesRepository;

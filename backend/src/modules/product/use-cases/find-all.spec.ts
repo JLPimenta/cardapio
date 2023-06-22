@@ -1,5 +1,4 @@
 import { InMemoryProductsRepository } from '../repositories/in-memory/in-memory-products-repository';
-import { beforeEach, describe, expect, it } from 'vitest';
 import FindAllProductsUseCase from './find-all';
 
 let inMemoryProductsRepository: InMemoryProductsRepository;
