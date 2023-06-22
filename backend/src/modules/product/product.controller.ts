@@ -53,7 +53,7 @@ export class ProductController {
   ) {
     const filterProductsUseCase = makeFindAllProductsUseCase();
 
-    return filterProductsUseCase.execute({ isActive, name, categoryId });
+    return filterProductsUseCase.execute({ categoryId });
   }
 
   @Get(':id')
