@@ -1,10 +1,16 @@
 import { Prisma, Product } from '@prisma/client';
-import { UpdateProductDTO } from '../dto/update-product-dto';
+
+export interface FindAllProductsParams {
+  categoryId?: string;
+}
 
 export interface ProductsRepository {
   create(product: Prisma.ProductUncheckedCreateInput): Promise<Product>;
 
-  update(id: string, data: UpdateProductDTO): Promise<Product>;
+  update(
+    id: string,
+    data: Prisma.ProductUncheckedUpdateInput,
+  ): Promise<Product>;
 
   delete(id: string): Promise<void>;
 
@@ -14,9 +20,7 @@ export interface ProductsRepository {
 
   findByName(name: string): Promise<Product | null>;
 
-  findAll(
-    name: string,
-    isActive: string,
-    categoryId: string,
-  ): Promise<Product[]>;
+  findAll(params?: FindAllProductsParams): Promise<Product[]>;
+
+  save(product: Product): Promise<void>;
 }

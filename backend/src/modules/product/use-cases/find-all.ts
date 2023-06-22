@@ -1,16 +1,16 @@
-import { ProductsRepository } from '../repositories/products-repository';
-import { FilterProductDto } from '../dto/filter-product-dto';
+import {
+  FindAllProductsParams,
+  ProductsRepository,
+} from '../repositories/products-repository';
 
 export default class FindAllProductsUseCase {
   constructor(private readonly productRepository: ProductsRepository) {}
 
-  async execute({ isActive, name, categoryId }: FilterProductDto) {
-    const product = await this.productRepository.findAll(
-      name,
-      isActive,
+  async execute({ categoryId }: FindAllProductsParams) {
+    const products = await this.productRepository.findAll({
       categoryId,
-    );
+    });
 
-    return product;
+    return products;
   }
 }

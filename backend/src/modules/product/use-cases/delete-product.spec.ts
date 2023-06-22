@@ -1,15 +1,15 @@
 import { InMemoryProductsRepository } from '../repositories/in-memory/in-memory-products-repository';
 import { beforeEach, describe, expect, it } from 'vitest';
-import { ChangeProductAvailabilityUseCase } from './change-product-availability';
+import DeleteProductUseCase from './delete-product';
 import { NotFoundException } from '@nestjs/common';
 
 let inMemoryProductsRepository: InMemoryProductsRepository;
-let sut: ChangeProductAvailabilityUseCase;
+let sut: DeleteProductUseCase;
 
-describe('Change product availability', () => {
+describe('Delete a product', () => {
   beforeEach(async () => {
     inMemoryProductsRepository = new InMemoryProductsRepository();
-    sut = new ChangeProductAvailabilityUseCase(inMemoryProductsRepository);
+    sut = new DeleteProductUseCase(inMemoryProductsRepository);
 
     await inMemoryProductsRepository.create({
       id: 'product-1',
@@ -23,13 +23,13 @@ describe('Change product availability', () => {
     });
   });
 
-  it('should be able to update de status of a product', async () => {
+  it('should be able to delete a product', async () => {
     await sut.execute('product-1');
 
-    expect(inMemoryProductsRepository.items[0].isActive).toEqual(false);
+    expect(inMemoryProductsRepository.items).toHaveLength(0);
   });
 
-  it('should not be able to update de status of a product with an wrong ID', async () => {
+  it('should not be able to delete a product with wrong an invalid ID', async () => {
     expect(async () => {
       await sut.execute('product-2');
     }).rejects.toBeInstanceOf(NotFoundException);

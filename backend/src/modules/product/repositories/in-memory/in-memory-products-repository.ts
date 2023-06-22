@@ -1,12 +1,22 @@
 import { Prisma, Product } from '@prisma/client';
-import { UpdateProductDTO } from '../../dto/update-product-dto';
-import { ProductsRepository } from '../products-repository';
+import {
+  FindAllProductsParams,
+  ProductsRepository,
+} from '../products-repository';
 import { randomUUID } from 'crypto';
 
 export class InMemoryProductsRepository implements ProductsRepository {
-  async create(data: Prisma.ProductUncheckedCreateInput): Promise<Product> {
+  public items: Product[] = [];
+
+  async save(product: Product): Promise<void> {
+    const itemIndex = this.items.findIndex((item) => item.id === product.id);
+
+    this.items[itemIndex] = product;
+  }
+
+  async create(data: Prisma.ProductUncheckedCreateInput) {
     const product = {
-      id: randomUUID(),
+      id: data.id ?? randomUUID(),
       name: data.name,
       categoryId: data.categoryId ?? randomUUID(),
       description: data.description,
@@ -21,14 +31,20 @@ export class InMemoryProductsRepository implements ProductsRepository {
 
     return product;
   }
-  update(id: string, data: UpdateProductDTO): Promise<Product> {
-    throw new Error('Method not implemented.');
-  }
-  delete(id: string): Promise<void> {
-    throw new Error('Method not implemented.');
+
+  async update(id: string, data: Prisma.ProductUncheckedUpdateInput) {
+    const product = this.findOneById(id);
+
+    return product;
   }
 
-  async changeAvailability(id: string): Promise<Product> {
+  async delete(id: string) {
+    const product = this.items.findIndex((item) => item.id === id);
+
+    this.items.splice(product, 1);
+  }
+
+  async changeAvailability(id: string) {
     const product = await this.findOneById(id);
 
     product.isActive = !product.isActive;
@@ -36,7 +52,7 @@ export class InMemoryProductsRepository implements ProductsRepository {
     return product;
   }
 
-  async findOneById(id: string): Promise<Product> {
+  async findOneById(id: string) {
     const product = this.items.find((item) => item.id === id);
 
     if (!product) {
@@ -46,7 +62,7 @@ export class InMemoryProductsRepository implements ProductsRepository {
     return product;
   }
 
-  async findByName(name: string): Promise<Product> {
+  async findByName(name: string) {
     const product = this.items.find((item) => item.name === name);
 
     if (!product) {
@@ -55,12 +71,14 @@ export class InMemoryProductsRepository implements ProductsRepository {
 
     return product;
   }
-  findAll(
-    name: string,
-    isActive: string,
-    categoryId: string,
-  ): Promise<Product[]> {
-    throw new Error('Method not implemented.');
+
+  async findAll({ categoryId }: FindAllProductsParams) {
+    const products = this.items.sort();
+
+    if (categoryId) {
+      return this.items.filter((item) => item.categoryId === categoryId);
+    }
+
+    return products;
   }
-  public items: Product[] = [];
 }
