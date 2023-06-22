@@ -29,7 +29,7 @@ model Product {
   id String @unique @default(uuid())
 
   name        String  @unique
-  price       Decimal @db.Decimal(10, 2)
+  price       String
   urlImage    String?
   description String?
   isActive    Boolean @default(true)

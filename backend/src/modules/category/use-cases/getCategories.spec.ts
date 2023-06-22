@@ -1,4 +1,3 @@
-import { beforeEach, describe, expect, it } from 'vitest';
 import { CategoriesRepository } from '../repositories/categories-repository';
 import { GetCategoriesUseCase } from './getCategories';
 import InMemoryCategoriesRepository from '../repositories/in-memory/in-memory-categories-repository';

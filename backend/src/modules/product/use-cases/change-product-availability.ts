@@ -1,6 +1,6 @@
+import { NotFoundException } from '@nestjs/common';
 import { ProductsRepository } from '../repositories/products-repository';
 import { Product } from '@prisma/client';
-import { NotFoundException } from '@nestjs/common';
 
 export class ChangeProductAvailabilityUseCase {
   constructor(private readonly productRepository: ProductsRepository) {}
@@ -12,6 +12,10 @@ export class ChangeProductAvailabilityUseCase {
       throw new NotFoundException('Product not found');
     }
 
-    return await this.productRepository.changeAvailability(id);
+    await this.productRepository.changeAvailability(id);
+
+    await this.productRepository.save(product);
+
+    return product;
   }
 }
