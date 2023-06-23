@@ -1,13 +1,11 @@
-import { CreateTableAccountDto } from '../dto/create-table-account-dto';
-import { TableAccount } from '@prisma/client';
-import { UpdateTableAccountDto } from '../dto/update-table-account-dto';
+import { Prisma, TableAccount } from '@prisma/client';
 
 export interface TablesAccountRepository {
-  create(data: CreateTableAccountDto): Promise<TableAccount>;
+  create(data: Prisma.TableAccountUncheckedCreateInput): Promise<TableAccount>;
 
   update(
     id: string,
-    tableAccount: UpdateTableAccountDto,
+    tableAccount: Prisma.TableAccountUncheckedUpdateInput,
   ): Promise<TableAccount>;
 
   findAll(): Promise<TableAccount[]>;

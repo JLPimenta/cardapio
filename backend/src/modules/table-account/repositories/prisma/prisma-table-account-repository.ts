@@ -1,7 +1,5 @@
 import { TablesAccountRepository } from '../tables-account-repository';
-import { PrismaClient, TableAccount } from '@prisma/client';
-import { CreateTableAccountDto } from '../../dto/create-table-account-dto';
-import { UpdateTableAccountDto } from '../../dto/update-table-account-dto';
+import { Prisma, PrismaClient, TableAccount } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
@@ -10,16 +8,10 @@ export class PrismaTableAccountRepository implements TablesAccountRepository {
     return Promise.resolve(undefined);
   }
 
-  async create(data: CreateTableAccountDto) {
-    const tableAccount = await prisma.tableAccount.create({
-      data: {
-        title: data.title,
-        totalTableAccount: data.totalTableAccount,
-        openAt: data.openAt,
-        closedAt: data.closedAt,
-        tableId: data.tableId,
-      },
-    });
+  async create(
+    data: Prisma.TableAccountUncheckedCreateInput,
+  ): Promise<TableAccount> {
+    const tableAccount = await prisma.tableAccount.create({ data });
 
     return tableAccount;
   }
@@ -40,7 +32,10 @@ export class PrismaTableAccountRepository implements TablesAccountRepository {
     return tableAccount;
   }
 
-  async update(id: string, tableAccount: UpdateTableAccountDto) {
+  async update(
+    id: string,
+    tableAccount: Prisma.TableAccountUncheckedUpdateInput,
+  ): Promise<TableAccount> {
     const updatedTableAccount = await prisma.tableAccount.update({
       where: { id },
       data: tableAccount,

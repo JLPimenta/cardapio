@@ -1,5 +1,5 @@
 import {
-  IsDate,
+  IsDateString,
   IsNotEmpty,
   IsNumber,
   IsOptional,
@@ -9,18 +9,18 @@ import {
 
 export class CreateTableAccountDto {
   @IsString()
-  @IsOptional()
-  title? = Date.now().toLocaleString('pt-BR');
+  @IsNotEmpty()
+  title = Date.now().toLocaleString('pt-BR');
 
   @IsNotEmpty()
   @IsNumber()
   totalTableAccount: number;
 
-  @IsDate()
+  @IsDateString()
   @IsNotEmpty()
-  openAt: Date;
+  openAt?: Date;
 
-  @IsDate()
+  @IsDateString() // YYYY-MM-DDTHH:mm:ss.SSSZ
   @IsOptional()
   closedAt?: Date;
 
