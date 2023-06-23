@@ -1,6 +1,7 @@
 import { TablesAccountRepository } from '../repositories/tables-account-repository';
 import { ConflictException } from '@nestjs/common';
 import { TablesRepository } from '../../table/repositories/tables-repository';
+import { Prisma } from '@prisma/client';
 
 export class CreateTableAccount {
   constructor(
@@ -8,22 +9,23 @@ export class CreateTableAccount {
     private readonly tableRepository: TablesRepository,
   ) {}
 
-  async execute(data) {
+  async execute(data: Prisma.TableAccountUncheckedCreateInput) {
     const alreadyExistTableAccount =
       await this.tableAccountRepository.existByTableId(data.tableId);
 
     const existTable = await this.tableRepository.findOneById(data.tableId);
 
-    if (existTable === null) {
+    if (!existTable) {
       throw new ConflictException('This table does not exist.');
     }
 
-    if (alreadyExistTableAccount === true) {
+    if (alreadyExistTableAccount) {
       throw new ConflictException(
         'A open account to this table already exists.',
       );
     }
-    if (data.totalTableAccount < 0) {
+
+    if (!data.totalTableAccount) {
       throw new ConflictException(
         'The total of table account must be greater than 0.',
       );
