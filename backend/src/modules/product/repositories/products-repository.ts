@@ -1,13 +1,18 @@
-import { Product } from '@prisma/client';
-import { CreateProductDto } from '../dto/create-product-dto';
-import { UpdateProductDTO } from '../dto/update-product-dto';
+import { Prisma, Product } from '@prisma/client';
+
+export interface FindAllProductsParams {
+  categoryId?: string;
+}
 
 export interface ProductsRepository {
-  create(product: CreateProductDto): Promise<Product>;
+  create(product: Prisma.ProductUncheckedCreateInput): Promise<Product>;
 
-  update(id: string, data: UpdateProductDTO): Promise<Product>;
+  update(
+    id: string,
+    data: Prisma.ProductUncheckedUpdateInput,
+  ): Promise<Product>;
 
-  delete(id: string): void;
+  delete(id: string): Promise<void>;
 
   changeAvailability(id: string): Promise<Product>;
 
@@ -15,9 +20,7 @@ export interface ProductsRepository {
 
   findByName(name: string): Promise<Product | null>;
 
-  findAll(
-    name: string,
-    isActive: string,
-    categoryId: string,
-  ): Promise<Product[]>;
+  findAll(params?: FindAllProductsParams): Promise<Product[]>;
+
+  save(product: Product): Promise<void>;
 }

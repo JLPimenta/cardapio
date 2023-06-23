@@ -36,6 +36,8 @@ export class UpdateProductUseCase {
 
     const productUpdated = await this.productRepository.update(id, data);
 
+    await this.productRepository.save(productUpdated);
+
     return productUpdated;
   }
 }

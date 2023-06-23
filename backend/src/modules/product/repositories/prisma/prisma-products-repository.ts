@@ -1,11 +1,19 @@
-import { ProductsRepository } from '../products-repository';
-import { PrismaClient, Product } from '@prisma/client';
-import { CreateProductDto } from '../../dto/create-product-dto';
-import { UpdateProductDTO } from '../../dto/update-product-dto';
+import {
+  FindAllProductsParams,
+  ProductsRepository,
+} from '../products-repository';
+import { Prisma, PrismaClient, Product } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
 export class PrismaProductsRepository implements ProductsRepository {
+  async save(data: Product) {
+    await prisma.product.update({
+      where: { id: data.id },
+      data,
+    });
+  }
+
   async delete(id: string): Promise<void> {
     await prisma.product.delete({ where: { id } });
   }
@@ -29,20 +37,10 @@ export class PrismaProductsRepository implements ProductsRepository {
     return product;
   }
 
-  async findAll(
-    name: string,
-    isActive: string | undefined,
-    categoryId: string,
-  ) {
-    const isActiveBool = isActive
-      ? isActive.toLowerCase() === 'true'
-      : undefined;
-
+  async findAll({ categoryId }: FindAllProductsParams) {
     const product = await prisma.product.findMany({
       where: {
-        name: name ? { contains: name } : undefined,
         categoryId: categoryId ? categoryId : undefined,
-        isActive: isActiveBool,
       },
       orderBy: { name: 'asc' },
     });
@@ -50,7 +48,7 @@ export class PrismaProductsRepository implements ProductsRepository {
     return product;
   }
 
-  async create(data: CreateProductDto): Promise<Product> {
+  async create(data: Prisma.ProductUncheckedCreateInput): Promise<Product> {
     const newProduct = await prisma.product.create({
       data,
     });
@@ -58,7 +56,10 @@ export class PrismaProductsRepository implements ProductsRepository {
     return newProduct;
   }
 
-  async update(id: string, data: UpdateProductDTO): Promise<Product> {
+  async update(
+    id: string,
+    data: Prisma.ProductUncheckedUpdateInput,
+  ): Promise<Product> {
     const productUpdated = await prisma.product.update({ where: { id }, data });
 
     return productUpdated;
