@@ -5,15 +5,15 @@ import { Prisma } from '@prisma/client';
 
 export class CreateTableAccountUseCase {
   constructor(
-    private readonly tableAccountRepository: TablesAccountRepository,
-    private readonly tableRepository: TablesRepository,
+    private readonly tablesAccountRepository: TablesAccountRepository,
+    private readonly tablesRepository: TablesRepository,
   ) {}
 
   async execute(data: Prisma.TableAccountUncheckedCreateInput) {
     const alreadyExistTableAccount =
-      await this.tableAccountRepository.existByTableId(data.tableId);
+      await this.tablesAccountRepository.existByTableId(data.tableId);
 
-    const existTable = await this.tableRepository.findOneById(data.tableId);
+    const existTable = await this.tablesRepository.findOneById(data.tableId);
 
     if (!existTable) {
       throw new ConflictException('This table does not exist.');
@@ -31,6 +31,6 @@ export class CreateTableAccountUseCase {
       );
     }
 
-    return await this.tableAccountRepository.create(data);
+    return await this.tablesAccountRepository.create(data);
   }
 }

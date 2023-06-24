@@ -74,7 +74,7 @@ model TableAccount {
   id String @unique @default(uuid())
 
   title             String
-  totalTableAccount Decimal   @db.Decimal(10, 2)
+  totalTableAccount String
   openAt            DateTime  @default(now())
   closedAt          DateTime?
 

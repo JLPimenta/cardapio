@@ -1,11 +1,10 @@
 import { TablesRepository } from '../tables-repository';
-import { TableParams } from '../../dto/TableParams';
-import { PrismaClient, Table } from '@prisma/client';
+import { Prisma, PrismaClient, Table } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
 export class PrismaTableRepository implements TablesRepository {
-  async create(table: TableParams): Promise<Table> {
+  async create(data: Prisma.TableCreateInput): Promise<Table> {
     return Promise.resolve(undefined);
   }
 

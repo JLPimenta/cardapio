@@ -1,8 +1,7 @@
-import { Table } from '@prisma/client';
-import { TableParams } from '../dto/TableParams';
+import { Prisma, Table } from '@prisma/client';
 
 export interface TablesRepository {
-  create(table: TableParams): Promise<Table>;
+  create(data: Prisma.TableCreateInput): Promise<Table>;
 
   findAll(): Promise<Table[]>;
 
