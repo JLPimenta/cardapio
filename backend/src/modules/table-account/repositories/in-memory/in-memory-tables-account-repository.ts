@@ -14,7 +14,7 @@ export class InMemoryTablesAccountRepository
       tableId: data.tableId,
       totalTableAccount: data.totalTableAccount,
       title: data.title,
-      closedAt: null,
+      closedAt: undefined,
     };
 
     this.items.push(tableAccount);

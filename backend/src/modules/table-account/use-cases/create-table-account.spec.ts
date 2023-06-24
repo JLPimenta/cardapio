@@ -26,6 +26,7 @@ describe('Create table account', () => {
       tableId: 'table-01',
       title: 'Mesa 01',
       totalTableAccount: '0',
+      id: 'table-account-01',
     });
 
     expect(tableAccount).toEqual(
