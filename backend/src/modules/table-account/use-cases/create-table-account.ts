@@ -3,7 +3,7 @@ import { ConflictException } from '@nestjs/common';
 import { TablesRepository } from '../../table/repositories/tables-repository';
 import { Prisma } from '@prisma/client';
 
-export class CreateTableAccount {
+export class CreateTableAccountUseCase {
   constructor(
     private readonly tableAccountRepository: TablesAccountRepository,
     private readonly tableRepository: TablesRepository,

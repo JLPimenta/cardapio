@@ -5,7 +5,12 @@ const prisma = new PrismaClient();
 
 export class PrismaTableAccountRepository implements TablesAccountRepository {
   async closeTableAccount(id: string): Promise<TableAccount> {
-    return Promise.resolve(undefined);
+    const tableAccount = await prisma.tableAccount.update({
+      where: { id },
+      data: { closedAt: new Date() },
+    });
+
+    return tableAccount;
   }
 
   async create(
@@ -21,7 +26,20 @@ export class PrismaTableAccountRepository implements TablesAccountRepository {
   }
 
   async findAll() {
-    return Promise.resolve([]);
+    const tableAccounts = await prisma.tableAccount.findMany();
+
+    return tableAccounts;
+  }
+
+  async findByTableId(tableId: string): Promise<TableAccount> {
+    const tableAccount = await prisma.tableAccount.findFirst({
+      where: {
+        tableId: tableId,
+        closedAt: null,
+      },
+    });
+
+    return tableAccount;
   }
 
   async findOneById(id: string) {
@@ -44,7 +62,7 @@ export class PrismaTableAccountRepository implements TablesAccountRepository {
     return updatedTableAccount;
   }
 
-  async existByTableId(tableId: string) {
+  async existByTableId(tableId: string): Promise<boolean> {
     const tableAccount = await prisma.tableAccount.findFirst({
       where: {
         tableId: tableId,
