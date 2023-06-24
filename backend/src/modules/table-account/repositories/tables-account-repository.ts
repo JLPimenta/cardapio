@@ -5,7 +5,7 @@ export interface TablesAccountRepository {
 
   update(
     id: string,
-    tableAccount: Prisma.TableAccountUncheckedUpdateInput,
+    data: Prisma.TableAccountUncheckedUpdateInput,
   ): Promise<TableAccount>;
 
   findAll(): Promise<TableAccount[]>;

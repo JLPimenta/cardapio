@@ -52,11 +52,11 @@ export class PrismaTableAccountRepository implements TablesAccountRepository {
 
   async update(
     id: string,
-    tableAccount: Prisma.TableAccountUncheckedUpdateInput,
+    data: Prisma.TableAccountUncheckedUpdateInput,
   ): Promise<TableAccount> {
     const updatedTableAccount = await prisma.tableAccount.update({
       where: { id },
-      data: tableAccount,
+      data,
     });
 
     return updatedTableAccount;
