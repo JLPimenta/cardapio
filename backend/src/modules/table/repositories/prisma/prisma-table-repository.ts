@@ -1,5 +1,4 @@
 import { TablesRepository } from '../tables-repository';
-import { TableParams } from '../../dto/TableParams';
 import { Prisma, PrismaClient, Table } from '@prisma/client';
 
 const prisma = new PrismaClient();
