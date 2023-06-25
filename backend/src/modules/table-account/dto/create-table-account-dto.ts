@@ -13,8 +13,7 @@ export class CreateTableAccountDto {
   title = Date.now().toLocaleString('pt-BR');
 
   @IsNotEmpty()
-  @IsNumber()
-  totalTableAccount: number;
+  totalTableAccount: string;
 
   @IsDateString()
   @IsNotEmpty()
