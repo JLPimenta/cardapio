@@ -1,7 +1,7 @@
 import { Order, Prisma } from '@prisma/client';
 
 export interface OrderRepository {
-  create(data: Prisma.OrderUncheckedCreateInput): Promise<Order>;
+  create(data: Prisma.OrderUncheckedCreateInput);
 
   update(id: string, data: Prisma.OrderUncheckedUpdateInput): Promise<Order>;
 

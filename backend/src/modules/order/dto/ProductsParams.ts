@@ -7,8 +7,8 @@ import {
 } from 'class-validator';
 
 export class ProductsParams {
-  @IsUUID()
   @IsNotEmpty()
+  @IsUUID()
   id: string;
 
   @IsNotEmpty()

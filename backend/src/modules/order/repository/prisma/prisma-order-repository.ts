@@ -5,7 +5,7 @@ import { CreateOrderDto } from '../../dto/create-order-dto';
 const prisma = new PrismaClient();
 
 export class PrismaOrderRepository implements OrderRepository {
-  async create(data: CreateOrderDto): Promise<Order> {
+  async create(data: CreateOrderDto) {
     const { products, ...orderProps } = data;
 
     const order = await prisma.order.create({
@@ -14,7 +14,7 @@ export class PrismaOrderRepository implements OrderRepository {
       },
     });
 
-    await prisma.productsOnOrders.createMany({
+    const productsOnOrder = await prisma.productsOnOrders.createMany({
       data: products.map((products) => ({
         orderId: order.id,
         productId: products.id,
@@ -23,7 +23,7 @@ export class PrismaOrderRepository implements OrderRepository {
       })),
     });
 
-    return order;
+    return { order, productsOnOrder };
   }
 
   async delete(id: string): Promise<void> {

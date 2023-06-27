@@ -23,7 +23,7 @@ export async function validateCreateOrder(
       products.map((product) => product.id),
     );
 
-    if (productsExists.length !== products.length) {
+    if (productsExists.length == 0) {
       throw new ConflictException('Product not found.');
     }
   }
