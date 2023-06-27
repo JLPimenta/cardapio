@@ -1,8 +1,9 @@
 import { OrderRepository } from '../repository/order-repository';
-import { Prisma } from '@prisma/client';
+import { Order } from '@prisma/client';
 import { ClientsRepository } from '../../client/repositories/clients-repository';
-import { ConflictException } from '@nestjs/common';
 import { TablesAccountRepository } from '../../table-account/repositories/tables-account-repository';
+import { CreateOrderDto } from '../dto/create-order-dto';
+import { validateCreateOrder } from '../factories/validateCreateOrder';
 
 export class CreateOrderUseCase {
   constructor(
@@ -11,19 +12,15 @@ export class CreateOrderUseCase {
     private readonly tableAccountRepository: TablesAccountRepository,
   ) {}
 
-  async execute(data: Prisma.OrderUncheckedCreateInput) {
+  async execute(data: CreateOrderDto): Promise<Order> {
+    const { clientId, tableAccountId, products } = data;
+
     const [clientExists, tableAccountExists] = await Promise.all([
-      this.clientRepository.findById(data.clientId),
-      this.tableAccountRepository.findOneById(data.tableAccountId),
+      this.clientRepository.findById(clientId),
+      this.tableAccountRepository.findOneById(tableAccountId),
     ]);
 
-    if (!clientExists) {
-      throw new ConflictException('Client not found.');
-    }
-
-    if (!tableAccountExists) {
-      throw new ConflictException('Table account not found.');
-    }
+    await validateCreateOrder(clientExists, tableAccountExists, products);
 
     return await this.orderRepository.create(data);
   }

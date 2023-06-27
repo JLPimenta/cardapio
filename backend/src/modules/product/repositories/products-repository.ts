@@ -22,5 +22,7 @@ export interface ProductsRepository {
 
   findAll(params?: FindAllProductsParams): Promise<Product[]>;
 
+  findManyByIds(id: string[]): Promise<Product[]>;
+
   save(product: Product): Promise<void>;
 }

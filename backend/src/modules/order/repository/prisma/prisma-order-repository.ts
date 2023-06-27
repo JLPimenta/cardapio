@@ -1,17 +1,33 @@
 import { Order, Prisma, PrismaClient } from '@prisma/client';
 import { OrderRepository } from '../order-repository';
+import { CreateOrderDto } from '../../dto/create-order-dto';
 
 const prisma = new PrismaClient();
 
 export class PrismaOrderRepository implements OrderRepository {
-  async create(data: Prisma.OrderUncheckedCreateInput): Promise<Order> {
-    const order = await prisma.order.create({ data });
+  async create(data: CreateOrderDto): Promise<Order> {
+    const { products, ...orderProps } = data;
+
+    const order = await prisma.order.create({
+      data: {
+        ...orderProps,
+      },
+    });
+
+    await prisma.productsOnOrders.createMany({
+      data: products.map((products) => ({
+        orderId: order.id,
+        productId: products.id,
+        quantity: products.quantity,
+        note: products.note,
+      })),
+    });
 
     return order;
   }
 
   async delete(id: string): Promise<void> {
-    return Promise.resolve(undefined);
+    await prisma.order.delete({ where: { id } });
   }
 
   async findAll(): Promise<Order[]> {
