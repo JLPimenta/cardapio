@@ -1,12 +1,12 @@
 import { ConflictException } from '@nestjs/common';
-import { ProductsParams } from '../dto/ProductsParams';
+import { ProductParams } from '../dto/product-params';
 import { Client, TableAccount } from '@prisma/client';
 import { PrismaProductsRepository } from '../../product/repositories/prisma/prisma-products-repository';
 
 export async function validateCreateOrder(
   clientExists: Client,
   tableAccountExists: TableAccount,
-  products: ProductsParams[],
+  products: ProductParams[],
 ): Promise<void> {
   const productsRepository = new PrismaProductsRepository();
 

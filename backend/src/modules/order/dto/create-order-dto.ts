@@ -7,7 +7,7 @@ import {
   IsUUID,
   ValidateNested,
 } from 'class-validator';
-import { ProductsParams } from './ProductsParams';
+import { ProductParams } from './product-params';
 import { Type } from 'class-transformer';
 
 export class CreateOrderDto {
@@ -29,6 +29,6 @@ export class CreateOrderDto {
   @IsNotEmpty({ each: true })
   @IsArray({ message: 'The ingredients must be an array' })
   @ValidateNested({ each: true })
-  @Type(() => ProductsParams)
-  products: ProductsParams[];
+  @Type(() => ProductParams)
+  products: ProductParams[];
 }

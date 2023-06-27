@@ -6,7 +6,7 @@ import {
   IsUUID,
 } from 'class-validator';
 
-export class ProductsParams {
+export class ProductParams {
   @IsNotEmpty()
   @IsUUID()
   id: string;
