@@ -1,6 +1,7 @@
 import { Order, Prisma, PrismaClient } from '@prisma/client';
 import { OrderRepository } from '../order-repository';
 import { CreateOrderDto } from '../../dto/create-order-dto';
+import { UpdateOrderDto } from '../../dto/update-order-dto';
 
 const prisma = new PrismaClient();
 
@@ -56,11 +57,60 @@ export class PrismaOrderRepository implements OrderRepository {
     return order;
   }
 
-  async update(
+  async update(id: string, data: UpdateOrderDto) {
+    const { products, ...orderProps } = data;
+
+    const order = await prisma.order.update({
+      where: { id },
+      data: {
+        updatedAt: new Date(),
+        ...orderProps,
+      },
+    });
+
+    for (const product of products) {
+      const productOnOrder = await prisma.productsOnOrders.findFirst({
+        where: {
+          orderId: id,
+          productId: product.id,
+        },
+      });
+
+      if (productOnOrder) {
+        await prisma.productsOnOrders.update({
+          where: {
+            id: productOnOrder.id,
+          },
+          data: {
+            quantity: product.quantity,
+            note: product.note,
+          },
+        });
+      } else {
+        await prisma.productsOnOrders.create({
+          data: {
+            orderId: id,
+            productId: product.id,
+            quantity: product.quantity,
+            note: product.note,
+          },
+        });
+      }
+    }
+    return order;
+  }
+
+  async changeStatus(
     id: string,
-    data: Prisma.OrderUncheckedUpdateInput,
+    status: Prisma.EnumStatusOrderFieldUpdateOperationsInput,
   ): Promise<Order> {
-    const order = await prisma.order.update({ where: { id }, data });
+    const order = await prisma.order.update({
+      where: { id },
+      data: {
+        updatedAt: new Date(),
+        status: status.set,
+      },
+    });
 
     return order;
   }
