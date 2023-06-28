@@ -1,5 +1,7 @@
 # Cardapio
 
+[![wakatime](https://wakatime.com/badge/github/elioenays/cardapio.svg)](https://wakatime.com/badge/github/elioenays/cardapio)
+
 - Qual é o objetivo do aplicativo móvel?
   Com o uso de um cardápio online, melhorar o fluxo de atendimento, otimizar o tempo de processamento dos pedidos e consequentemente reduzir custos com funcionários e oferecer um melhor tempo de entrega/processamento.
 
