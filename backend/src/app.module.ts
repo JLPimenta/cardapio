@@ -6,6 +6,7 @@ import { ProductModule } from './modules/product/product.module';
 import { ClientModule } from './modules/client/client.module';
 import { TableModule } from './modules/table/table.module';
 import { TableAccountModule } from './modules/table-account/table-account.module';
+import { OrderModule } from './modules/order/order.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { TableAccountModule } from './modules/table-account/table-account.module
     ClientModule,
     TableModule,
     TableAccountModule,
+    OrderModule,
   ],
   controllers: [],
   providers: [],

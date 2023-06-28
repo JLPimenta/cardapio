@@ -17,4 +17,8 @@ export class InMemoryClientsRepository implements ClientsRepository {
 
     return client;
   }
+
+  findById(id: string): Promise<Client> {
+    return Promise.resolve(undefined);
+  }
 }

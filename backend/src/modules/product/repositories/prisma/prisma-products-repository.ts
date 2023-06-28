@@ -56,6 +56,14 @@ export class PrismaProductsRepository implements ProductsRepository {
     return newProduct;
   }
 
+  async findManyByIds(ids: string[]) {
+    const products = await prisma.product.findMany({
+      where: { id: { in: ids } },
+    });
+
+    return products;
+  }
+
   async update(
     id: string,
     data: Prisma.ProductUncheckedUpdateInput,

@@ -12,9 +12,9 @@ export class TableAccountController {
   async create(
     @Body() createTableAccountDto: CreateTableAccountDto,
   ): Promise<TableAccount> {
-    const createTableAccount = makeCreateTableAccountUseCase();
+    const createTableAccountUseCase = makeCreateTableAccountUseCase();
 
-    return createTableAccount.execute(createTableAccountDto);
+    return createTableAccountUseCase.execute(createTableAccountDto);
   }
 
   @Put(':id')
@@ -22,15 +22,15 @@ export class TableAccountController {
     @Param('id') id: string,
     @Body() data: UpdateTableAccountDto,
   ): Promise<TableAccount> {
-    const createTableAccount = makeUpdateTableAccountUseCase();
+    const updateTableAccountUseCase = makeUpdateTableAccountUseCase();
 
-    return createTableAccount.execute(id, data);
+    return updateTableAccountUseCase.execute(id, data);
   }
 
   @Patch(':id')
   async closeTableAccount(@Param('id') id: string): Promise<TableAccount> {
-    const createTableAccount = makeCloseTableAccountUseCase();
+    const closeTableAccountUseCase = makeCloseTableAccountUseCase();
 
-    return createTableAccount.execute(id);
+    return closeTableAccountUseCase.execute(id);
   }
 }
