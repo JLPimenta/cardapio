@@ -7,11 +7,13 @@ const prisma = new PrismaClient();
 @Injectable()
 export class PrismaTableRepository implements TablesRepository {
   async create(data: Prisma.TableCreateInput): Promise<Table> {
-    return Promise.resolve(undefined);
+    const table = await prisma.table.create({ data });
+
+    return table;
   }
 
   async findAll(): Promise<Table[]> {
-    return Promise.resolve([]);
+    return await prisma.table.findMany();
   }
 
   async findOneById(id: string) {

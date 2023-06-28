@@ -12,9 +12,14 @@ export class ClientsOnTableController {
   ) {
     const checkInClientsOnTableUseCase = makeCheckInClientsOnTableUseCase();
 
-    const checkInClient = checkInClientsOnTableUseCase.execute(checkIn);
+    const checkInClient = await checkInClientsOnTableUseCase.execute(checkIn);
 
-    response.cookie('Client', checkInClient);
+    response.cookie('CheckInData', checkInClient, {
+      path: '/',
+      sameSite: true,
+      secure: true,
+      httpOnly: true,
+    });
 
     return checkInClient;
   }
