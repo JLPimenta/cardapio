@@ -6,7 +6,11 @@ import { ProductModule } from './modules/product/product.module';
 import { ClientModule } from './modules/client/client.module';
 import { TableModule } from './modules/table/table.module';
 import { TableAccountModule } from './modules/table-account/table-account.module';
+
+import { ClientsOnTableModule } from './modules/clients-on-table/clients-on-table.module';
+
 import { OrderModule } from './modules/order/order.module';
+
 
 @Module({
   imports: [
@@ -17,9 +21,8 @@ import { OrderModule } from './modules/order/order.module';
     ClientModule,
     TableModule,
     TableAccountModule,
+    ClientsOnTableModule,
     OrderModule,
   ],
-  controllers: [],
-  providers: [],
 })
 export class AppModule {}

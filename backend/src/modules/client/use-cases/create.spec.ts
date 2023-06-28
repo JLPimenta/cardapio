@@ -11,14 +11,26 @@ describe('Create clients', () => {
   });
 
   it('should be able to create a client', async () => {
-    const client = await sut.execute({ name: 'Elioenay', id: 'client-1' });
+    const client = await sut.execute({
+      name: 'Elioenay',
+      id: 'client-1',
+      email: 'eli@app.com',
+    });
 
     expect(client).toEqual(
-      expect.objectContaining({ name: 'Elioenay', id: 'client-1' }),
+      expect.objectContaining({
+        name: 'Elioenay',
+        id: 'client-1',
+        email: 'eli@app.com',
+      }),
     );
     expect(inMemoryClientsRepository.items).toHaveLength(1);
     expect(inMemoryClientsRepository.items[0]).toEqual(
-      expect.objectContaining({ name: 'Elioenay', id: 'client-1' }),
+      expect.objectContaining({
+        name: 'Elioenay',
+        id: 'client-1',
+        email: 'eli@app.com',
+      }),
     );
   });
 });

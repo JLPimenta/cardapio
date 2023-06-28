@@ -59,6 +59,6 @@ export class InMemoryTablesAccountRepository
   async existByTableId(tableId: string) {
     const tableAccount = this.items.find((item) => item.tableId === tableId);
 
-    return tableAccount ? true : false;
+    return tableAccount;
   }
 }

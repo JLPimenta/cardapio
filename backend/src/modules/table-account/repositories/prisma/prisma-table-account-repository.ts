@@ -1,8 +1,10 @@
+import { Injectable } from '@nestjs/common';
 import { TablesAccountRepository } from '../tables-account-repository';
 import { Prisma, PrismaClient, TableAccount } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
+@Injectable()
 export class PrismaTableAccountRepository implements TablesAccountRepository {
   async closeTableAccount(id: string): Promise<TableAccount> {
     const tableAccount = await prisma.tableAccount.update({
@@ -62,7 +64,7 @@ export class PrismaTableAccountRepository implements TablesAccountRepository {
     return updatedTableAccount;
   }
 
-  async existByTableId(tableId: string): Promise<boolean> {
+  async existByTableId(tableId: string) {
     const tableAccount = await prisma.tableAccount.findFirst({
       where: {
         tableId: tableId,
@@ -70,6 +72,6 @@ export class PrismaTableAccountRepository implements TablesAccountRepository {
       },
     });
 
-    return !!tableAccount;
+    return tableAccount;
   }
 }
