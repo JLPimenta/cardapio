@@ -1,5 +1,5 @@
 import { Order, Prisma, PrismaClient } from '@prisma/client';
-import { OrderRepository } from '../order-repository';
+import { FindAllOrdersParams, OrderRepository } from '../order-repository';
 import { CreateOrderDto } from '../../dto/create-order-dto';
 import { UpdateOrderDto } from '../../dto/update-order-dto';
 
@@ -31,10 +31,15 @@ export class PrismaOrderRepository implements OrderRepository {
     await prisma.order.delete({ where: { id } });
   }
 
-  async findAll(): Promise<Order[]> {
-    const orders = await prisma.order.findMany();
+  async findAll({ tableAccountId }: FindAllOrdersParams) {
+    const order = await prisma.order.findMany({
+      where: {
+        tableAccountId: tableAccountId ? tableAccountId : undefined,
+      },
+      orderBy: { createdAt: 'asc' },
+    });
 
-    return orders;
+    return order;
   }
 
   async findOneByClientId(clientId: string): Promise<Order | null> {

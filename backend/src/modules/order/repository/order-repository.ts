@@ -1,6 +1,10 @@
 import { Order, Prisma } from '@prisma/client';
 import { UpdateOrderDto } from '../dto/update-order-dto';
 
+export interface FindAllOrdersParams {
+  tableAccountId?: string;
+}
+
 export interface OrderRepository {
   create(data: Prisma.OrderUncheckedCreateInput);
 
@@ -17,5 +21,5 @@ export interface OrderRepository {
 
   findOneByClientId(clientId: string): Promise<Order | null>;
 
-  findAll(): Promise<Order[]>;
+  findAll(params?: FindAllOrdersParams): Promise<Order[]>;
 }
