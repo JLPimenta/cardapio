@@ -16,5 +16,5 @@ export interface TablesAccountRepository {
 
   delete(id: string): void;
 
-  existByTableId(tableId: string): Promise<boolean>;
+  existByTableId(tableId: string): Promise<TableAccount>;
 }

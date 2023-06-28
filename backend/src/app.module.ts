@@ -19,7 +19,5 @@ import { AuthModule } from './modules/auth/auth.module';
     TableAccountModule,
     AuthModule,
   ],
-  controllers: [],
-  providers: [],
 })
 export class AppModule {}
