@@ -1,14 +1,39 @@
 "use client";
+import api from "@/service/api";
+import { checkIn } from "@/service/checkIn";
+import { Table } from "@/service/interfaces/Table";
 import Image from "next/image";
-import { useState } from "react";
-import { QrReader } from "react-qr-reader";
+import React, { useEffect, useState } from "react";
 
 export default function Login() {
-  const [data, setData] = useState("No result");
+  const [tables, setTables] = useState<Table[]>([]);
+
+  useEffect(() => {
+    api.get("/tables").then(({ data }) => {
+      setTables(data);
+    });
+  });
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const data = {
+      name: event.target.name.value,
+      email: event.target.email.value,
+      tableId: event.target.tables.value,
+    };
+
+    await checkIn({
+      clientEmail: data.email,
+      clientName: data.name,
+      tableId: data.tableId,
+    });
+
+    console.log(data);
+  };
 
   return (
-    <div className="w-screen">
-      <div className="ml-auto mr-auto flex max-w-4xl flex-col justify-center gap-8 p-6">
+    <div className="flex h-screen w-screen items-center justify-center ">
+      <div className="ml-auto mr-auto flex max-w-4xl flex-col  gap-8 p-6 ">
         <div className="flex items-center justify-center">
           <Image src="ForkKnife.svg" alt="Logo App" width={37} height={37} />
         </div>
@@ -17,23 +42,69 @@ export default function Login() {
             Seja bem vindo ao Meu Cardápio Online
           </p>
         </div>
-        <div className="flex flex-col gap-1">
-          <span className="text-gray-700">Nome</span>
-          <input
-            className="h-12 rounded-lg pb-2 pl-3 pr-3 pt-2 text-gray-700 outline-orange-400"
-            type="text"
-            placeholder="Digite o seu nome"
-          />
-        </div>
-        <div className="flex flex-col items-center justify-center gap-3">
+        <form onSubmit={handleSubmit}>
+          <div className="flex flex-col gap-6">
+            <div className="flex flex-col gap-6">
+              <div className="flex flex-col gap-1">
+                <span className="text-gray-700">Nome</span>
+                <input
+                  className="h-12 rounded-lg pb-2 pl-3 pr-3 pt-2 text-gray-700 outline-orange-400"
+                  type="text"
+                  name="name"
+                  id="name"
+                  placeholder="Digite o seu nome"
+                />
+              </div>
+              <div className="flex flex-col gap-1">
+                <span className="text-gray-700">E-mail</span>
+                <input
+                  className="h-12 rounded-lg pb-2 pl-3 pr-3 pt-2 text-gray-700 outline-orange-400"
+                  type="email"
+                  placeholder="Digite o seu e-mail"
+                  name="email"
+                  id="email"
+                />
+              </div>
+
+              <div className="flex flex-col gap-1">
+                <label className="block text-gray-700">Numero da mesa</label>
+
+                <select
+                  id="tables"
+                  className="block h-12 w-full rounded-lg pb-2 pl-3 pr-3 pt-2 text-gray-700 outline-orange-400"
+                  name="tables"
+                >
+                  <option selected>Selecione uma mesa</option>
+                  {tables.map((item) => (
+                    <option value={item.id} key={item.id}>
+                      Mesa - {item.number}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+            <div className=" flex w-full justify-center">
+              <button
+                type="submit"
+                style={{ maxWidth: 848 }}
+                className="h-12 w-full rounded-lg bg-orange-400 p-3 text-lg text-white"
+              >
+                Ir para cardápio
+              </button>
+            </div>
+          </div>
+        </form>
+        {/* <div className="flex flex-col items-center justify-center gap-3">
           <div>
-            <span>Agora vamos ler o QRCode da sua mesa </span>
+            <span className="text-sm">
+              Agora vamos ler o QRCode da sua mesa{" "}
+            </span>
           </div>
           <div className="flex flex-col items-center justify-center gap-3 rounded-lg">
             <QrReader
               onResult={(result: any, error) => {
                 if (!!result) {
-                  setData(result?.text);
+                  setTableId(result?.text);
                 }
 
                 if (!!error) {
@@ -41,11 +112,12 @@ export default function Login() {
                 }
               }}
               constraints={{ facingMode: "environment" }}
-              className="w-60"
+              className="w-32"
+              videoStyle={""}
             />
-            <p>{data}</p>
+            <p>{tableId}</p>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

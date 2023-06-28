@@ -1,3 +1,4 @@
+import { CheckInContextProvider } from "@/components/contexts/CheckInContext";
 import "./globals.css";
 import { Nunito_Sans } from "next/font/google";
 
@@ -16,7 +17,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={Nunito.className}>{children}</body>
+      <body className={Nunito.className}>
+        <CheckInContextProvider>{children}</CheckInContextProvider>
+      </body>
     </html>
   );
 }
