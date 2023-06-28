@@ -6,7 +6,10 @@ export interface OrderRepository {
 
   update(id: string, data: UpdateOrderDto);
 
-  changeStatus(id: string, status: Prisma.EnumStatusOrderFieldUpdateOperationsInput): Promise<Order>;
+  changeStatus(
+    id: string,
+    status: Prisma.EnumStatusOrderFieldUpdateOperationsInput,
+  ): Promise<Order>;
 
   delete(id: string): Promise<void>;
 
