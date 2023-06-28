@@ -8,6 +8,9 @@ import { UpdateProductDTO } from '../../dto/update-product-dto';
 
 export class InMemoryProductsRepository implements ProductsRepository {
   public items: Product[] = [];
+  findManyByIds(id: string[]): Promise<Product[]> {
+    throw new Error('Method not implemented.');
+  }
 
   async save(product: Product): Promise<void> {
     const itemIndex = this.items.findIndex((item) => item.id === product.id);
