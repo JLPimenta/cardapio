@@ -36,13 +36,6 @@ export class CheckInClientsOnTableUseCase {
       throw new ConflictException('Client with this e-mail already exists');
     }
 
-    const clientInTable =
-      await this.clientsOnTablesRepository.findByClientEmail(clientEmail);
-
-    if (clientInTable) {
-      throw new ConflictException('Client already in another table');
-    }
-
     const table = await this.tablesRepository.findOneById(tableId);
 
     if (!table) {
@@ -66,7 +59,7 @@ export class CheckInClientsOnTableUseCase {
     } else {
       const tableAccount = await this.tablesAccountRepository.create({
         tableId,
-        title: `${table.number} - ${new Date().toLocaleDateString()}`,
+        title: `Mesa - ${table.number} - ${new Date().toLocaleString('pt-BR')}`,
         totalTableAccount: '0,00',
       });
 
@@ -74,6 +67,8 @@ export class CheckInClientsOnTableUseCase {
         clientId: client.id,
         tableAccountId: tableAccount.id,
       });
+
+      return { table, tableAccount, client };
     }
 
     return { table, tableAccount, client };

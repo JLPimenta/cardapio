@@ -11,12 +11,12 @@ export class PrismaClientsOnTablesRepository
       where: { email },
     });
 
-    const clientOnTable = await prisma.clientsOnTables.findFirst({
-      where: { clientId: client.id },
-    });
+    if (client) {
+      const clientOnTable = await prisma.clientsOnTables.findFirst({
+        where: { clientId: client.id },
+      });
 
-    if (clientOnTable) {
-      return null;
+      if (clientOnTable) return null;
     }
 
     return client;

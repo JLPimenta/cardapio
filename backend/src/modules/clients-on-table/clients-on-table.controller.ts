@@ -5,17 +5,17 @@ import { Response } from 'express';
 
 @Controller('clients')
 export class ClientsOnTableController {
-  @Post()
+  @Post('checkin')
   async create(
     @Body() checkIn: CheckInClientsOnTableUseCaseRequest,
-    @Res() response: Response,
+    @Res({ passthrough: true }) response: Response,
   ) {
     const checkInClientsOnTableUseCase = makeCheckInClientsOnTableUseCase();
 
-    try {
-      response.set(await checkInClientsOnTableUseCase.execute(checkIn));
-    } catch (error) {
-      return response.status(400).send({ message: error.message });
-    }
+    const checkInClient = checkInClientsOnTableUseCase.execute(checkIn);
+
+    response.cookie('Client', checkInClient);
+
+    return checkInClient;
   }
 }
