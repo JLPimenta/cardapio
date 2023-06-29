@@ -16,7 +16,7 @@ export default function Login() {
 
   const { checkIn } = useCheckInContext();
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: any) => {
     event.preventDefault();
     const { email, name, tableId } = {
       name: event.target.name.value,

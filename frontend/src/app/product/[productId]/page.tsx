@@ -35,7 +35,7 @@ export default function Product() {
     });
   }, [productId]);
 
-  const handlleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handlleSubmit = async (event: any) => {
     event.preventDefault();
 
     const { note } = { note: event.target.note.value };
