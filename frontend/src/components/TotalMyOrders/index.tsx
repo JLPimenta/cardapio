@@ -14,7 +14,10 @@ export default function TotalMyOrders() {
     >
       <span className="text-sm">Total da mesa</span>
       <span className="text-3xl font-bold">
-        R$ {tableAccount ? tableAccount.totalTableAccount : undefined}
+        R${" "}
+        {tableAccount
+          ? parseFloat(tableAccount.totalTableAccount).toFixed(2)
+          : undefined}
       </span>
     </button>
   );
