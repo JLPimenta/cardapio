@@ -3,43 +3,85 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { CheckInContextData } from "./interfaces/CheckInContextData";
 import { checkIn } from "@/service/checkIn";
 import { CheckInRequest } from "@/service/interfaces/CheckInRequest";
-import { ClientResponse } from "@/service/interfaces/ClientResponse";
-
-import { cookies } from "next/headers";
+import { Client } from "@/service/interfaces/Client";
+import { Table } from "@/service/interfaces/Table";
+import { TableAccount } from "@/service/interfaces/TableAccount";
+import { useRouter } from "next/navigation";
 
 const CheckInContext = createContext<CheckInContextData>(
   {} as CheckInContextData
 );
 
 export const CheckInContextProvider = ({ children }: any) => {
-  const [checkInData, setCheckInData] = useState<any | ClientResponse>();
+  const [client, setClient] = useState<Client | any>(null);
+  const [table, setTable] = useState<Table | any>(null);
+  const [tableAccount, setTableAccount] = useState<TableAccount | any>(null);
 
-  const cookiesStore = cookies();
+  const router = useRouter();
 
   useEffect(() => {
     const loadStorageData = async () => {
-      const checkIn = cookiesStore.get("CheckInData");
+      const storagedClient = localStorage.getItem("@Cardapio:client");
+      const storagedTable = localStorage.getItem("@Cardapio:table");
+      const storagedTableAccount = localStorage.getItem(
+        "@Cardapio:tableAccount"
+      );
 
-      if (checkIn !== undefined) {
-        setCheckInData(JSON.parse(checkIn.value));
+      if (storagedClient && storagedTableAccount && storagedTable) {
+        setClient(JSON.parse(storagedClient));
+        setTable(JSON.parse(storagedTable));
+        setTableAccount(JSON.parse(storagedTableAccount));
+      } else {
+        router.replace("/login");
       }
     };
     loadStorageData();
-  });
+  }, []);
 
   const signIn = async ({
     clientEmail,
     clientName,
     tableId,
   }: CheckInRequest) => {
-    const checkInData = await checkIn({ clientEmail, clientName, tableId });
+    const { client, table, tableAccount } = await checkIn({
+      clientEmail,
+      clientName,
+      tableId,
+    });
 
-    setCheckInData(checkInData);
+    localStorage.setItem("@Cardapio:client", JSON.stringify(client));
+    localStorage.setItem("@Cardapio:table", JSON.stringify(table));
+    localStorage.setItem(
+      "@Cardapio:tableAccount",
+      JSON.stringify(tableAccount)
+    );
+
+    setClient(client);
+    setTable(table);
+    setTableAccount(tableAccount);
+
+    router.replace("/");
+  };
+
+  const checkOut = async () => {
+    localStorage.clear();
+    setClient(null);
+    setTable(null);
+    setTableAccount(null);
+
+    router.replace("/login");
   };
 
   return (
     <CheckInContext.Provider
-      value={{ checkInData, checkIn: signIn, checked: !!checkInData }}
+      value={{
+        client,
+        table,
+        tableAccount,
+        checkIn: signIn,
+        checkOut,
+        checked: !!client,
+      }}
     >
       {children}
     </CheckInContext.Provider>

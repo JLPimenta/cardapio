@@ -1,6 +1,7 @@
 import { CheckInContextProvider } from "@/components/contexts/CheckInContext";
 import "./globals.css";
 import { Nunito_Sans } from "next/font/google";
+import { ContexOrderProvider } from "@/components/contexts/OrderContext";
 
 const Nunito = Nunito_Sans({ subsets: ["latin"] });
 
@@ -18,7 +19,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={Nunito.className}>
-        <CheckInContextProvider>{children}</CheckInContextProvider>
+        <CheckInContextProvider>
+          <ContexOrderProvider>{children}</ContexOrderProvider>
+        </CheckInContextProvider>
       </body>
     </html>
   );

@@ -1,6 +1,6 @@
 "use client";
+import { useCheckInContext } from "@/components/contexts/CheckInContext";
 import api from "@/service/api";
-import { checkIn } from "@/service/checkIn";
 import { Table } from "@/service/interfaces/Table";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
@@ -12,23 +12,23 @@ export default function Login() {
     api.get("/tables").then(({ data }) => {
       setTables(data);
     });
-  });
+  }, []);
+
+  const { checkIn } = useCheckInContext();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const data = {
+    const { email, name, tableId } = {
       name: event.target.name.value,
       email: event.target.email.value,
       tableId: event.target.tables.value,
     };
 
     await checkIn({
-      clientEmail: data.email,
-      clientName: data.name,
-      tableId: data.tableId,
+      clientEmail: email,
+      clientName: name,
+      tableId: tableId,
     });
-
-    console.log(data);
   };
 
   return (
@@ -74,7 +74,9 @@ export default function Login() {
                   className="block h-12 w-full rounded-lg pb-2 pl-3 pr-3 pt-2 text-gray-700 outline-orange-400"
                   name="tables"
                 >
-                  <option selected>Selecione uma mesa</option>
+                  <option defaultValue={"Selecione uma mesa"}>
+                    Selecione uma mesa
+                  </option>
                   {tables.map((item) => (
                     <option value={item.id} key={item.id}>
                       Mesa - {item.number}

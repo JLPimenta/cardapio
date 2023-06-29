@@ -1,5 +1,8 @@
 "use client";
 import TotalMyOrders from "@/components/TotalMyOrders";
+import { useCheckInContext } from "@/components/contexts/CheckInContext";
+import { useOrderContext } from "@/components/contexts/OrderContext";
+import api from "@/service/api";
 import {
   ChevronLeftIcon,
   MinusIcon,
@@ -7,9 +10,23 @@ import {
 } from "@heroicons/react/24/solid";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function Order() {
   const router = useRouter();
+  const [productsOnOrders, setProductsOnOrders] = useState([]);
+  const [quantity, setQuantity] = useState<number>(1);
+
+  const { order } = useOrderContext();
+  const { table } = useCheckInContext();
+
+  useEffect(() => {
+    api.get(`products-on-order/${order?.id}`).then(({ data }) => {
+      console.log(data);
+
+      setProductsOnOrders(data);
+    });
+  }, [order?.id]);
 
   return (
     <div className="w-full flex-auto justify-center">
@@ -23,7 +40,7 @@ export default function Order() {
             <ChevronLeftIcon width={37} height={37} />
           </button>
           <div className="flex h-[2.313rem] w-[2.313rem] items-center justify-center rounded-full bg-orange-400">
-            <span className="text-xl font-bold text-white">01</span>
+            <span className="text-xl font-bold text-white">{table.number}</span>
           </div>
         </header>
 
@@ -34,42 +51,47 @@ export default function Order() {
         </div>
 
         <div className="flex flex-col gap-3 pb-10">
-          <div className="flex flex-row justify-between gap-2 rounded-lg border border-solid border-gray-300 p-3">
-            <div className="flex flex-row gap-2">
-              <div className="flex items-center justify-center">
-                <Image
-                  src="/x-tudo.png"
-                  style={{
-                    minWidth: 80,
-                    height: 80,
-                    borderRadius: 6,
-                    objectFit: "fill",
-                  }}
-                  alt="{`${item.description}`}"
-                  width={80}
-                  height={80}
-                  quality={100}
-                  priority
-                />
-              </div>
-              <div className="flex flex-col gap-2 text-sm font-normal">
-                <span>X-Tudo</span>
+          {productsOnOrders.map((item: any) => (
+            <div
+              key={item.id}
+              className="flex flex-row justify-between gap-2 rounded-lg border border-solid border-gray-300 p-3"
+            >
+              <div className="flex flex-row gap-2">
+                <div className="flex items-center justify-center">
+                  <Image
+                    src={item?.urlImage}
+                    style={{
+                      minWidth: 80,
+                      height: 80,
+                      borderRadius: 6,
+                      objectFit: "fill",
+                    }}
+                    alt={`${item?.description}`}
+                    width={80}
+                    height={80}
+                    quality={100}
+                    priority
+                  />
+                </div>
+                <div className="flex flex-col gap-2 text-sm font-normal">
+                  <span>{item?.name}</span>
 
-                <span>R$ 15,00</span>
+                  <span>{parseFloat(item?.price) * item.quantity}</span>
+                </div>
+              </div>
+              <div className="flex flex-row items-center justify-center gap-2">
+                <button onClick={() => item.quantity + 1}>
+                  <MinusIcon className="h-6 w-6 text-gray-500" />
+                </button>
+
+                <span className="text-base font-bold">{item.quantity}</span>
+
+                <button onClick={() => item.quantity - 1}>
+                  <PlusIcon className="h-6 w-6 text-orange-500" />
+                </button>
               </div>
             </div>
-            <div className="flex flex-row items-center justify-center gap-2">
-              <button>
-                <MinusIcon className="h-6 w-6 text-gray-500" />
-              </button>
-
-              <span className="text-sm font-bold">1</span>
-
-              <button>
-                <PlusIcon className="h-6 w-6 text-orange-500" />
-              </button>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
       <div className="fixed bottom-1 flex w-full justify-center pl-6 pr-6">
@@ -77,7 +99,7 @@ export default function Order() {
           style={{ maxWidth: 848 }}
           className="h-12 w-full rounded-lg bg-orange-400 p-3 text-lg text-white"
         >
-          Fazer pedido R$ 15,00
+          Fazer pedido R$ {order.totalOrder}
         </button>
       </div>
     </div>

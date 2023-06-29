@@ -1,13 +1,33 @@
 "use client";
+import { useCheckInContext } from "@/components/contexts/CheckInContext";
+import api from "@/service/api";
+import { Order } from "@/shared/entities/Order";
 import {
   CheckCircleIcon,
   ChevronLeftIcon,
   EllipsisHorizontalCircleIcon,
 } from "@heroicons/react/24/solid";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function Order() {
   const router = useRouter();
+  const [orders, setOrders] = useState<any>([]);
+
+  const { client, tableAccount, table } = useCheckInContext();
+
+  useEffect(() => {
+    api
+      .get("/order", {
+        params: { clientId: client?.id, tableAccountId: tableAccount?.id },
+      })
+      .then(({ data }) => {
+        console.log(data);
+
+        setOrders(data);
+      });
+  }, [client?.id, tableAccount?.id]);
+
   return (
     <div className="w-full flex-auto justify-center">
       <div className="ml-auto mr-auto flex max-w-4xl flex-col justify-center gap-8 p-6">
@@ -20,7 +40,7 @@ export default function Order() {
             <ChevronLeftIcon width={37} height={37} />
           </button>
           <div className="flex h-[2.313rem] w-[2.313rem] items-center justify-center rounded-full bg-orange-400">
-            <span className="text-xl font-bold text-white">01</span>
+            <span className="text-xl font-bold text-white">{table.number}</span>
           </div>
         </header>
 

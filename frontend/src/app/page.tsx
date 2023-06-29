@@ -161,6 +161,9 @@ export default function Home() {
         <button
           style={{ maxWidth: 848 }}
           className="h-12 w-full rounded-lg bg-orange-400 p-3 text-lg text-white"
+          onClick={() => {
+            router.push("/order");
+          }}
         >
           Itens no pedido
         </button>
