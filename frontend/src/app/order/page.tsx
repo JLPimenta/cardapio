@@ -3,37 +3,80 @@ import TotalMyOrders from "@/components/TotalMyOrders";
 import { useCheckInContext } from "@/components/contexts/CheckInContext";
 import { useOrderContext } from "@/components/contexts/OrderContext";
 import api from "@/service/api";
-import {
-  ChevronLeftIcon,
-  MinusIcon,
-  PlusIcon,
-  TrashIcon,
-} from "@heroicons/react/24/solid";
+import { ProductOnOrders } from "@/shared/entities/ProductOnOrders";
+import { ChevronLeftIcon, TrashIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function Order() {
   const router = useRouter();
-  const [productsOnOrders, setProductsOnOrders] = useState([]);
+  const [productsOnOrders, setProductsOnOrders] = useState<ProductOnOrders[]>(
+    []
+  );
   const [quantity, setQuantity] = useState<number>(1);
 
-  const { order } = useOrderContext();
-  const { table } = useCheckInContext();
+  const { order, setOrder } = useOrderContext();
+  const { table, client, tableAccount, setTableAccount } = useCheckInContext();
 
-  const loadData = useEffect(() => {
+  useEffect(() => {
     api.get(`products-on-order/${order?.id}`).then(({ data }) => {
+      console.log(data);
+
       setProductsOnOrders(data);
     });
   }, [order?.id]);
 
-  loadData;
-
-  const handleDelete = async (id: string) => {
+  const handleDelete = async (id: string, price: string) => {
     await api.delete(`products-on-order/${id}`).then(() => {
-      router.refresh();
+      const productIndex = productsOnOrders.findIndex(
+        (item: any) => item.id === id
+      );
+
+      productsOnOrders.splice(productIndex, 1);
     });
-    loadData;
+
+    await api
+      .put(`/order/${order?.id}`, {
+        totalOrder:
+          parseFloat(order?.totalOrder.toString()) - parseFloat(price),
+        clientId: client.id,
+        tableAccountId: tableAccount.id,
+      })
+      .then(({ data }) => {
+        localStorage.setItem("@Cardapio:Order", JSON.stringify(data));
+        setOrder(data);
+        api.get(`products-on-order/${order?.id}`).then(({ data }) => {
+          setProductsOnOrders(data);
+        });
+      });
+  };
+
+  const handleMakeOrder = async () => {
+    await api
+      .patch(`/order/${order?.id}`, { status: "Delivered" })
+      .then(async () => {
+        localStorage.removeItem("@Cardapio:Order");
+
+        await api
+          .put(`/table-account/${tableAccount.id}`, {
+            totalTableAccount: (
+              parseFloat(tableAccount.totalTableAccount) +
+              parseFloat(order.totalOrder.toString())
+            ).toString(),
+          })
+          .then(({ data }) => {
+            localStorage.setItem(
+              "@Cardapio:tableAccount",
+              JSON.stringify(data)
+            );
+            setTableAccount(data);
+          });
+
+        setOrder(null);
+
+        router.replace("/");
+      });
   };
 
   return (
@@ -76,7 +119,7 @@ export default function Order() {
                       borderRadius: 6,
                       objectFit: "fill",
                     }}
-                    alt={`${item?.description}`}
+                    alt={item?.description}
                     width={80}
                     height={80}
                     quality={100}
@@ -90,7 +133,14 @@ export default function Order() {
                 </div>
               </div>
               <div className="flex flex-row items-center justify-center gap-2">
-                <button type="submit" onClick={() => handleDelete(item.id)}>
+                <button
+                  onClick={() =>
+                    handleDelete(
+                      item.id,
+                      (parseFloat(item.price) * quantity).toString()
+                    )
+                  }
+                >
                   <TrashIcon className="h-6 w-6 text-red-500" />
                 </button>
               </div>
@@ -100,10 +150,12 @@ export default function Order() {
       </div>
       <div className="fixed bottom-1 flex w-full justify-center pl-6 pr-6">
         <button
+          onClick={handleMakeOrder}
           style={{ maxWidth: 848 }}
           className="h-12 w-full rounded-lg bg-orange-400 p-3 text-lg text-white"
         >
-          Fazer pedido R$ {order?.totalOrder}
+          Fazer pedido{" "}
+          {Math.abs(order?.totalOrder) ? "R$ " + order.totalOrder : ""}
         </button>
       </div>
     </div>

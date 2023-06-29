@@ -81,6 +81,7 @@ export const CheckInContextProvider = ({ children }: any) => {
         checkIn: signIn,
         checkOut,
         checked: !!client,
+        setTableAccount,
       }}
     >
       {children}

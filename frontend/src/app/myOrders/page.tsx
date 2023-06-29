@@ -1,7 +1,9 @@
 "use client";
 import { useCheckInContext } from "@/components/contexts/CheckInContext";
+import { useOrderContext } from "@/components/contexts/OrderContext";
 import api from "@/service/api";
 import { Order } from "@/shared/entities/Order";
+import { ProductOnOrders } from "@/shared/entities/ProductOnOrders";
 import {
   CheckCircleIcon,
   ChevronLeftIcon,
@@ -10,9 +12,9 @@ import {
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-export default function Order() {
+export default function MyOrders() {
   const router = useRouter();
-  const [orders, setOrders] = useState<any>([]);
+  const [orders, setOrders] = useState<Order[]>([]);
 
   const { client, tableAccount, table } = useCheckInContext();
 
@@ -22,8 +24,6 @@ export default function Order() {
         params: { clientId: client?.id, tableAccountId: tableAccount?.id },
       })
       .then(({ data }) => {
-        console.log(data);
-
         setOrders(data);
       });
   }, [client?.id, tableAccount?.id]);
@@ -40,77 +40,55 @@ export default function Order() {
             <ChevronLeftIcon width={37} height={37} />
           </button>
           <div className="flex h-[2.313rem] w-[2.313rem] items-center justify-center rounded-full bg-orange-400">
-            <span className="text-xl font-bold text-white">{table.number}</span>
+            <span className="text-xl font-bold text-white">
+              {table?.number}
+            </span>
           </div>
         </header>
 
-        <div className="flex h-[6.375rem] flex-col items-center justify-center gap-1 rounded-lg bg-orange-100 p-3">
+        <button className="flex h-[6.375rem] flex-col items-center justify-center gap-1 rounded-lg bg-orange-100 p-3">
           <span className="text-sm">Total dos meus pedidos</span>
-          <span className="text-3xl font-bold">R$ 25,00</span>
+          <span className="text-3xl font-bold">
+            R$ {tableAccount ? tableAccount.totalTableAccount : undefined}
+          </span>
           <span className="text-sm">
             Clique para visualizar o total da mesa
           </span>
-        </div>
+        </button>
 
         <div>
           <span className="font-bold">Pedidos</span>
         </div>
 
         <div className="flex flex-col gap-8 pb-10">
-          <div className="flex flex-col gap-2">
-            <p className="text-base font-bold">12/08/2022</p>
-            <div className="flex flex-row justify-between rounded-lg border border-solid border-gray-300 p-3">
-              <div className="flex items-center justify-center">
-                <span className="text-xs font-bold">08:30</span>
-              </div>
-              <div className="flex flex-col">
-                <div className="flex flex-row gap-2">
-                  <span className="text-xs font-normal text-gray-400">1x</span>
-
-                  <span className="text-sm font-normal">X-Tudo</span>
-                </div>
-                <div className="flex flex-row gap-2">
-                  <span className="text-xs font-normal text-gray-400">1x</span>
-
-                  <span className="text-sm font-normal">
-                    Coca Cola 2 Litros
+          {orders.map((item) => (
+            <div className="flex flex-col gap-2" key={item.id}>
+              <p className="text-base font-bold">
+                {new Date(item?.createdAt).toLocaleDateString()}
+              </p>
+              <div className="flex flex-row justify-between rounded-lg border border-solid border-gray-300 p-3">
+                <div className="flex items-center justify-center">
+                  <span className="text-xs font-bold">
+                    {new Date(item?.createdAt).toLocaleTimeString()}
                   </span>
                 </div>
-              </div>
-              <div className="flex items-center justify-center">
-                <button>
-                  <EllipsisHorizontalCircleIcon className="h-5 w-5 text-orange-500" />
-                </button>
-              </div>
-            </div>
-          </div>
-          <div className="flex flex-col gap-2">
-            <p className="text-base font-bold">12/08/2022</p>
-            <div className="flex flex-row justify-between rounded-lg border border-solid border-gray-300 p-3">
-              <div className="flex items-center justify-center">
-                <span className="text-xs font-bold">08:30</span>
-              </div>
-              <div className="flex flex-col">
-                <div className="flex flex-row gap-2">
-                  <span className="text-xs font-normal text-gray-400">1x</span>
-
-                  <span className="text-sm font-normal">X-Tudo</span>
+                <div className="flex flex-col">
+                  <div className="flex flex-row gap-2" key={item.id}>
+                    <span className="text-sm font-normal">
+                      R$ {item.totalOrder}
+                    </span>
+                  </div>
                 </div>
-                <div className="flex flex-row gap-2">
-                  <span className="text-xs font-normal text-gray-400">1x</span>
-
-                  <span className="text-sm font-normal">
-                    Coca Cola 2 Litros
-                  </span>
+                <div className="flex items-center justify-center">
+                  {item.status === "Waiting" ? (
+                    <EllipsisHorizontalCircleIcon className="h-5 w-5 text-orange-500" />
+                  ) : (
+                    <CheckCircleIcon className="h-5 w-5 text-green-500" />
+                  )}
                 </div>
               </div>
-              <div className="flex items-center justify-center">
-                <button>
-                  <CheckCircleIcon className="h-5 w-5 text-green-500" />
-                </button>
-              </div>
             </div>
-          </div>
+          ))}
         </div>
       </div>
     </div>

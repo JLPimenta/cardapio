@@ -8,7 +8,7 @@ export default function TotalMyOrders() {
   const router = useRouter();
 
   return (
-    <div
+    <button
       onClick={() => router.push("myOrders")}
       className="flex h-[6.375rem] flex-col items-center justify-center gap-1 rounded-lg bg-orange-100"
     >
@@ -16,6 +16,6 @@ export default function TotalMyOrders() {
       <span className="text-3xl font-bold">
         R$ {tableAccount ? tableAccount.totalTableAccount : undefined}
       </span>
-    </div>
+    </button>
   );
 }
