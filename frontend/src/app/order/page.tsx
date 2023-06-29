@@ -7,6 +7,7 @@ import {
   ChevronLeftIcon,
   MinusIcon,
   PlusIcon,
+  TrashIcon,
 } from "@heroicons/react/24/solid";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -20,13 +21,20 @@ export default function Order() {
   const { order } = useOrderContext();
   const { table } = useCheckInContext();
 
-  useEffect(() => {
+  const loadData = useEffect(() => {
     api.get(`products-on-order/${order?.id}`).then(({ data }) => {
-      console.log(data);
-
       setProductsOnOrders(data);
     });
   }, [order?.id]);
+
+  loadData;
+
+  const handleDelete = async (id: string) => {
+    await api.delete(`products-on-order/${id}`).then(() => {
+      router.refresh();
+    });
+    loadData;
+  };
 
   return (
     <div className="w-full flex-auto justify-center">
@@ -40,7 +48,9 @@ export default function Order() {
             <ChevronLeftIcon width={37} height={37} />
           </button>
           <div className="flex h-[2.313rem] w-[2.313rem] items-center justify-center rounded-full bg-orange-400">
-            <span className="text-xl font-bold text-white">{table.number}</span>
+            <span className="text-xl font-bold text-white">
+              {table?.number}
+            </span>
           </div>
         </header>
 
@@ -76,18 +86,12 @@ export default function Order() {
                 <div className="flex flex-col gap-2 text-sm font-normal">
                   <span>{item?.name}</span>
 
-                  <span>{parseFloat(item?.price) * item.quantity}</span>
+                  <span>R$ {parseFloat(item?.price) * item.quantity}</span>
                 </div>
               </div>
               <div className="flex flex-row items-center justify-center gap-2">
-                <button onClick={() => item.quantity + 1}>
-                  <MinusIcon className="h-6 w-6 text-gray-500" />
-                </button>
-
-                <span className="text-base font-bold">{item.quantity}</span>
-
-                <button onClick={() => item.quantity - 1}>
-                  <PlusIcon className="h-6 w-6 text-orange-500" />
+                <button type="submit" onClick={() => handleDelete(item.id)}>
+                  <TrashIcon className="h-6 w-6 text-red-500" />
                 </button>
               </div>
             </div>
@@ -99,7 +103,7 @@ export default function Order() {
           style={{ maxWidth: 848 }}
           className="h-12 w-full rounded-lg bg-orange-400 p-3 text-lg text-white"
         >
-          Fazer pedido R$ {order.totalOrder}
+          Fazer pedido R$ {order?.totalOrder}
         </button>
       </div>
     </div>
