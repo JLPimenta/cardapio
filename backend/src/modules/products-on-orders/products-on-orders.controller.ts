@@ -14,8 +14,8 @@ export interface ProductsOnOrder {
 export class ProductsOnOrdersController {
   @Get(':id')
   async findAll(@Param('id') id: string) {
-    const productsOnOrder =
-      await prisma.$queryRaw<ProductsOnOrder>`select p."name",p.id ,p.price ,p.price,poo.quantity,p.description,p."urlImage"
+    const productsOnOrder = await prisma.$queryRaw<ProductsOnOrder>`
+      select p."name",p.id ,p.price,poo.quantity,p.description,p."urlImage",o.id as "orderId"
       from "productsOnOrders" poo ,orders o ,	products p
       where o.id = ${id} and poo."productId" = p.id and o.id = poo."orderId"`;
 
@@ -23,7 +23,7 @@ export class ProductsOnOrdersController {
   }
 
   @Delete(':id')
-  async deletete(@Param('id') id: string) {
+  async delete(@Param('id') id: string) {
     const productOnOrder = await prisma.productsOnOrders.findFirst({
       where: { productId: id },
     });

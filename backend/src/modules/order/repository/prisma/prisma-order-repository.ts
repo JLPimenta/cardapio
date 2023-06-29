@@ -1,4 +1,4 @@
-import { Order, Prisma, PrismaClient } from '@prisma/client';
+import { Order, Prisma, PrismaClient, StatusOrder } from '@prisma/client';
 import { FindAllOrdersParams, OrderRepository } from '../order-repository';
 import { CreateOrderDto } from '../../dto/create-order-dto';
 import { UpdateOrderDto } from '../../dto/update-order-dto';
@@ -37,7 +37,7 @@ export class PrismaOrderRepository implements OrderRepository {
         tableAccountId: tableAccountId ? tableAccountId : undefined,
         clientId: clientId ? clientId : undefined,
       },
-      orderBy: { createdAt: 'asc' },
+      orderBy: { updatedAt: 'desc' },
     });
 
     return order;
@@ -108,14 +108,11 @@ export class PrismaOrderRepository implements OrderRepository {
 
   async changeStatus(
     id: string,
-    status: Prisma.EnumStatusOrderFieldUpdateOperationsInput,
+    data: Prisma.OrderUpdateInput,
   ): Promise<Order> {
     const order = await prisma.order.update({
       where: { id },
-      data: {
-        updatedAt: new Date(),
-        status: status.set,
-      },
+      data,
     });
 
     return order;

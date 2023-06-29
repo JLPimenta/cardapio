@@ -1,4 +1,4 @@
-import { Order, Prisma } from '@prisma/client';
+import { Order, Prisma, StatusOrder } from '@prisma/client';
 import { UpdateOrderDto } from '../dto/update-order-dto';
 
 export interface FindAllOrdersParams {
@@ -11,10 +11,7 @@ export interface OrderRepository {
 
   update(id: string, data: UpdateOrderDto);
 
-  changeStatus(
-    id: string,
-    status: Prisma.EnumStatusOrderFieldUpdateOperationsInput,
-  ): Promise<Order>;
+  changeStatus(id: string, data: Prisma.OrderUpdateInput): Promise<Order>;
 
   delete(id: string): Promise<void>;
 

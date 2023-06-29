@@ -9,7 +9,7 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
-import { Order, Prisma } from '@prisma/client';
+import { Order, Prisma, StatusOrder } from '@prisma/client';
 import { CreateOrderDto } from './dto/create-order-dto';
 import { makeCreateOrderUseCase } from './factories/makeCreateOrderUseCase';
 import { UpdateOrderDto } from './dto/update-order-dto';
@@ -31,11 +31,11 @@ export class OrderController {
   @Patch(':id')
   async changeStatus(
     @Param('id') id: string,
-    @Body() status: Prisma.EnumStatusOrderFieldUpdateOperationsInput,
+    @Body() data: UpdateOrderDto,
   ): Promise<Order> {
     const changeStatusOrderUseCase = makeChangeStatusUseCase();
 
-    return changeStatusOrderUseCase.execute(id, status);
+    return changeStatusOrderUseCase.execute(id, data);
   }
 
   @Put(':id')
