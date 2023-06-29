@@ -30,6 +30,19 @@ export class CheckInClientsOnTableUseCase {
     clientName,
     tableId,
   }: CheckInClientsOnTableUseCaseRequest): Promise<CheckInClientsOnTableUseCaseResponse> {
+    const clientAlreadyOnTable =
+      await this.clientsOnTablesRepository.findByClientEmail(clientEmail);
+
+    if (clientAlreadyOnTable) {
+      const table = await this.tablesRepository.findOneById(tableId);
+
+      const tableAccount = await this.tablesAccountRepository.existByTableId(
+        tableId,
+      );
+
+      return { table, tableAccount, client: clientAlreadyOnTable };
+    }
+
     const emailExists = await this.clientsRepository.findByEmail(clientEmail);
 
     if (emailExists) {

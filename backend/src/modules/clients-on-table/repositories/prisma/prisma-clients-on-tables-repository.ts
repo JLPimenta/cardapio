@@ -13,13 +13,15 @@ export class PrismaClientsOnTablesRepository
 
     if (client) {
       const clientOnTable = await prisma.clientsOnTables.findFirst({
-        where: { clientId: client.id },
+        where: {
+          clientId: client.id,
+        },
       });
 
-      if (clientOnTable) return null;
+      return clientOnTable ? client : null;
     }
 
-    return client;
+    return null;
   }
 
   async checkIn(data: Prisma.ClientsOnTablesUncheckedCreateInput) {

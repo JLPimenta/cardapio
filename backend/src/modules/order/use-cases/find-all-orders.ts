@@ -6,9 +6,10 @@ import {
 export class FindAllOrdersUseCase {
   constructor(private readonly orderRepository: OrderRepository) {}
 
-  async execute({ tableAccountId }: FindAllOrdersParams) {
+  async execute({ tableAccountId, clientId }: FindAllOrdersParams) {
     const order = await this.orderRepository.findAll({
       tableAccountId,
+      clientId,
     });
 
     return order;

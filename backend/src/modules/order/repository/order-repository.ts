@@ -3,6 +3,7 @@ import { UpdateOrderDto } from '../dto/update-order-dto';
 
 export interface FindAllOrdersParams {
   tableAccountId?: string;
+  clientId: string;
 }
 
 export interface OrderRepository {

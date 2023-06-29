@@ -10,6 +10,8 @@ import { TableAccountModule } from './modules/table-account/table-account.module
 import { ClientsOnTableModule } from './modules/clients-on-table/clients-on-table.module';
 
 import { OrderModule } from './modules/order/order.module';
+import { ProductsOnOrdersController } from './modules/products-on-orders/products-on-orders.controller';
+import { ProductsOnOrdersModule } from './modules/products-on-orders/products-on-orders.module';
 
 
 @Module({
@@ -23,6 +25,8 @@ import { OrderModule } from './modules/order/order.module';
     TableAccountModule,
     ClientsOnTableModule,
     OrderModule,
+    ProductsOnOrdersModule,
   ],
+  controllers: [ProductsOnOrdersController],
 })
 export class AppModule {}

@@ -17,7 +17,6 @@ export class ClientsOnTableController {
     response.cookie('CheckInData', checkInClient, {
       path: '/',
       sameSite: true,
-      secure: true,
       httpOnly: true,
     });
 

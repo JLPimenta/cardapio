@@ -1,7 +1,7 @@
 import { PrismaOrderRepository } from '../repository/prisma/prisma-order-repository';
 import { PrismaClientsRepository } from '../../client/repositories/prisma/prisma-clients-repository';
 import { PrismaTableAccountRepository } from '../../table-account/repositories/prisma/prisma-table-account-repository';
-import { CreateOrderUseCase } from '../use-case/create-order';
+import { CreateOrderUseCase } from '../use-cases/create-order';
 
 export function makeCreateOrderUseCase() {
   const orderRepository = new PrismaOrderRepository();

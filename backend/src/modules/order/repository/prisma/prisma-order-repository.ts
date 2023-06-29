@@ -31,10 +31,11 @@ export class PrismaOrderRepository implements OrderRepository {
     await prisma.order.delete({ where: { id } });
   }
 
-  async findAll({ tableAccountId }: FindAllOrdersParams) {
+  async findAll({ tableAccountId, clientId }: FindAllOrdersParams) {
     const order = await prisma.order.findMany({
       where: {
         tableAccountId: tableAccountId ? tableAccountId : undefined,
+        clientId: clientId ? clientId : undefined,
       },
       orderBy: { createdAt: 'asc' },
     });

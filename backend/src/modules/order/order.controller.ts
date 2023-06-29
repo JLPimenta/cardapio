@@ -53,10 +53,13 @@ export class OrderController {
   }
 
   @Get()
-  async findAll(@Query('tableAccountId') tableAccountId: string) {
+  async findAll(
+    @Query('tableAccountId') tableAccountId: string,
+    @Query('clientId') clientId: string,
+  ) {
     const filterOrdersUseCase = makeFindAllOrdersUseCase();
 
-    return filterOrdersUseCase.execute({ tableAccountId });
+    return filterOrdersUseCase.execute({ tableAccountId, clientId });
   }
 
   @Get(':id')

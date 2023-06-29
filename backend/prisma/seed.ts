@@ -58,7 +58,12 @@ async function main() {
   });
 
   await prisma.table.createMany({
-    data: [{ number: '1' }, { number: '2' }, { number: '3' }, { number: '4' }],
+    data: [
+      { number: '1', id: '1' },
+      { number: '2', id: '2' },
+      { number: '3', id: '3' },
+      { number: '4', id: '4' },
+    ],
     skipDuplicates: true,
   });
 }

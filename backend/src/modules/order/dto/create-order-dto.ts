@@ -27,7 +27,7 @@ export class CreateOrderDto {
   clientId: string;
 
   @IsNotEmpty({ each: true })
-  @IsArray({ message: 'The ingredients must be an array' })
+  @IsArray({ message: 'The product must be an array' })
   @ValidateNested({ each: true })
   @Type(() => ProductParams)
   products: ProductParams[];

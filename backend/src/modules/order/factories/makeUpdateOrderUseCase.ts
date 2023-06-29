@@ -1,7 +1,7 @@
 import { PrismaOrderRepository } from '../repository/prisma/prisma-order-repository';
 import { PrismaClientsRepository } from '../../client/repositories/prisma/prisma-clients-repository';
 import { PrismaTableAccountRepository } from '../../table-account/repositories/prisma/prisma-table-account-repository';
-import { UpdateOrderUseCase } from '../use-case/update-order';
+import { UpdateOrderUseCase } from '../use-cases/update-order';
 
 export function makeUpdateOrderUseCase() {
   const orderRepository = new PrismaOrderRepository();
