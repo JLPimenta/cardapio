@@ -74,33 +74,35 @@ export class PrismaOrderRepository implements OrderRepository {
       },
     });
 
-    for (const product of products) {
-      const productOnOrder = await prisma.productsOnOrders.findFirst({
-        where: {
-          orderId: id,
-          productId: product.id,
-        },
-      });
-
-      if (productOnOrder) {
-        await prisma.productsOnOrders.update({
+    if (products) {
+      for (const product of products) {
+        const productOnOrder = await prisma.productsOnOrders.findFirst({
           where: {
-            id: productOnOrder.id,
-          },
-          data: {
-            quantity: product.quantity,
-            note: product.note,
-          },
-        });
-      } else {
-        await prisma.productsOnOrders.create({
-          data: {
             orderId: id,
             productId: product.id,
-            quantity: product.quantity,
-            note: product.note,
           },
         });
+
+        if (productOnOrder) {
+          await prisma.productsOnOrders.update({
+            where: {
+              id: productOnOrder.id,
+            },
+            data: {
+              quantity: product.quantity,
+              note: product.note,
+            },
+          });
+        } else {
+          await prisma.productsOnOrders.create({
+            data: {
+              orderId: id,
+              productId: product.id,
+              quantity: product.quantity,
+              note: product.note,
+            },
+          });
+        }
       }
     }
     return order;
