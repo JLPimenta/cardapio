@@ -1,13 +1,4 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Param,
-  Patch,
-  Post,
-  Put,
-  Query,
-} from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post, Put } from '@nestjs/common';
 import { makeCreateTableAccountUseCase } from './factories/makeCreateTableAccountUseCase';
 import { CreateTableAccountDto } from './dto/create-table-account-dto';
 import { PrismaClient, TableAccount } from '@prisma/client';
