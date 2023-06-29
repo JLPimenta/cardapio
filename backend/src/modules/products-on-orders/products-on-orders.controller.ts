@@ -1,4 +1,4 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Delete, Get, Param } from '@nestjs/common';
 import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
@@ -20,5 +20,16 @@ export class ProductsOnOrdersController {
       where o.id = ${id} and poo."productId" = p.id and o.id = poo."orderId"`;
 
     return productsOnOrder;
+  }
+
+  @Delete(':id')
+  async deletete(@Param('id') id: string) {
+    const productOnOrder = await prisma.productsOnOrders.findFirst({
+      where: { productId: id },
+    });
+
+    await prisma.productsOnOrders.delete({
+      where: { id: productOnOrder.id },
+    });
   }
 }
