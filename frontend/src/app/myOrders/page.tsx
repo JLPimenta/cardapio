@@ -1,4 +1,5 @@
 "use client";
+import TotalMyOrders from "@/components/TotalMyOrders";
 import { useCheckInContext } from "@/components/contexts/CheckInContext";
 import { useOrderContext } from "@/components/contexts/OrderContext";
 import api from "@/service/api";
@@ -46,15 +47,7 @@ export default function MyOrders() {
           </div>
         </header>
 
-        <button className="flex h-[6.375rem] flex-col items-center justify-center gap-1 rounded-lg bg-orange-100 p-3">
-          <span className="text-sm">Total dos meus pedidos</span>
-          <span className="text-3xl font-bold">
-            R$ {tableAccount ? tableAccount.totalTableAccount : undefined}
-          </span>
-          <span className="text-sm">
-            Clique para visualizar o total da mesa
-          </span>
-        </button>
+        <TotalMyOrders />
 
         <div>
           <span className="font-bold">Pedidos</span>
