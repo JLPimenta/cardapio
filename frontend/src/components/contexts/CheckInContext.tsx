@@ -7,6 +7,7 @@ import { Client } from "@/service/interfaces/Client";
 import { Table } from "@/service/interfaces/Table";
 import { TableAccount } from "@/service/interfaces/TableAccount";
 import { useRouter } from "next/navigation";
+import api from "@/service/api";
 
 const CheckInContext = createContext<CheckInContextData>(
   {} as CheckInContextData
@@ -30,13 +31,17 @@ export const CheckInContextProvider = ({ children }: any) => {
       if (storagedClient && storagedTableAccount && storagedTable) {
         setClient(JSON.parse(storagedClient));
         setTable(JSON.parse(storagedTable));
-        setTableAccount(JSON.parse(storagedTableAccount));
+
+        await api.get(`/table-account/${tableAccount?.id}`).then(({ data }) => {
+          setTableAccount(data);
+          localStorage.setItem("@Cardapio:tableAccount", JSON.stringify(data));
+        });
       } else {
         router.replace("/login");
       }
     };
     loadStorageData();
-  }, []);
+  }, [router, tableAccount?.id]);
 
   const signIn = async ({
     clientEmail,

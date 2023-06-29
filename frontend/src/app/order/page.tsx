@@ -21,8 +21,6 @@ export default function Order() {
 
   useEffect(() => {
     api.get(`products-on-order/${order?.id}`).then(({ data }) => {
-      console.log(data);
-
       setProductsOnOrders(data);
     });
   }, [order?.id]);

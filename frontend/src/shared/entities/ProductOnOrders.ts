@@ -6,4 +6,5 @@ export interface ProductOnOrders {
   description: string;
   urlImage: string;
   orderId: string;
+  note: string;
 }
