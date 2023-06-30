@@ -94,7 +94,7 @@ export default function Product() {
           <div className="flex flex-row items-center justify-center gap-3">
             <button
               id="minus"
-              onClick={() => setQuantity((prev) => (prev = 1 ? 1 : prev - 1))}
+              onClick={() => setQuantity((prev) => (prev === 1 ? 1 : prev - 1))}
             >
               <MinusIcon className="h-6 w-6 text-gray-500" />
             </button>
