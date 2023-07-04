@@ -1,16 +1,16 @@
 import { Category, Prisma, PrismaClient } from '@prisma/client';
 import { CategoriesRepository } from '../categories-repository';
-
-const prisma = new PrismaClient();
+import { PrismaService } from 'src/modules/prisma/prisma.service';
 
 export class PrismaCategoriesRepository implements CategoriesRepository {
+  constructor(private readonly prisma: PrismaService) {}
   create(data: Prisma.CategoryCreateInput): Promise<Category> {
     throw new Error('Method not implemented.');
   }
   async changeAvailability(id: string): Promise<Category> {
     const { isActive } = await this.findOneById(id);
 
-    const category = await prisma.category.update({
+    const category = await this.prisma.category.update({
       where: { id },
       data: { isActive: !isActive },
     });
@@ -19,7 +19,7 @@ export class PrismaCategoriesRepository implements CategoriesRepository {
   }
 
   async findAll(): Promise<Category[]> {
-    const categories = await prisma.category.findMany({
+    const categories = await this.prisma.category.findMany({
       orderBy: { name: 'asc' },
     });
 
@@ -27,7 +27,7 @@ export class PrismaCategoriesRepository implements CategoriesRepository {
   }
 
   async findOneById(id: string): Promise<Category> {
-    const category = await prisma.category.findUnique({ where: { id } });
+    const category = await this.prisma.category.findUnique({ where: { id } });
 
     return category;
   }

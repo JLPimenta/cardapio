@@ -7,8 +7,10 @@ import { PrismaService } from 'src/modules/prisma/prisma.service';
 export function makeCreateOrderUseCase() {
   const prismaService = new PrismaService();
   const orderRepository = new PrismaOrderRepository(prismaService);
-  const clientRepository = new PrismaClientsRepository();
-  const tableAccountRepository = new PrismaTableAccountRepository();
+  const clientRepository = new PrismaClientsRepository(prismaService);
+  const tableAccountRepository = new PrismaTableAccountRepository(
+    prismaService,
+  );
 
   return new CreateOrderUseCase(
     orderRepository,

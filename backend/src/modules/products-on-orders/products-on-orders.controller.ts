@@ -1,7 +1,7 @@
 import { Controller, Delete, Get, Param } from '@nestjs/common';
-import { PrismaClient } from '@prisma/client';
+import { PrismaService } from '../prisma/prisma.service';
 
-const prisma = new PrismaClient();
+const prisma = new PrismaService();
 
 export interface ProductsOnOrder {
   name: string;

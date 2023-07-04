@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { TablesAccountRepository } from '../tables-account-repository';
-import { Prisma, PrismaClient, TableAccount } from '@prisma/client';
-
-const prisma = new PrismaClient();
+import { Prisma, TableAccount } from '@prisma/client';
+import { PrismaService } from 'src/modules/prisma/prisma.service';
 
 @Injectable()
 export class PrismaTableAccountRepository implements TablesAccountRepository {
+  constructor(private readonly prisma: PrismaService) {}
   async closeTableAccount(id: string): Promise<TableAccount> {
-    const tableAccount = await prisma.tableAccount.update({
+    const tableAccount = await this.prisma.tableAccount.update({
       where: { id },
       data: { closedAt: new Date() },
     });
@@ -18,23 +18,23 @@ export class PrismaTableAccountRepository implements TablesAccountRepository {
   async create(
     data: Prisma.TableAccountUncheckedCreateInput,
   ): Promise<TableAccount> {
-    const tableAccount = await prisma.tableAccount.create({ data });
+    const tableAccount = await this.prisma.tableAccount.create({ data });
 
     return tableAccount;
   }
 
   async delete(id: string) {
-    await prisma.tableAccount.delete({ where: { id } });
+    await this.prisma.tableAccount.delete({ where: { id } });
   }
 
   async findAll() {
-    const tableAccounts = await prisma.tableAccount.findMany();
+    const tableAccounts = await this.prisma.tableAccount.findMany();
 
     return tableAccounts;
   }
 
   async findByTableId(tableId: string): Promise<TableAccount> {
-    const tableAccount = await prisma.tableAccount.findFirst({
+    const tableAccount = await this.prisma.tableAccount.findFirst({
       where: {
         tableId: tableId,
         closedAt: null,
@@ -45,7 +45,7 @@ export class PrismaTableAccountRepository implements TablesAccountRepository {
   }
 
   async findOneById(id: string) {
-    const tableAccount = await prisma.tableAccount.findUnique({
+    const tableAccount = await this.prisma.tableAccount.findUnique({
       where: { id },
     });
 
@@ -56,7 +56,7 @@ export class PrismaTableAccountRepository implements TablesAccountRepository {
     id: string,
     data: Prisma.TableAccountUncheckedUpdateInput,
   ): Promise<TableAccount> {
-    const updatedTableAccount = await prisma.tableAccount.update({
+    const updatedTableAccount = await this.prisma.tableAccount.update({
       where: { id },
       data,
     });
@@ -65,7 +65,7 @@ export class PrismaTableAccountRepository implements TablesAccountRepository {
   }
 
   async existByTableId(tableId: string) {
-    const tableAccount = await prisma.tableAccount.findFirst({
+    const tableAccount = await this.prisma.tableAccount.findFirst({
       where: {
         tableId: tableId,
         closedAt: null,

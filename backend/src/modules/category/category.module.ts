@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { PrismaClient } from '@prisma/client';
 import { CategoryController } from './category.controller';
+import { PrismaModule } from '../prisma/prisma.module';
 
-@Module({ imports: [PrismaClient], controllers: [CategoryController] })
+@Module({ imports: [PrismaModule], controllers: [CategoryController] })
 export class CategoryModule {}

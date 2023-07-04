@@ -1,18 +1,18 @@
-import { Prisma, PrismaClient } from '@prisma/client';
+import { Prisma } from '@prisma/client';
 import { ClientsOnTablesRepository } from '../clients-on-tables-repository';
-
-const prisma = new PrismaClient();
+import { PrismaService } from 'src/modules/prisma/prisma.service';
 
 export class PrismaClientsOnTablesRepository
   implements ClientsOnTablesRepository
 {
+  constructor(private readonly prisma: PrismaService) {}
   async findByClientEmail(email: string) {
-    const client = await prisma.client.findUnique({
+    const client = await this.prisma.client.findUnique({
       where: { email },
     });
 
     if (client) {
-      const clientOnTable = await prisma.clientsOnTables.findFirst({
+      const clientOnTable = await this.prisma.clientsOnTables.findFirst({
         where: {
           clientId: client.id,
         },
@@ -25,7 +25,7 @@ export class PrismaClientsOnTablesRepository
   }
 
   async checkIn(data: Prisma.ClientsOnTablesUncheckedCreateInput) {
-    const clientOnTable = await prisma.clientsOnTables.create({ data });
+    const clientOnTable = await this.prisma.clientsOnTables.create({ data });
 
     return clientOnTable;
   }

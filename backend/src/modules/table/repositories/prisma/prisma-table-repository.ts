@@ -1,23 +1,23 @@
 import { Injectable } from '@nestjs/common';
 import { TablesRepository } from '../tables-repository';
-import { Prisma, PrismaClient, Table } from '@prisma/client';
-
-const prisma = new PrismaClient();
+import { Prisma, Table } from '@prisma/client';
+import { PrismaService } from 'src/modules/prisma/prisma.service';
 
 @Injectable()
 export class PrismaTableRepository implements TablesRepository {
+  constructor(private readonly prisma: PrismaService) {}
   async create(data: Prisma.TableCreateInput): Promise<Table> {
-    const table = await prisma.table.create({ data });
+    const table = await this.prisma.table.create({ data });
 
     return table;
   }
 
   async findAll(): Promise<Table[]> {
-    return await prisma.table.findMany();
+    return await this.prisma.table.findMany();
   }
 
   async findOneById(id: string) {
-    const table = await prisma.table.findUnique({
+    const table = await this.prisma.table.findUnique({
       where: { id },
     });
 

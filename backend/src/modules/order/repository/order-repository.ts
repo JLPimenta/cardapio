@@ -1,4 +1,4 @@
-import { Order, Prisma, StatusOrder } from '@prisma/client';
+import { Order, Prisma } from '@prisma/client';
 import { UpdateOrderDto } from '../dto/update-order-dto';
 
 export interface FindAllOrdersParams {
