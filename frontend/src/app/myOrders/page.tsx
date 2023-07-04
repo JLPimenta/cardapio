@@ -1,10 +1,8 @@
 "use client";
 import TotalMyOrders from "@/components/TotalMyOrders";
 import { useCheckInContext } from "@/components/contexts/CheckInContext";
-import { useOrderContext } from "@/components/contexts/OrderContext";
 import api from "@/service/api";
 import { Order } from "@/shared/entities/Order";
-import { ProductOnOrders } from "@/shared/entities/ProductOnOrders";
 import {
   CheckCircleIcon,
   ChevronLeftIcon,
