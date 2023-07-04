@@ -7,10 +7,12 @@ import React, { useEffect, useState } from "react";
 
 export default function Login() {
   const [tables, setTables] = useState<Table[]>([]);
+  const [loadingTables, setLoadingTables] = useState(true);
 
   useEffect(() => {
     api.get("/tables").then(({ data }) => {
       setTables(data);
+      setLoadingTables(false);
     });
   }, []);
 
@@ -73,15 +75,20 @@ export default function Login() {
                   id="tables"
                   className="block h-12 w-full rounded-lg pb-2 pl-3 pr-3 pt-2 text-gray-700 outline-orange-400"
                   name="tables"
+                  disabled={!!loadingTables}
                 >
                   <option defaultValue={"Selecione uma mesa"}>
-                    Selecione uma mesa
+                    {loadingTables
+                      ? "Aguarde! - Buscando mesas ⏳"
+                      : "Selecione uma mesa"}
                   </option>
-                  {tables.map((item) => (
-                    <option value={item.id} key={item.id}>
-                      Mesa - {item.number}
-                    </option>
-                  ))}
+                  {loadingTables
+                    ? undefined
+                    : tables.map((item) => (
+                        <option value={item.id} key={item.id}>
+                          Mesa - {item.number}
+                        </option>
+                      ))}
                 </select>
               </div>
             </div>
