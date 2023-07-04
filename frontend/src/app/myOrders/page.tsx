@@ -10,6 +10,7 @@ import {
   ChevronLeftIcon,
   EllipsisHorizontalCircleIcon,
 } from "@heroicons/react/24/solid";
+import moment from "moment";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -59,17 +60,35 @@ export default function MyOrders() {
               <p className="text-base font-bold">
                 {new Date(item?.createdAt).toLocaleDateString()}
               </p>
-              <div className="flex flex-row justify-between rounded-lg border border-solid border-gray-300 p-3">
+              <div className="flex flex-row justify-between gap-3 rounded-lg border border-solid border-gray-300 p-3">
                 <div className="flex items-center justify-center">
                   <span className="text-xs font-bold">
-                    {new Date(item?.createdAt).toLocaleTimeString()}
+                    {moment(item?.createdAt).format("H:mm")}
                   </span>
                 </div>
                 <div className="flex flex-col">
-                  <div className="flex flex-row gap-2" key={item.id}>
-                    <span className="text-sm font-normal">
-                      R$ {item.totalOrder}
+                  {item.Products.map((item) => (
+                    <div key={item.id} className="flex flex-col">
+                      <div className="flex flex-row gap-2">
+                        <span className="text-xs font-normal text-gray-400">
+                          {item.quantity}x
+                        </span>
+
+                        <span className="text-sm font-normal">
+                          {item.Product?.name}
+                        </span>
+
+                        <span className="text-sm font-normal  text-gray-400">
+                          {"- "}R$ {item.Product?.price}
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                  <div className="flex flex-row gap-2">
+                    <span className="text-sm font-semibold">
+                      Total do pedido
                     </span>
+                    <span className="text-sm">R$ {item.totalOrder}</span>
                   </div>
                 </div>
                 <div className="flex items-center justify-center">

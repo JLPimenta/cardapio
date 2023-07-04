@@ -1,5 +1,5 @@
 import { OrderRepository } from '../repository/order-repository';
-import { Order, Prisma, StatusOrder } from '@prisma/client';
+import { Order, Prisma } from '@prisma/client';
 import { ConflictException } from '@nestjs/common';
 
 export class ChangeStatusOrderUseCase {

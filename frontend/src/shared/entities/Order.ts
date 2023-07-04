@@ -1,3 +1,5 @@
+import { ProductOnOrders } from "./ProductOnOrders";
+
 export type Order = {
   id: string;
   totalOrder: number;
@@ -6,4 +8,5 @@ export type Order = {
   clientId: string;
   createdAt: Date;
   updatedAt: Date;
+  Products: ProductOnOrders[];
 };

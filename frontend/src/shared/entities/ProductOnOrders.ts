@@ -1,3 +1,5 @@
+import { Product } from "./Product";
+
 export interface ProductOnOrders {
   id: string;
   name: string;
@@ -7,4 +9,5 @@ export interface ProductOnOrders {
   urlImage: string;
   orderId: string;
   note: string;
+  Product?: Product;
 }

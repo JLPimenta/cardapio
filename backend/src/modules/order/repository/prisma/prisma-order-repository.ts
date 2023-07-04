@@ -1,21 +1,22 @@
-import { Order, Prisma, PrismaClient } from '@prisma/client';
+import { Order, Prisma } from '@prisma/client';
 import { FindAllOrdersParams, OrderRepository } from '../order-repository';
 import { CreateOrderDto } from '../../dto/create-order-dto';
 import { UpdateOrderDto } from '../../dto/update-order-dto';
-
-const prisma = new PrismaClient();
+import { PrismaService } from 'src/modules/prisma/prisma.service';
 
 export class PrismaOrderRepository implements OrderRepository {
+  constructor(private readonly prisma: PrismaService) {}
+
   async create(data: CreateOrderDto) {
     const { products, ...orderProps } = data;
 
-    const order = await prisma.order.create({
+    const order = await this.prisma.order.create({
       data: {
         ...orderProps,
       },
     });
 
-    const productsOnOrder = await prisma.productsOnOrders.createMany({
+    const productsOnOrder = await this.prisma.productsOnOrders.createMany({
       data: products.map((products) => ({
         orderId: order.id,
         productId: products.id,
@@ -28,23 +29,32 @@ export class PrismaOrderRepository implements OrderRepository {
   }
 
   async delete(id: string): Promise<void> {
-    await prisma.order.delete({ where: { id } });
+    await this.prisma.order.delete({ where: { id } });
   }
 
   async findAll({ tableAccountId, clientId }: FindAllOrdersParams) {
-    const order = await prisma.order.findMany({
+    const order = await this.prisma.order.findMany({
       where: {
         tableAccountId: tableAccountId ? tableAccountId : undefined,
         clientId: clientId ? clientId : undefined,
       },
       orderBy: { updatedAt: 'desc' },
+      include: {
+        Products: {
+          select: {
+            Product: { select: { name: true, price: true } },
+            id: true,
+            quantity: true,
+          },
+        },
+      },
     });
 
     return order;
   }
 
   async findOneByClientId(clientId: string): Promise<Order | null> {
-    const order = await prisma.order.findFirst({
+    const order = await this.prisma.order.findFirst({
       where: {
         clientId,
       },
@@ -54,7 +64,7 @@ export class PrismaOrderRepository implements OrderRepository {
   }
 
   async findOneById(id: string): Promise<Order | null> {
-    const order = await prisma.order.findFirst({
+    const order = await this.prisma.order.findFirst({
       where: {
         id,
       },
@@ -66,7 +76,7 @@ export class PrismaOrderRepository implements OrderRepository {
   async update(id: string, data: UpdateOrderDto) {
     const { products, ...orderProps } = data;
 
-    const order = await prisma.order.update({
+    const order = await this.prisma.order.update({
       where: { id },
       data: {
         updatedAt: new Date(),
@@ -76,7 +86,7 @@ export class PrismaOrderRepository implements OrderRepository {
 
     if (products) {
       for (const product of products) {
-        const productOnOrder = await prisma.productsOnOrders.findFirst({
+        const productOnOrder = await this.prisma.productsOnOrders.findFirst({
           where: {
             orderId: id,
             productId: product.id,
@@ -84,7 +94,7 @@ export class PrismaOrderRepository implements OrderRepository {
         });
 
         if (productOnOrder) {
-          await prisma.productsOnOrders.update({
+          await this.prisma.productsOnOrders.update({
             where: {
               id: productOnOrder.id,
             },
@@ -94,7 +104,7 @@ export class PrismaOrderRepository implements OrderRepository {
             },
           });
         } else {
-          await prisma.productsOnOrders.create({
+          await this.prisma.productsOnOrders.create({
             data: {
               orderId: id,
               productId: product.id,
@@ -112,7 +122,7 @@ export class PrismaOrderRepository implements OrderRepository {
     id: string,
     data: Prisma.OrderUpdateInput,
   ): Promise<Order> {
-    const order = await prisma.order.update({
+    const order = await this.prisma.order.update({
       where: { id },
       data,
     });
