@@ -69,7 +69,7 @@ export default function MyOrders() {
                 <div className="flex flex-col">
                   {item.Products.map((item) => (
                     <div key={item.id} className="flex flex-col">
-                      <div className="flex flex-row gap-2">
+                      <div className="flex flex-row items-center justify-start gap-2">
                         <span className="text-xs font-normal text-gray-400">
                           {item.quantity}x
                         </span>
@@ -84,7 +84,7 @@ export default function MyOrders() {
                       </div>
                     </div>
                   ))}
-                  <div className="flex flex-row gap-2">
+                  <div className="flex flex-row items-center justify-start gap-2">
                     <span className="text-sm font-semibold">
                       Total do pedido
                     </span>
